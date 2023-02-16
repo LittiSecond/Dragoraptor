@@ -21,7 +21,7 @@ namespace Dragoraptor
 
         public Controllers()
         {
-            
+            _executeControllers = new IExecuteble[0];
 
 
         }

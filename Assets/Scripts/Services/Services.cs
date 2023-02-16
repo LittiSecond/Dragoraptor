@@ -29,6 +29,7 @@ namespace Dragoraptor
 
         public GameStateManager GameStateManager { get; private set; }
         public UiManager UiManager { get; private set; }
+        
 
         #endregion
 
