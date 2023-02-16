@@ -35,7 +35,7 @@ namespace Dragoraptor.Ui
                 _mainScreen = _uiFactory.GetMainScreen();
                 _haveMainScreen = true;
             }
-            _mainScreen.On();
+            _mainScreen.Show();
         }
 
         public void SwichToHuntScreen()

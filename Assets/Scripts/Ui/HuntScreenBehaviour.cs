@@ -4,12 +4,12 @@ using UnityEngine.UI;
 
 namespace Dragoraptor.Ui
 {
-    public sealed class MainScreenBehaviour : BaseScreenBehaviour
+    public sealed class HuntScreenBehaviour : MonoBehaviour
     {
+
         #region Fields
 
         [SerializeField] private Button _settingsButton;
-        [SerializeField] private Button _goHuntingButton;
 
         #endregion
 
@@ -19,7 +19,6 @@ namespace Dragoraptor.Ui
         private void Start()
         {
             _settingsButton.onClick.AddListener(SettingsButtonClick);
-            _goHuntingButton.onClick.AddListener(GoHuntButtonClick);
         }
 
         #endregion
@@ -29,15 +28,13 @@ namespace Dragoraptor.Ui
 
         private void SettingsButtonClick()
         {
-            Debug.Log("MainScreenBehaviour->SettingsButtonClick:");
+            Debug.Log("HuntScreenBehaviour->SettingsButtonClick:");
         }
 
-        private void GoHuntButtonClick()
-        {
-            Debug.Log("MainScreenBehaviour->GoHuntButtonClick:");
-        }
 
         #endregion
+
+
 
     }
 }
