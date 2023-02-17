@@ -8,10 +8,14 @@ namespace Dragoraptor.Ui
 
         #region Fields
 
+        private BaseScreenBehaviour _currentScreen;
+
         private UiFactory _uiFactory;
         private MainScreenBehaviour _mainScreen;
+        private HuntScreenBehaviour _huntScreen;
 
         private bool _haveMainScreen;
+        private bool _haveHuntScreen;
 
         #endregion
 
@@ -35,17 +39,30 @@ namespace Dragoraptor.Ui
                 _mainScreen = _uiFactory.GetMainScreen();
                 _haveMainScreen = true;
             }
-            _mainScreen.Show();
+
+            if (_currentScreen != _mainScreen)
+            {
+                _currentScreen?.Hide();
+                _currentScreen = _mainScreen;
+                _currentScreen.Show();
+            }
         }
 
         public void SwichToHuntScreen()
         {
-            Debug.Log("UiManager->SwichToHuntScreen");
+            if (!_haveHuntScreen)
+            {
+                _huntScreen = _uiFactory.GetHuntScreen();
+                _haveHuntScreen = true;
+            }
+
+            if (_currentScreen != _huntScreen)
+            {
+                _currentScreen?.Hide();
+                _currentScreen = _huntScreen;
+                _currentScreen.Show();
+            }
         }
-
-
-
-
 
 
         #endregion

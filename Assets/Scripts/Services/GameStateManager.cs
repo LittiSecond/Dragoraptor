@@ -45,6 +45,7 @@ namespace Dragoraptor
             if (_state == GameState.None)
             {
                 _uiManager.SwichToMainScreen();
+                _state = GameState.MainScreen;
             }
         }
 
@@ -52,6 +53,25 @@ namespace Dragoraptor
         {
             _uiManager = manager;
         }
+
+        public void SwitchToMainScreen()
+        {
+            if (_state == GameState.Hunt)
+            {
+                _uiManager.SwichToMainScreen();
+                _state = GameState.MainScreen;
+            }
+        }
+
+        public void SwitchToHunt()
+        {
+            if (_state == GameState.MainScreen)
+            {
+                _uiManager.SwichToHuntScreen();
+                _state = GameState.Hunt;
+            }
+        }
+
 
         #endregion
 

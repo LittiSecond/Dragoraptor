@@ -8,10 +8,12 @@ namespace Dragoraptor.Ui
 
         #region Fields
 
+        private const string HUNT_SCREEN_PREFAB_ID = "HuntScreen";
         private const string MAIN_SCREEN_PREFAB_ID = "MainScreen";
 
         private Transform _canvas;
         private MainScreenBehaviour _mainScreen;
+        private HuntScreenBehaviour _huntScreen;
 
 
         #endregion
@@ -37,11 +39,25 @@ namespace Dragoraptor.Ui
                 GameObject prefab = PrefabLoader.GetPrefab(MAIN_SCREEN_PREFAB_ID);
                 if (prefab)
                 {
-                    var go = UnityEngine.Object.Instantiate<GameObject>(prefab, _canvas);
+                    var go = UnityEngine.Object.Instantiate(prefab, _canvas);
                     _mainScreen = go.GetComponent<MainScreenBehaviour>();
                 }
             }
             return _mainScreen;
+        }
+
+        public HuntScreenBehaviour GetHuntScreen()
+        {
+            if (_huntScreen == null)
+            {
+                GameObject prefab = PrefabLoader.GetPrefab(HUNT_SCREEN_PREFAB_ID);
+                if (prefab)
+                {
+                    var go = UnityEngine.Object.Instantiate(prefab, _canvas);
+                    _huntScreen = go.GetComponent<HuntScreenBehaviour>();
+                }
+            }
+            return _huntScreen;
         }
 
 

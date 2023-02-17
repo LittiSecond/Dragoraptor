@@ -34,7 +34,7 @@ namespace Dragoraptor.Ui
 
         private void GoHuntButtonClick()
         {
-            Debug.Log("MainScreenBehaviour->GoHuntButtonClick:");
+            Services.Instance.GameStateManager.SwitchToHunt();
         }
 
         #endregion
