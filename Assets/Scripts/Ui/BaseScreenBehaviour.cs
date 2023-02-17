@@ -3,9 +3,8 @@
 
 namespace Dragoraptor.Ui
 {
-    public abstract class BaseScreenBehaviour : MonoBehaviour
+    public abstract class BaseScreenBehaviour : MonoBehaviour, IScreenBehaviour
     {
-
         #region Fields
 
         private bool _isActive = true;
@@ -13,10 +12,9 @@ namespace Dragoraptor.Ui
         #endregion
 
 
+        #region IScreenBehaviour
 
-        #region Methods
-
-        public virtual void Show()
+        public void Show()
         {
             if (!_isActive)
             {
@@ -25,7 +23,7 @@ namespace Dragoraptor.Ui
             }
         }
 
-        public virtual void Hide()
+        public void Hide()
         {
             if (_isActive)
             {

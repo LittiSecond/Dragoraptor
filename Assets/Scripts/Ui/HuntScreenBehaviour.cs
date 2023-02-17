@@ -70,10 +70,6 @@ namespace Dragoraptor.Ui
             _isMenuOpen = true;
         }
 
-
         #endregion
-
-
-
     }
 }
