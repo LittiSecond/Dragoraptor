@@ -19,7 +19,7 @@ namespace Dragoraptor
         #region Fields
 
         private UiManager _uiManager;
-        private TouchInputController _touchInputController;
+        private PlayerCharacterController _characterController;
 
         private GameState _state;
 
@@ -28,7 +28,7 @@ namespace Dragoraptor
 
         #region Methods
 
-        public void SetTouchInputController(TouchInputController tic) => _touchInputController = tic;
+        public void SetCharacterController(PlayerCharacterController pcc) => _characterController = pcc;
 
         public void SetMainScreenAtStartGame()
         {
@@ -37,6 +37,7 @@ namespace Dragoraptor
                 _uiManager.SwichToMainScreen();
                 _state = GameState.MainScreen;
 
+                _characterController.CreateCharacter();
                 ActivateCharacterControll();
             }
         }
@@ -66,12 +67,12 @@ namespace Dragoraptor
 
         private void ActivateCharacterControll()
         {
-            _touchInputController.On();
+            _characterController.CharacterControllOn();
         }
 
         private void DeactivateCharacterControll()
         {
-            _touchInputController.Off();
+            _characterController.CharacterControllOff();
         }
 
 

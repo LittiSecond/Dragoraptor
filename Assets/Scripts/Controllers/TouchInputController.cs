@@ -39,7 +39,6 @@ namespace Dragoraptor
                 {
                     _playerMovement.SetDestination(position.x);
                 }
-                Debug.Log("TouchInputController->WorkTouch: type = " + type.ToString());
             }
         }
 
