@@ -60,7 +60,6 @@ namespace Dragoraptor.Ui
             return _huntScreen;
         }
 
-
         #endregion
 
     }

@@ -27,9 +27,9 @@ namespace Dragoraptor
 
         public static Services Instance => _instance.Value;
 
+        public SceneGeometry SceneGeometry { get; private set; }
         public GameStateManager GameStateManager { get; private set; }
         public UiManager UiManager { get; private set; }
-        
 
         #endregion
 
@@ -38,6 +38,7 @@ namespace Dragoraptor
 
         private void Initialize()
         {
+            SceneGeometry = new SceneGeometry();
             GameStateManager = new GameStateManager();
             UiManager = new UiManager();
 

@@ -5,14 +5,14 @@ namespace Dragoraptor
     {
         #region Fields
 
-        private readonly IExecuteble[] _executeControllers;
+        private readonly IExecutable[] _executeControllers;
 
         #endregion
 
 
         #region Properties
         public int Length => _executeControllers.Length;
-        public IExecuteble this[int index] => _executeControllers[index];
+        public IExecutable this[int index] => _executeControllers[index];
 
         #endregion
 
@@ -21,8 +21,20 @@ namespace Dragoraptor
 
         public Controllers()
         {
-            _executeControllers = new IExecuteble[0];
+            TouchInputController touchInputController = new TouchInputController();
+            PlayerMovement playerMovement = new PlayerMovement();
 
+
+
+            _executeControllers = new IExecutable[]
+            {
+                touchInputController
+            };
+
+
+            touchInputController.SetPlayerMovement(playerMovement);
+
+            Services.Instance.GameStateManager.SetTouchInputController(touchInputController);
 
         }
 

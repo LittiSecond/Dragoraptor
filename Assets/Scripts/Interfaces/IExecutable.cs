@@ -1,6 +1,6 @@
 ﻿namespace Dragoraptor
 {
-    public interface IExecuteble
+    public interface IExecutable
     {
         void Execute();
     }
