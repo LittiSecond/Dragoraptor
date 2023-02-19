@@ -16,8 +16,9 @@ namespace Dragoraptor
 
         private void Start()
         {
-            _controllers = new Controllers();
+            CameraFitter.FitCamera();
 
+            _controllers = new Controllers();
 
             Services.Instance.GameStateManager.SetMainScreenAtStartGame();
         }
