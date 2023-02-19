@@ -8,7 +8,8 @@ namespace Dragoraptor
     {
         #region Fields
 
-        private PlayerMovement _playerMovement;
+        private PlayerWalk _playerWalk;
+        private PlayerJump _playerJump;
 
         private bool _isEnabled;
 
@@ -27,7 +28,8 @@ namespace Dragoraptor
             _isEnabled = false;
         }
 
-        public void SetPlayerMovement(PlayerMovement pm) => _playerMovement = pm;
+        public void SetPlayerWalk(PlayerWalk pw) => _playerWalk = pw;
+        public void SetPlayerJump(PlayerJump pj) => _playerJump = pj;
 
         private void WorkTouch(Touch touch )
         {
@@ -37,9 +39,19 @@ namespace Dragoraptor
                 ObjctType type = AreaChecker.CheckPoint(position);
                 if (type == ObjctType.Ground)
                 {
-                    _playerMovement.SetDestination(position.x);
+                    _playerWalk.SetDestination(position.x);
+                }
+                else if (type == ObjctType.Player)
+                {
+                    _playerJump.TouchBegin(position);
                 }
             }
+            else if (touch.phase == TouchPhase.Ended)
+            {
+                Vector2 position = Services.Instance.SceneGeometry.ConvertScreenPositionToWorld(touch.position);
+                _playerJump.TouchEnd(position);
+            }
+
         }
 
         #endregion

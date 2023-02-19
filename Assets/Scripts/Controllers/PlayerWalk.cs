@@ -3,7 +3,7 @@
 
 namespace Dragoraptor
 {
-    public sealed class PlayerMovement : IExecutable
+    public sealed class PlayerWalk : IExecutable
     {
         #region Fields
 
@@ -81,7 +81,7 @@ namespace Dragoraptor
             }
         }
 
-        private void StopMovement()
+        public void StopMovement()
         {
             if (_isEnabled)
             {

@@ -22,19 +22,21 @@ namespace Dragoraptor
         public Controllers()
         {
             TouchInputController touchInputController = new TouchInputController();
-            PlayerMovement playerMovement = new PlayerMovement();
-            PlayerCharacterController playerCharacterController = new PlayerCharacterController(playerMovement, touchInputController);
+            PlayerWalk playerWalk = new PlayerWalk();
+            PlayerJump playerJump = new PlayerJump(playerWalk);
+            PlayerCharacterController playerCharacterController = new PlayerCharacterController(playerWalk, playerJump, touchInputController);
 
 
 
             _executeControllers = new IExecutable[]
             {
                 touchInputController,
-                playerMovement
+                playerWalk
             };
 
 
-            touchInputController.SetPlayerMovement(playerMovement);
+            touchInputController.SetPlayerWalk(playerWalk);
+            touchInputController.SetPlayerJump(playerJump);
 
             Services.Instance.GameStateManager.SetCharacterController(playerCharacterController);
 

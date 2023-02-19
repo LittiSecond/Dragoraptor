@@ -7,7 +7,8 @@ namespace Dragoraptor
     {
         #region Fields
 
-        private PlayerMovement _playerMovement;
+        private PlayerWalk _playerWalk;
+        private PlayerJump _playerJump;
         private TouchInputController _touchInputController;
         private PlayerBody _playerBody;
 
@@ -18,9 +19,10 @@ namespace Dragoraptor
 
         #region ClassLifeCycles
 
-        public PlayerCharacterController(PlayerMovement pm, TouchInputController tic )
+        public PlayerCharacterController(PlayerWalk pm, PlayerJump pj, TouchInputController tic )
         {
-            _playerMovement = pm;
+            _playerWalk = pm;
+            _playerJump = pj;
             _touchInputController = tic;
         }
 
@@ -34,7 +36,8 @@ namespace Dragoraptor
             if (!_haveCharacterBody)
             {
                 _playerBody = GameObject.FindObjectOfType<PlayerBody>();
-                _playerMovement.SetBody(_playerBody);
+                _playerWalk.SetBody(_playerBody);
+                _playerJump.SetBody(_playerBody);
 
                 _haveCharacterBody = true;
             }
