@@ -7,17 +7,32 @@ namespace Dragoraptor
     {
         #region Fields
 
-
         private Rect _worldWisibleArea;
 
         private float _screenToWorldRatio;
 
+        private bool _isInitialized;
+
         #endregion
 
 
-        #region ClassLifeCycles
+        #region Methods
 
-        public SceneGeometry()
+        public Vector2 ConvertScreenPositionToWorld(Vector2 screenPositionInPx )
+        {
+            if (!_isInitialized)
+            {
+                Initialize();
+            }
+
+            Vector2 worldPosition;
+
+            worldPosition.x = _worldWisibleArea.xMin + screenPositionInPx.x * _screenToWorldRatio;
+            worldPosition.y = _worldWisibleArea.yMin + screenPositionInPx.y * _screenToWorldRatio;
+            return worldPosition;
+        }
+
+        private void Initialize()
         {
             Camera camera = Camera.main;
 
@@ -32,21 +47,7 @@ namespace Dragoraptor
 
             _worldWisibleArea = new Rect(xMin, yMin, worldInCameraWidth, worldInCameraHeight);
 
-        }
-
-        #endregion
-
-
-        #region Methods
-
-        public Vector2 ConvertScreenPositionToWorld(Vector2 screenPositionInPx )
-        {
-            Vector2 worldPosition;
-
-            worldPosition.x = _worldWisibleArea.xMin + screenPositionInPx.x * _screenToWorldRatio;
-            worldPosition.y = _worldWisibleArea.yMin + screenPositionInPx.y * _screenToWorldRatio;
-
-            return worldPosition;
+            _isInitialized = true;
         }
 
         #endregion
