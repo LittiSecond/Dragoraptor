@@ -78,10 +78,6 @@ namespace Dragoraptor
                 {
                     StopMovement();
                 }
-                else
-                {
-                    _rigidbody.velocity = _velocity;
-                }
             }
         }
 
@@ -102,6 +98,8 @@ namespace Dragoraptor
 
             float direction = _isDirectionRigth ? 1.0f : -1.0f;
             _velocity = new Vector2(_speed * direction, 0);
+            _rigidbody.velocity = _velocity;
+
             _shouldMove = true;
         }
 
