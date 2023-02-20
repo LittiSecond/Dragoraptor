@@ -12,6 +12,7 @@ namespace Dragoraptor
         private Rigidbody2D _rigidbody;
 
         private WalkController _walkController;
+        private JumpPainter _jumpPainter;
 
         private float _maxJumpForce = 10.0f;
         private float _jumpForce;
@@ -25,9 +26,10 @@ namespace Dragoraptor
 
         #region ClassLifeCycles
 
-        public JumpController(WalkController pw)
+        public JumpController(WalkController pw, JumpPainter jp)
         {
             _walkController = pw;
+            _jumpPainter = jp;
             _jumpForce = _maxJumpForce;
         }
 

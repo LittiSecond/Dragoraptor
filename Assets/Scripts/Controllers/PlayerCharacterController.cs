@@ -9,6 +9,7 @@ namespace Dragoraptor
 
         private WalkController _walkController;
         private JumpController _jumpController;
+        private JumpPainter _jumpPainter;
         private TouchInputController _touchInputController;
         private PlayerBody _playerBody;
 
@@ -19,10 +20,11 @@ namespace Dragoraptor
 
         #region ClassLifeCycles
 
-        public PlayerCharacterController(WalkController wc, JumpController jc, TouchInputController tic )
+        public PlayerCharacterController(WalkController wc, JumpController jc, JumpPainter jp, TouchInputController tic )
         {
             _walkController = wc;
             _jumpController = jc;
+            _jumpPainter = jp;
             _touchInputController = tic;
         }
 
@@ -38,6 +40,7 @@ namespace Dragoraptor
                 _playerBody = GameObject.FindObjectOfType<PlayerBody>();
                 _walkController.SetBody(_playerBody);
                 _jumpController.SetBody(_playerBody);
+                _jumpPainter.SetBody(_playerBody);
 
                 _haveCharacterBody = true;
             }

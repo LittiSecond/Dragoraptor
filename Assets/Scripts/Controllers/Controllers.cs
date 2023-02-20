@@ -23,15 +23,19 @@ namespace Dragoraptor
         {
             TouchInputController touchInputController = new TouchInputController();
             WalkController walkController = new WalkController();
-            JumpController jumpController = new JumpController(walkController);
-            PlayerCharacterController playerCharacterController = new PlayerCharacterController(walkController, jumpController, touchInputController);
+            JumpPainter jumpPainter = new JumpPainter();
+            JumpController jumpController = new JumpController(walkController, jumpPainter);
+
+            PlayerCharacterController playerCharacterController = new PlayerCharacterController(walkController, 
+                jumpController, jumpPainter, touchInputController);
 
 
 
             _executeControllers = new IExecutable[]
             {
                 touchInputController,
-                walkController
+                walkController,
+                jumpPainter
             };
 
 
