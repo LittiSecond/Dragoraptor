@@ -11,25 +11,24 @@ namespace Dragoraptor
         private Transform _transform;
         private Rigidbody2D _rigidbody;
 
-        private WalkController _walkController;
-        private JumpPainter _jumpPainter;
+        private readonly CharacterStateHolder _stateHolder;
 
         private float _maxJumpForce = 10.0f;
         private float _jumpForce;
 
+        private CharacterState _state;
+
         private bool _isEnabled;
-        private bool _isJumpPreparation;
-        private bool _isInFlight;
 
         #endregion
 
 
         #region ClassLifeCycles
 
-        public JumpController(WalkController pw, JumpPainter jp)
+        public JumpController(CharacterStateHolder csh)
         {
-            _walkController = pw;
-            _jumpPainter = jp;
+            _stateHolder = csh;
+            _stateHolder.OnStateChanged += OnStateChanged;
             _jumpForce = _maxJumpForce;
         }
 
@@ -52,41 +51,37 @@ namespace Dragoraptor
                 _playerBody = null;
                 _transform = null;
                 _rigidbody = null;
-                _isJumpPreparation = false;
-                _isInFlight = false;
                 _isEnabled = false;
             }
         }
 
         public void TouchBegin(Vector2 worldPosition)
         {
-            if (_isEnabled && !_isInFlight)
+            if (_isEnabled && (_state == CharacterState.Idle || _state == CharacterState.Walk ))
             {
-                _walkController.StopMovement();
-                _walkController.JumpBegin();
-                _isJumpPreparation = true;
+                _stateHolder.SetState(CharacterState.PrepareJump);
             }
         }
 
         public void TouchEnd(Vector2 worldPosition)
         {
-            if (_isEnabled)
+            if (_isEnabled && _state == CharacterState.PrepareJump)
             {
-                if (_isJumpPreparation)
+                Vector2 jumpDirection =  (Vector2)_transform.position - worldPosition;
+
+                if (CheckIsJumpDirectionGood(jumpDirection))
                 {
-                    Vector2 jumpDirection =  (Vector2)_transform.position - worldPosition;
+                    jumpDirection.Normalize();
 
-                    if (CheckIsJumpDirectionGood(jumpDirection))
-                    {
-                        jumpDirection.Normalize();
-
-                        _rigidbody.AddForce(jumpDirection * _jumpForce, ForceMode2D.Impulse);
-                        _playerBody.OnGroundContact += OnGroundContact;
-                        _isInFlight = true;
-                    }
+                    _rigidbody.AddForce(jumpDirection * _jumpForce, ForceMode2D.Impulse);
+                    _playerBody.OnGroundContact += OnGroundContact;
+                    _stateHolder.SetState(CharacterState.FliesUp);
+                }
+                else
+                {
+                    _stateHolder.SetState(CharacterState.Idle);
                 }
 
-                _isJumpPreparation = false;
             }
         }
 
@@ -99,12 +94,15 @@ namespace Dragoraptor
         {
             _playerBody.OnGroundContact -= OnGroundContact;
             _rigidbody.velocity = Vector2.zero;
-            _isInFlight = false;
-            _walkController.JumpEnd();
+            _stateHolder.SetState(CharacterState.Idle);
+        }
+
+        private void OnStateChanged(CharacterState newState)
+        {
+            _state = newState;
         }
 
         #endregion
-
 
     }
 }

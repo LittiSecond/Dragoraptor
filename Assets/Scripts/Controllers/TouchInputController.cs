@@ -8,10 +8,27 @@ namespace Dragoraptor
     {
         #region Fields
 
-        private WalkController _playerWalk;
-        private JumpController _playerJump;
+
+        private readonly WalkController _walkController;
+        private readonly JumpController _jumpController;
+        private readonly JumpPainter _jumpPainter;
+
+        private CharacterState _state;
 
         private bool _isEnabled;
+
+        #endregion
+
+
+        #region ClassLifeCycles
+
+        public TouchInputController(CharacterStateHolder csh, WalkController wc, JumpController jk, JumpPainter jp )
+        {
+            csh.OnStateChanged += OnStateChanged;
+            _walkController = wc;
+            _jumpController = jk;
+            _jumpPainter = jp;
+        }
 
         #endregion
 
@@ -28,30 +45,38 @@ namespace Dragoraptor
             _isEnabled = false;
         }
 
-        public void SetPlayerWalk(WalkController pw) => _playerWalk = pw;
-        public void SetPlayerJump(JumpController pj) => _playerJump = pj;
-
         private void WorkTouch(Touch touch )
         {
-            if (touch.phase == TouchPhase.Began)
+            if (_state == CharacterState.Idle || _state == CharacterState.Walk)
             {
-                Vector2 position = Services.Instance.SceneGeometry.ConvertScreenPositionToWorld(touch.position);
-                ObjctType type = AreaChecker.CheckPoint(position);
-                if (type == ObjctType.Ground)
+                if (touch.phase == TouchPhase.Began)
                 {
-                    _playerWalk.SetDestination(position.x);
+                    Vector2 position = Services.Instance.SceneGeometry.ConvertScreenPositionToWorld(touch.position);
+                    ObjctType type = AreaChecker.CheckPoint(position);
+                    if (type == ObjctType.Ground)
+                    {
+                        _walkController.SetDestination(position.x);
+                    }
+                    else if (type == ObjctType.Player)
+                    {
+                        _jumpController.TouchBegin(position);
+                    }
                 }
-                else if (type == ObjctType.Player)
-                {
-                    _playerJump.TouchBegin(position);
-                }
-            }
-            else if (touch.phase == TouchPhase.Ended)
-            {
-                Vector2 position = Services.Instance.SceneGeometry.ConvertScreenPositionToWorld(touch.position);
-                _playerJump.TouchEnd(position);
-            }
 
+            }
+            else if (_state == CharacterState.PrepareJump)
+            {
+                if (touch.phase == TouchPhase.Ended)
+                {
+                    Vector2 position = Services.Instance.SceneGeometry.ConvertScreenPositionToWorld(touch.position);
+                    _jumpController.TouchEnd(position);
+                }
+            }
+        }
+
+        private void OnStateChanged(CharacterState newState)
+        {
+            _state = newState;
         }
 
         #endregion

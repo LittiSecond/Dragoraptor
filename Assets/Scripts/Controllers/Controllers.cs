@@ -21,13 +21,15 @@ namespace Dragoraptor
 
         public Controllers()
         {
-            TouchInputController touchInputController = new TouchInputController();
-            WalkController walkController = new WalkController();
+            CharacterStateHolder characterStateHolder = new CharacterStateHolder();
+            WalkController walkController = new WalkController(characterStateHolder);
             JumpPainter jumpPainter = new JumpPainter();
-            JumpController jumpController = new JumpController(walkController, jumpPainter);
+            JumpController jumpController = new JumpController(characterStateHolder);
 
-            PlayerCharacterController playerCharacterController = new PlayerCharacterController(walkController, 
-                jumpController, jumpPainter, touchInputController);
+            TouchInputController touchInputController = new TouchInputController(characterStateHolder, 
+                walkController, jumpController, jumpPainter);
+            PlayerCharacterController playerCharacterController = new PlayerCharacterController(characterStateHolder, 
+                walkController, jumpController, jumpPainter, touchInputController);
 
 
 
@@ -37,10 +39,6 @@ namespace Dragoraptor
                 walkController,
                 jumpPainter
             };
-
-
-            touchInputController.SetPlayerWalk(walkController);
-            touchInputController.SetPlayerJump(jumpController);
 
             Services.Instance.GameStateManager.SetCharacterController(playerCharacterController);
 

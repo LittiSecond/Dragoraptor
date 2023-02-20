@@ -7,10 +7,11 @@ namespace Dragoraptor
     {
         #region Fields
 
-        private WalkController _walkController;
-        private JumpController _jumpController;
-        private JumpPainter _jumpPainter;
-        private TouchInputController _touchInputController;
+        private readonly CharacterStateHolder _stateHolder;
+        private readonly WalkController _walkController;
+        private readonly JumpController _jumpController;
+        private readonly JumpPainter _jumpPainter;
+        private readonly TouchInputController _touchInputController;
         private PlayerBody _playerBody;
 
         private bool _haveCharacterBody;
@@ -20,8 +21,9 @@ namespace Dragoraptor
 
         #region ClassLifeCycles
 
-        public PlayerCharacterController(WalkController wc, JumpController jc, JumpPainter jp, TouchInputController tic )
+        public PlayerCharacterController(CharacterStateHolder csh, WalkController wc, JumpController jc, JumpPainter jp, TouchInputController tic )
         {
+            _stateHolder = csh;
             _walkController = wc;
             _jumpController = jc;
             _jumpPainter = jp;
@@ -49,6 +51,7 @@ namespace Dragoraptor
         public void CharacterControllOn()
         {
             _touchInputController.On();
+            _stateHolder.SetState(CharacterState.Idle);
         }
 
         public void CharacterControllOff()

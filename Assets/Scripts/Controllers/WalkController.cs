@@ -7,22 +7,32 @@ namespace Dragoraptor
     {
         #region Fields
 
-
-
         private PlayerBody _playerBody;
         private Transform _transform;
         private Rigidbody2D _rigidbody;
+        private readonly CharacterStateHolder _stateHolder;
 
         private Vector2 _velocity;
 
         private float _speed = 1.0f;
         private float _xDestination;
 
+        private CharacterState _state;
 
         private bool _isEnabled;
         private bool _shouldMove;
         private bool _isDirectionRigth;
-        private bool _canWalk;
+
+        #endregion
+
+
+        #region ClassLifeCycles
+
+        public WalkController(CharacterStateHolder csh)
+        {
+            _stateHolder = csh;
+            _stateHolder.OnStateChanged += OnStateChanged;
+        }
 
         #endregion
 
@@ -36,7 +46,6 @@ namespace Dragoraptor
                 _playerBody = pb;
                 _transform = _playerBody.transform;
                 _rigidbody = _playerBody.GetRigidbody();
-                _canWalk = true;
                 _isEnabled = true;
             }
             else
@@ -48,23 +57,26 @@ namespace Dragoraptor
                 _playerBody = null;
                 _transform = null;
                 _rigidbody = null;
-                _canWalk = false;
                 _isEnabled = false;
             }
         }
 
         public void SetDestination(float x)
         {
-            if (_isEnabled)
+            if (_isEnabled && (_state == CharacterState.Idle || _state == CharacterState.Walk))
             {
                 _xDestination = x;
                 StartMovement();
+                if (_state == CharacterState.Idle)
+                {
+                    _stateHolder.SetState(CharacterState.Walk);
+                }
             }
         }
 
-        public void StopMovement()
+        private void StopMovement()
         {
-            if (_isEnabled)
+            if (_isEnabled && _state == CharacterState.Walk)
             {
                 _velocity = Vector2.zero;
                 _rigidbody.velocity = Vector2.zero;
@@ -74,29 +86,28 @@ namespace Dragoraptor
 
         private void StartMovement()
         {
-            if (_canWalk)
+            float x = _transform.position.x;
+            _isDirectionRigth = _xDestination > x;
+
+            float direction = _isDirectionRigth ? 1.0f : -1.0f;
+            _velocity = new Vector2(_speed * direction, 0);
+            _rigidbody.velocity = _velocity;
+
+            _shouldMove = true;
+        }
+
+        private void OnStateChanged(CharacterState newState)
+        {
+            if (newState != _state)
             {
-                float x = _transform.position.x;
-                _isDirectionRigth = _xDestination > x;
+                if (_state == CharacterState.Walk)
+                {
+                    StopMovement();
+                }
 
-                float direction = _isDirectionRigth ? 1.0f : -1.0f;
-                _velocity = new Vector2(_speed * direction, 0);
-                _rigidbody.velocity = _velocity;
-
-                _shouldMove = true;
+                _state = newState;
             }
         }
-
-        public void JumpBegin()
-        {
-            _canWalk = false;
-        }
-
-        public void JumpEnd()
-        {
-            _canWalk = true;
-        }
-
 
         #endregion
 
@@ -111,10 +122,12 @@ namespace Dragoraptor
                 if (_isDirectionRigth && (x >= _xDestination))
                 {
                     StopMovement();
+                    _stateHolder.SetState(CharacterState.Idle);
                 }
                 else if ( !_isDirectionRigth && (x <= _xDestination))
                 {
                     StopMovement();
+                    _stateHolder.SetState(CharacterState.Idle);
                 }
             }
         }
