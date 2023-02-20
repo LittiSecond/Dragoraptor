@@ -22,9 +22,9 @@ namespace Dragoraptor
         private bool _isEnabled;
         private bool _shouldMove;
         private bool _isDirectionRigth;
+        private bool _canWalk;
 
         #endregion
-
 
 
         #region Methods
@@ -36,6 +36,7 @@ namespace Dragoraptor
                 _playerBody = pb;
                 _transform = _playerBody.transform;
                 _rigidbody = _playerBody.GetRigidbody();
+                _canWalk = true;
                 _isEnabled = true;
             }
             else
@@ -47,6 +48,7 @@ namespace Dragoraptor
                 _playerBody = null;
                 _transform = null;
                 _rigidbody = null;
+                _canWalk = false;
                 _isEnabled = false;
             }
         }
@@ -59,6 +61,42 @@ namespace Dragoraptor
                 StartMovement();
             }
         }
+
+        public void StopMovement()
+        {
+            if (_isEnabled)
+            {
+                _velocity = Vector2.zero;
+                _rigidbody.velocity = Vector2.zero;
+                _shouldMove = false;
+            }
+        }
+
+        private void StartMovement()
+        {
+            if (_canWalk)
+            {
+                float x = _transform.position.x;
+                _isDirectionRigth = _xDestination > x;
+
+                float direction = _isDirectionRigth ? 1.0f : -1.0f;
+                _velocity = new Vector2(_speed * direction, 0);
+                _rigidbody.velocity = _velocity;
+
+                _shouldMove = true;
+            }
+        }
+
+        public void JumpBegin()
+        {
+            _canWalk = false;
+        }
+
+        public void JumpEnd()
+        {
+            _canWalk = true;
+        }
+
 
         #endregion
 
@@ -81,30 +119,7 @@ namespace Dragoraptor
             }
         }
 
-        public void StopMovement()
-        {
-            if (_isEnabled)
-            {
-                _velocity = Vector2.zero;
-                _rigidbody.velocity = Vector2.zero;
-                _shouldMove = false;
-            }
-        }
-
-        private void StartMovement()
-        {
-            float x = _transform.position.x;
-            _isDirectionRigth = _xDestination > x;
-
-            float direction = _isDirectionRigth ? 1.0f : -1.0f;
-            _velocity = new Vector2(_speed * direction, 0);
-            _rigidbody.velocity = _velocity;
-
-            _shouldMove = true;
-        }
-
         #endregion
-
 
     }
 }

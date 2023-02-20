@@ -7,6 +7,8 @@ namespace Dragoraptor
     {
         #region Fields
 
+
+
         private PlayerBody _playerBody;
         private Transform _transform;
         private Rigidbody2D _rigidbody;
@@ -18,6 +20,7 @@ namespace Dragoraptor
 
         private bool _isEnabled;
         private bool _isJumpPreparation;
+        private bool _isInFlight;
 
         #endregion
 
@@ -50,15 +53,17 @@ namespace Dragoraptor
                 _transform = null;
                 _rigidbody = null;
                 _isJumpPreparation = false;
+                _isInFlight = false;
                 _isEnabled = false;
             }
         }
 
         public void TouchBegin(Vector2 worldPosition)
         {
-            if (_isEnabled)
+            if (_isEnabled && !_isInFlight)
             {
                 _playerWalk.StopMovement();
+                _playerWalk.JumpBegin();
                 _isJumpPreparation = true;
             }
         }
@@ -76,6 +81,8 @@ namespace Dragoraptor
                         jumpDirection.Normalize();
 
                         _rigidbody.AddForce(jumpDirection * _jumpForce, ForceMode2D.Impulse);
+                        _playerBody.OnGroundContact += OnGroundContact;
+                        _isInFlight = true;
                     }
                 }
 
@@ -86,6 +93,14 @@ namespace Dragoraptor
         private bool CheckIsJumpDirectionGood(Vector2 direction)
         {
             return direction.y > 0.0f;
+        }
+
+        private void OnGroundContact()
+        {
+            _playerBody.OnGroundContact -= OnGroundContact;
+            _rigidbody.velocity = Vector2.zero;
+            _isInFlight = false;
+            _playerWalk.JumpEnd();
         }
 
         #endregion
