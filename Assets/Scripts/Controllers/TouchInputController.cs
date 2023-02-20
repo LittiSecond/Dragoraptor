@@ -8,8 +8,8 @@ namespace Dragoraptor
     {
         #region Fields
 
-        private PlayerWalk _playerWalk;
-        private PlayerJump _playerJump;
+        private WalkController _playerWalk;
+        private JumpController _playerJump;
 
         private bool _isEnabled;
 
@@ -28,8 +28,8 @@ namespace Dragoraptor
             _isEnabled = false;
         }
 
-        public void SetPlayerWalk(PlayerWalk pw) => _playerWalk = pw;
-        public void SetPlayerJump(PlayerJump pj) => _playerJump = pj;
+        public void SetPlayerWalk(WalkController pw) => _playerWalk = pw;
+        public void SetPlayerJump(JumpController pj) => _playerJump = pj;
 
         private void WorkTouch(Touch touch )
         {

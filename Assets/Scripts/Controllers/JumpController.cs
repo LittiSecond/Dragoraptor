@@ -3,17 +3,15 @@
 
 namespace Dragoraptor
 {
-    public sealed class PlayerJump
+    public sealed class JumpController
     {
         #region Fields
-
-
 
         private PlayerBody _playerBody;
         private Transform _transform;
         private Rigidbody2D _rigidbody;
 
-        private PlayerWalk _playerWalk;
+        private WalkController _walkController;
 
         private float _maxJumpForce = 10.0f;
         private float _jumpForce;
@@ -27,9 +25,9 @@ namespace Dragoraptor
 
         #region ClassLifeCycles
 
-        public PlayerJump(PlayerWalk pw)
+        public JumpController(WalkController pw)
         {
-            _playerWalk = pw;
+            _walkController = pw;
             _jumpForce = _maxJumpForce;
         }
 
@@ -62,8 +60,8 @@ namespace Dragoraptor
         {
             if (_isEnabled && !_isInFlight)
             {
-                _playerWalk.StopMovement();
-                _playerWalk.JumpBegin();
+                _walkController.StopMovement();
+                _walkController.JumpBegin();
                 _isJumpPreparation = true;
             }
         }
@@ -100,7 +98,7 @@ namespace Dragoraptor
             _playerBody.OnGroundContact -= OnGroundContact;
             _rigidbody.velocity = Vector2.zero;
             _isInFlight = false;
-            _playerWalk.JumpEnd();
+            _walkController.JumpEnd();
         }
 
         #endregion

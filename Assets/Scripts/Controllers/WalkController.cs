@@ -3,7 +3,7 @@
 
 namespace Dragoraptor
 {
-    public sealed class PlayerWalk : IExecutable
+    public sealed class WalkController : IExecutable
     {
         #region Fields
 
