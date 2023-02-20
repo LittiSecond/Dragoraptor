@@ -60,16 +60,21 @@ namespace Dragoraptor
                     else if (type == ObjctType.Player)
                     {
                         _jumpController.TouchBegin(position);
+                        _jumpPainter.SetTouchPosition(position);
                     }
                 }
 
             }
             else if (_state == CharacterState.PrepareJump)
             {
+                Vector2 position = Services.Instance.SceneGeometry.ConvertScreenPositionToWorld(touch.position);
                 if (touch.phase == TouchPhase.Ended)
                 {
-                    Vector2 position = Services.Instance.SceneGeometry.ConvertScreenPositionToWorld(touch.position);
                     _jumpController.TouchEnd(position);
+                }
+                else if (touch.phase == TouchPhase.Moved)
+                {
+                    _jumpPainter.SetTouchPosition(position);
                 }
             }
         }

@@ -7,10 +7,10 @@ namespace Dragoraptor
     {
         #region Fields
 
-        private PlayerBody _playerBody;
-        private Transform _transform;
         private LineRenderer _trajectoryRenderer;
-        private LineRenderer _powerRenderer;
+        private PowerLinePainter _powerLinePainter;
+
+        private CharacterState _state;
 
         private bool _isEnabled;
         private bool _haveBody;
@@ -18,53 +18,77 @@ namespace Dragoraptor
         #endregion
 
 
-        #region Properties
-
-        #endregion
-
-
         #region ClassLifeCycles
+
+        public JumpPainter(CharacterStateHolder csh)
+        {
+            csh.OnStateChanged += OnStateChanged;
+            _powerLinePainter = new PowerLinePainter();
+        }
 
         #endregion
 
 
         #region Methods
 
-        public void SetBody(PlayerBody pb)
+        public void SetBody(PlayerBody playerBody)
         {
-            if (pb)
+            if (playerBody)
             {
-                _playerBody = pb;
-                _transform = _playerBody.transform;
-                (LineRenderer, LineRenderer) lr = _playerBody.GetLineRenderers();
+                (LineRenderer, LineRenderer) lr = playerBody.GetLineRenderers();
                 _trajectoryRenderer = lr.Item1;
-                _powerRenderer = lr.Item2;
+                _trajectoryRenderer.enabled = false;
+                _powerLinePainter.SetData(playerBody.transform , lr.Item2);
                 _haveBody = true;
             }
             else
             {
-                _playerBody = null;
-                _transform = null;
                 _trajectoryRenderer = null;
-                _powerRenderer = null;
+                _powerLinePainter.ClearData();
                 _haveBody = false;
             }
         }
 
+        public void SetTouchPosition(Vector2 position)
+        {
+           _powerLinePainter.SetTouchPosition(position);
+        }
 
-        public void On()
+        private void OnStateChanged(CharacterState newState)
+        {
+            if (newState != _state)
+            {
+                if (newState == CharacterState.PrepareJump)
+                {
+                    DrawingOn();
+                }
+                else if (_state == CharacterState.PrepareJump)
+                {
+                    DrawingOff();
+                }
+
+                _state = newState;
+            }
+
+        }
+
+        private void DrawingOn()
         {
             if (_haveBody)
             {
+                _powerLinePainter.DrawingOn();
                 _isEnabled = true;
             }
         }
 
-        public void Off()
+        private void DrawingOff()
         {
+            if (_haveBody)
+            {
+                _powerLinePainter.DrawingOff();
+            }
             _isEnabled = false;
         }
-
         #endregion
 
 
@@ -74,7 +98,7 @@ namespace Dragoraptor
         {
             if (_isEnabled )
             {
-
+                _powerLinePainter.Execute();
             }
         }
 

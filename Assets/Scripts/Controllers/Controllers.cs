@@ -23,7 +23,7 @@ namespace Dragoraptor
         {
             CharacterStateHolder characterStateHolder = new CharacterStateHolder();
             WalkController walkController = new WalkController(characterStateHolder);
-            JumpPainter jumpPainter = new JumpPainter();
+            JumpPainter jumpPainter = new JumpPainter(characterStateHolder);
             JumpController jumpController = new JumpController(characterStateHolder);
 
             TouchInputController touchInputController = new TouchInputController(characterStateHolder, 
