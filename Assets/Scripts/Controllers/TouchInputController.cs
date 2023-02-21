@@ -59,7 +59,7 @@ namespace Dragoraptor
                     }
                     else if (type == ObjctType.Player)
                     {
-                        _jumpController.TouchBegin(position);
+                        _jumpController.TouchBegin();
                         _jumpPainter.SetTouchPosition(position);
                     }
                 }

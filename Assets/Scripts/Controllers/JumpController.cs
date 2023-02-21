@@ -8,13 +8,24 @@ namespace Dragoraptor
         #region Fields
 
         private PlayerBody _playerBody;
-        private Transform _transform;
+        private Transform _bodyTransform;
         private Rigidbody2D _rigidbody;
 
         private readonly CharacterStateHolder _stateHolder;
 
+        //TODO: will be loaded from a scriptable object
+        private float _minJumpForce = 1.0f;
         private float _maxJumpForce = 10.0f;
-        private float _jumpForce;
+        //      distances betwin _bodyTransform and touch point
+        private float _cancelJumpDistance = 0.5f;
+        private float _cancelJumpSqrDistance = 0.25f;
+        private float _maxJumpForceDistance = 1.5f;
+        //---
+
+        // force calculation data: Force = k*distance + b
+        private float _k;
+        private float _b;
+        //
 
         private CharacterState _state;
 
@@ -29,7 +40,7 @@ namespace Dragoraptor
         {
             _stateHolder = csh;
             _stateHolder.OnStateChanged += OnStateChanged;
-            _jumpForce = _maxJumpForce;
+            CalculateJumpForceCalcData();
         }
 
         #endregion
@@ -37,25 +48,31 @@ namespace Dragoraptor
 
         #region Methods
 
+        private void CalculateJumpForceCalcData()
+        {
+            _k = (_maxJumpForce - _minJumpForce) / (_maxJumpForceDistance - _cancelJumpDistance);
+            _b = _maxJumpForce - _k * _maxJumpForceDistance;
+        }
+
         public void SetBody(PlayerBody pb)
         {
             if (pb)
             {
                 _playerBody = pb;
-                _transform = _playerBody.transform;
+                _bodyTransform = _playerBody.transform;
                 _rigidbody = _playerBody.GetRigidbody();
                 _isEnabled = true;
             }
             else
             {
                 _playerBody = null;
-                _transform = null;
+                _bodyTransform = null;
                 _rigidbody = null;
                 _isEnabled = false;
             }
         }
 
-        public void TouchBegin(Vector2 worldPosition)
+        public void TouchBegin()
         {
             if (_isEnabled && (_state == CharacterState.Idle || _state == CharacterState.Walk ))
             {
@@ -67,13 +84,21 @@ namespace Dragoraptor
         {
             if (_isEnabled && _state == CharacterState.PrepareJump)
             {
-                Vector2 jumpDirection =  (Vector2)_transform.position - worldPosition;
+                Vector2 jumpDirection =  (Vector2)_bodyTransform.position - worldPosition;
+                float sqrDistance = jumpDirection.sqrMagnitude;
 
-                if (CheckIsJumpDirectionGood(jumpDirection))
+                if (sqrDistance <= _cancelJumpSqrDistance)
+                { 
+                    _stateHolder.SetState(CharacterState.Idle);
+                }
+                else if (CheckIsJumpDirectionGood(jumpDirection))
                 {
                     jumpDirection.Normalize();
 
-                    _rigidbody.AddForce(jumpDirection * _jumpForce, ForceMode2D.Impulse);
+                    float distance = Mathf.Sqrt(sqrDistance);
+                    float jumpForce = CalculateJumpForce(distance);
+
+                    _rigidbody.AddForce(jumpDirection * jumpForce, ForceMode2D.Impulse);
                     _playerBody.OnGroundContact += OnGroundContact;
                     _stateHolder.SetState(CharacterState.FliesUp);
                 }
@@ -100,6 +125,15 @@ namespace Dragoraptor
         private void OnStateChanged(CharacterState newState)
         {
             _state = newState;
+        }
+
+        private float CalculateJumpForce(float distance)
+        {
+            if (distance > _maxJumpForceDistance)
+            {
+                distance = _maxJumpForceDistance;
+            }
+            return _k * distance + _b;
         }
 
         #endregion
