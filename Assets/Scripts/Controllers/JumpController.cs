@@ -42,6 +42,7 @@ namespace Dragoraptor
             _maxJumpForce = gamePlaySettings.MaxJumpForce;
             _cancelJumpDistance = gamePlaySettings.NoJumpPowerIndicatorLength;
             _cancelJumpSqrDistance = _cancelJumpDistance * _cancelJumpDistance;
+            _maxJumpForceDistance = gamePlaySettings.MaxJumpPowerIndicatorLength;
 
             CalculateJumpForceCalcData();
         }
