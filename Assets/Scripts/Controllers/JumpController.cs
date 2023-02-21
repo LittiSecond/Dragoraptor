@@ -7,7 +7,6 @@ namespace Dragoraptor
     {
         #region Fields
 
-        private PlayerBody _playerBody;
         private Transform _bodyTransform;
         private Rigidbody2D _rigidbody;
 
@@ -62,14 +61,12 @@ namespace Dragoraptor
         {
             if (pb)
             {
-                _playerBody = pb;
-                _bodyTransform = _playerBody.transform;
-                _rigidbody = _playerBody.GetRigidbody();
+                _bodyTransform = pb.transform;
+                _rigidbody = pb.GetRigidbody();
                 _isEnabled = true;
             }
             else
             {
-                _playerBody = null;
                 _bodyTransform = null;
                 _rigidbody = null;
                 _isEnabled = false;
@@ -103,7 +100,6 @@ namespace Dragoraptor
                     float jumpForce = CalculateJumpForce(distance);
 
                     _rigidbody.AddForce(jumpDirection * jumpForce, ForceMode2D.Impulse);
-                    _playerBody.OnGroundContact += OnGroundContact;
                     _stateHolder.SetState(CharacterState.FliesUp);
                 }
                 else
@@ -117,13 +113,6 @@ namespace Dragoraptor
         private bool CheckIsJumpDirectionGood(Vector2 direction)
         {
             return direction.y > 0.0f;
-        }
-
-        private void OnGroundContact()
-        {
-            _playerBody.OnGroundContact -= OnGroundContact;
-            _rigidbody.velocity = Vector2.zero;
-            _stateHolder.SetState(CharacterState.Idle);
         }
 
         private void OnStateChanged(CharacterState newState)
