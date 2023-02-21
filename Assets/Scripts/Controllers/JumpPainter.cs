@@ -7,8 +7,8 @@ namespace Dragoraptor
     {
         #region Fields
 
-        private LineRenderer _trajectoryRenderer;
         private PowerLinePainter _powerLinePainter;
+        private TrajectoryPainter _trajectoryPainter;
 
         private CharacterState _state;
 
@@ -24,6 +24,7 @@ namespace Dragoraptor
         {
             csh.OnStateChanged += OnStateChanged;
             _powerLinePainter = new PowerLinePainter(gamePlaySettings);
+            _trajectoryPainter = new TrajectoryPainter();
         }
 
         #endregion
@@ -36,22 +37,22 @@ namespace Dragoraptor
             if (playerBody)
             {
                 (LineRenderer, LineRenderer) lr = playerBody.GetLineRenderers();
-                _trajectoryRenderer = lr.Item1;
-                _trajectoryRenderer.enabled = false;
                 _powerLinePainter.SetData(playerBody.transform , lr.Item2);
+                _trajectoryPainter.SetData(playerBody.transform, lr.Item1);
                 _haveBody = true;
             }
             else
             {
-                _trajectoryRenderer = null;
                 _powerLinePainter.ClearData();
+                _trajectoryPainter.ClearData();
                 _haveBody = false;
             }
         }
 
         public void SetTouchPosition(Vector2 position)
         {
-           _powerLinePainter.SetTouchPosition(position);
+            _powerLinePainter.SetTouchPosition(position);
+            _trajectoryPainter.SetTouchPosition(position);
         }
 
         private void OnStateChanged(CharacterState newState)
@@ -77,6 +78,7 @@ namespace Dragoraptor
             if (_haveBody)
             {
                 _powerLinePainter.DrawingOn();
+                _trajectoryPainter.DrawingOn();
                 _isEnabled = true;
             }
         }
@@ -86,6 +88,7 @@ namespace Dragoraptor
             if (_haveBody)
             {
                 _powerLinePainter.DrawingOff();
+                _trajectoryPainter.DrawingOff();
             }
             _isEnabled = false;
         }
@@ -99,6 +102,7 @@ namespace Dragoraptor
             if (_isEnabled )
             {
                 _powerLinePainter.Execute();
+                _trajectoryPainter.Execute();
             }
         }
 
