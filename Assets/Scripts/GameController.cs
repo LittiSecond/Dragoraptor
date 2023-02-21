@@ -7,6 +7,7 @@ namespace Dragoraptor
     {
         #region Fields
 
+        [SerializeField] private GamePlaySettings DefaultGamePlaySettings;
         private Controllers _controllers;
 
         #endregion
@@ -18,7 +19,7 @@ namespace Dragoraptor
         {
             CameraFitter.FitCamera();
 
-            _controllers = new Controllers();
+            _controllers = new Controllers(DefaultGamePlaySettings);
 
             Services.Instance.GameStateManager.SetMainScreenAtStartGame();
         }

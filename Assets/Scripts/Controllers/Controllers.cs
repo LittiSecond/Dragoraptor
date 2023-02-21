@@ -19,12 +19,12 @@ namespace Dragoraptor
 
         #region ClassLifeCycles
 
-        public Controllers()
+        public Controllers(GamePlaySettings gamePlaySettings)
         {
             CharacterStateHolder characterStateHolder = new CharacterStateHolder();
-            WalkController walkController = new WalkController(characterStateHolder);
-            JumpPainter jumpPainter = new JumpPainter(characterStateHolder);
-            JumpController jumpController = new JumpController(characterStateHolder);
+            WalkController walkController = new WalkController(characterStateHolder, gamePlaySettings);
+            JumpPainter jumpPainter = new JumpPainter(characterStateHolder, gamePlaySettings);
+            JumpController jumpController = new JumpController(characterStateHolder, gamePlaySettings);
 
             TouchInputController touchInputController = new TouchInputController(characterStateHolder, 
                 walkController, jumpController, jumpPainter);

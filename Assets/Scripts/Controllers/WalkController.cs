@@ -14,7 +14,7 @@ namespace Dragoraptor
 
         private Vector2 _velocity;
 
-        private float _speed = 1.0f;
+        private float _speed;
         private float _xDestination;
 
         private CharacterState _state;
@@ -28,10 +28,11 @@ namespace Dragoraptor
 
         #region ClassLifeCycles
 
-        public WalkController(CharacterStateHolder csh)
+        public WalkController(CharacterStateHolder csh, GamePlaySettings gps)
         {
             _stateHolder = csh;
             _stateHolder.OnStateChanged += OnStateChanged;
+            _speed = gps.WalkSpeed;
         }
 
         #endregion

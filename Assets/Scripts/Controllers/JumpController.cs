@@ -13,19 +13,16 @@ namespace Dragoraptor
 
         private readonly CharacterStateHolder _stateHolder;
 
-        //TODO: will be loaded from a scriptable object
-        private float _minJumpForce = 1.0f;
-        private float _maxJumpForce = 10.0f;
+        private float _minJumpForce;
+        private float _maxJumpForce;
         //      distances betwin _bodyTransform and touch point
-        private float _cancelJumpDistance = 0.5f;
-        private float _cancelJumpSqrDistance = 0.25f;
-        private float _maxJumpForceDistance = 1.5f;
-        //---
+        private float _cancelJumpDistance;
+        private float _cancelJumpSqrDistance;
+        private float _maxJumpForceDistance;
 
         // force calculation data: Force = k*distance + b
         private float _k;
         private float _b;
-        //
 
         private CharacterState _state;
 
@@ -36,10 +33,16 @@ namespace Dragoraptor
 
         #region ClassLifeCycles
 
-        public JumpController(CharacterStateHolder csh)
+        public JumpController(CharacterStateHolder csh, GamePlaySettings gamePlaySettings)
         {
             _stateHolder = csh;
             _stateHolder.OnStateChanged += OnStateChanged;
+
+            _minJumpForce = gamePlaySettings.MinJumpForce;
+            _maxJumpForce = gamePlaySettings.MaxJumpForce;
+            _cancelJumpDistance = gamePlaySettings.NoJumpPowerIndicatorLength;
+            _cancelJumpSqrDistance = _cancelJumpDistance * _cancelJumpDistance;
+
             CalculateJumpForceCalcData();
         }
 
