@@ -7,9 +7,6 @@ namespace Dragoraptor
     {
         #region Fields
 
-
-        private Vector2 _gravity;
-
         private float _minJumpForce;
         private float _maxJumpForce;
         //      distances betwin _bodyTransform and touch point
@@ -29,8 +26,6 @@ namespace Dragoraptor
 
         public JumpCalculator(GamePlaySettings gps)
         {
-            _gravity = Physics2D.gravity;
-
             _minJumpForce = gps.MinJumpForce;
             _maxJumpForce = gps.MaxJumpForce;
             _cancelJumpDistance = gps.NoJumpPowerIndicatorLength;

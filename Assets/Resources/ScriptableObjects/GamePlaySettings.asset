@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28750666fd440ad48bbf8ed570be3f62, type: 3}
   m_Name: GamePlaySettings
   m_EditorClassIdentifier: 
-  MinJumpForce: 1
-  MaxJumpForce: 12
+  MinJumpForce: 4
+  MaxJumpForce: 10
   NoJumpPowerIndicatorLength: 0.5
   MaxJumpPowerIndicatorLength: 1.5
   WalkSpeed: 1.75

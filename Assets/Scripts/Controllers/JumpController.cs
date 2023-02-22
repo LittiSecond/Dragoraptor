@@ -13,8 +13,6 @@ namespace Dragoraptor
         private readonly CharacterStateHolder _stateHolder;
         private readonly JumpCalculator _jumpCalculator;
 
-        private float _minJumpSqrImpulse;
-
         private CharacterState _state;
 
         private bool _haveBody;
@@ -24,13 +22,10 @@ namespace Dragoraptor
 
         #region ClassLifeCycles
 
-        public JumpController(CharacterStateHolder csh, GamePlaySettings gps, JumpCalculator jc)
+        public JumpController(CharacterStateHolder csh, JumpCalculator jc)
         {
             _stateHolder = csh;
             _stateHolder.OnStateChanged += OnStateChanged;
-
-            float minImpulse = gps.MinJumpForce;
-            _minJumpSqrImpulse = minImpulse * minImpulse;
 
             _jumpCalculator = jc;
         }
@@ -72,7 +67,7 @@ namespace Dragoraptor
 
                 Vector2 impulse = _jumpCalculator.CalculateJampImpulse(jumpDirection);
 
-                if (impulse.sqrMagnitude >= _minJumpSqrImpulse)
+                if (impulse != Vector2.zero)
                 {
                     _rigidbody.AddForce(impulse, ForceMode2D.Impulse);
                     _stateHolder.SetState(CharacterState.FliesUp);

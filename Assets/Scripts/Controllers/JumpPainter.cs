@@ -20,11 +20,11 @@ namespace Dragoraptor
 
         #region ClassLifeCycles
 
-        public JumpPainter(CharacterStateHolder csh, GamePlaySettings gamePlaySettings)
+        public JumpPainter(CharacterStateHolder csh, GamePlaySettings gamePlaySettings, JumpCalculator jc)
         {
             csh.OnStateChanged += OnStateChanged;
             _powerLinePainter = new PowerLinePainter(gamePlaySettings);
-            _trajectoryPainter = new TrajectoryPainter();
+            _trajectoryPainter = new TrajectoryPainter(jc);
         }
 
         #endregion

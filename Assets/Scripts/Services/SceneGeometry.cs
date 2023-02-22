@@ -50,6 +50,15 @@ namespace Dragoraptor
             _isInitialized = true;
         }
 
+        public Rect GetVisibleArea()
+        {
+            if (!_isInitialized)
+            {
+                Initialize();
+            }
+            return _worldWisibleArea;
+        }
+
         #endregion
     }
 }
