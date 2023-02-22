@@ -11,39 +11,28 @@ namespace Dragoraptor
         private Rigidbody2D _rigidbody;
 
         private readonly CharacterStateHolder _stateHolder;
+        private readonly JumpCalculator _jumpCalculator;
 
-        private float _minJumpForce;
-        private float _maxJumpForce;
-        //      distances betwin _bodyTransform and touch point
-        private float _cancelJumpDistance;
-        private float _cancelJumpSqrDistance;
-        private float _maxJumpForceDistance;
-
-        // force calculation data: Force = k*distance + b
-        private float _k;
-        private float _b;
+        private float _minJumpSqrImpulse;
 
         private CharacterState _state;
 
-        private bool _isEnabled;
+        private bool _haveBody;
 
         #endregion
 
 
         #region ClassLifeCycles
 
-        public JumpController(CharacterStateHolder csh, GamePlaySettings gamePlaySettings)
+        public JumpController(CharacterStateHolder csh, GamePlaySettings gps, JumpCalculator jc)
         {
             _stateHolder = csh;
             _stateHolder.OnStateChanged += OnStateChanged;
 
-            _minJumpForce = gamePlaySettings.MinJumpForce;
-            _maxJumpForce = gamePlaySettings.MaxJumpForce;
-            _cancelJumpDistance = gamePlaySettings.NoJumpPowerIndicatorLength;
-            _cancelJumpSqrDistance = _cancelJumpDistance * _cancelJumpDistance;
-            _maxJumpForceDistance = gamePlaySettings.MaxJumpPowerIndicatorLength;
+            float minImpulse = gps.MinJumpForce;
+            _minJumpSqrImpulse = minImpulse * minImpulse;
 
-            CalculateJumpForceCalcData();
+            _jumpCalculator = jc;
         }
 
         #endregion
@@ -51,31 +40,25 @@ namespace Dragoraptor
 
         #region Methods
 
-        private void CalculateJumpForceCalcData()
-        {
-            _k = (_maxJumpForce - _minJumpForce) / (_maxJumpForceDistance - _cancelJumpDistance);
-            _b = _maxJumpForce - _k * _maxJumpForceDistance;
-        }
-
         public void SetBody(PlayerBody pb)
         {
             if (pb)
             {
                 _bodyTransform = pb.transform;
                 _rigidbody = pb.GetRigidbody();
-                _isEnabled = true;
+                _haveBody = true;
             }
             else
             {
                 _bodyTransform = null;
                 _rigidbody = null;
-                _isEnabled = false;
+                _haveBody = false;
             }
         }
 
         public void TouchBegin()
         {
-            if (_isEnabled && (_state == CharacterState.Idle || _state == CharacterState.Walk ))
+            if (_haveBody && (_state == CharacterState.Idle || _state == CharacterState.Walk ))
             {
                 _stateHolder.SetState(CharacterState.PrepareJump);
             }
@@ -83,23 +66,15 @@ namespace Dragoraptor
 
         public void TouchEnd(Vector2 worldPosition)
         {
-            if (_isEnabled && _state == CharacterState.PrepareJump)
+            if (_haveBody && _state == CharacterState.PrepareJump)
             {
                 Vector2 jumpDirection =  (Vector2)_bodyTransform.position - worldPosition;
-                float sqrDistance = jumpDirection.sqrMagnitude;
 
-                if (sqrDistance <= _cancelJumpSqrDistance)
-                { 
-                    _stateHolder.SetState(CharacterState.Idle);
-                }
-                else if (CheckIsJumpDirectionGood(jumpDirection))
+                Vector2 impulse = _jumpCalculator.CalculateJampImpulse(jumpDirection);
+
+                if (impulse.sqrMagnitude >= _minJumpSqrImpulse)
                 {
-                    jumpDirection.Normalize();
-
-                    float distance = Mathf.Sqrt(sqrDistance);
-                    float jumpForce = CalculateJumpForce(distance);
-
-                    _rigidbody.AddForce(jumpDirection * jumpForce, ForceMode2D.Impulse);
+                    _rigidbody.AddForce(impulse, ForceMode2D.Impulse);
                     _stateHolder.SetState(CharacterState.FliesUp);
                 }
                 else
@@ -110,23 +85,9 @@ namespace Dragoraptor
             }
         }
 
-        private bool CheckIsJumpDirectionGood(Vector2 direction)
-        {
-            return direction.y > 0.0f;
-        }
-
         private void OnStateChanged(CharacterState newState)
         {
             _state = newState;
-        }
-
-        private float CalculateJumpForce(float distance)
-        {
-            if (distance > _maxJumpForceDistance)
-            {
-                distance = _maxJumpForceDistance;
-            }
-            return _k * distance + _b;
         }
 
         #endregion

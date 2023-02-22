@@ -22,9 +22,10 @@ namespace Dragoraptor
         public Controllers(GamePlaySettings gamePlaySettings)
         {
             CharacterStateHolder characterStateHolder = new CharacterStateHolder();
+            JumpCalculator jumpCalculator = new JumpCalculator(gamePlaySettings);
             WalkController walkController = new WalkController(characterStateHolder, gamePlaySettings);
             JumpPainter jumpPainter = new JumpPainter(characterStateHolder, gamePlaySettings);
-            JumpController jumpController = new JumpController(characterStateHolder, gamePlaySettings);
+            JumpController jumpController = new JumpController(characterStateHolder, gamePlaySettings, jumpCalculator);
             FlightObserver flightObserver = new FlightObserver(characterStateHolder);
 
             TouchInputController touchInputController = new TouchInputController(characterStateHolder, 

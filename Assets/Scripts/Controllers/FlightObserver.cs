@@ -13,10 +13,13 @@ namespace Dragoraptor
 
         private readonly CharacterStateHolder _stateHolder;
 
+        private float _previousY;
+
         private CharacterState _state;
 
         private bool _haveBody;
         private bool _isEnabled;
+        private bool _isFirstFrame;
 
         #endregion
 
@@ -50,6 +53,7 @@ namespace Dragoraptor
                 _rigidbody = null;
                 _haveBody = false;
                 _isEnabled = false;
+                _isFirstFrame = false;
             }
         }
 
@@ -80,7 +84,19 @@ namespace Dragoraptor
         { 
             if (_isEnabled)
             {
-
+                float currentY = _bodyTransform.position.y;
+                if (_isFirstFrame)
+                {
+                    _isFirstFrame = false;
+                }
+                else if (_state == CharacterState.FliesUp)
+                {
+                    if (currentY < _previousY)
+                    {
+                        _stateHolder.SetState(CharacterState.FliesDown);
+                    }
+                }
+                _previousY = currentY;
             }
         }
 
