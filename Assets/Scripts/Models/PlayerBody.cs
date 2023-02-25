@@ -11,6 +11,7 @@ namespace Dragoraptor
         [SerializeField] private Rigidbody2D _rigedbody;
         [SerializeField] private LineRenderer _trajectoryRenderer;
         [SerializeField] private LineRenderer _powerRenderer;
+        [SerializeField] private Animator _bodyAnimator;
 
         public event Action OnGroundContact;
 
@@ -43,6 +44,11 @@ namespace Dragoraptor
         public (LineRenderer, LineRenderer) GetLineRenderers()
         {
             return (_trajectoryRenderer, _powerRenderer);
+        }
+
+        public Animator GetBodyAnimator()
+        {
+            return _bodyAnimator;
         }
 
         #endregion
