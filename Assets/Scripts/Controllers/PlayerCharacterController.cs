@@ -13,6 +13,7 @@ namespace Dragoraptor
         private readonly JumpController _jumpController;
         private readonly JumpPainter _jumpPainter;
         private readonly FlightObserver _flightObserver;
+        private readonly AnimationController _animationController;
         private PlayerBody _playerBody;
 
         private bool _haveCharacterBody;
@@ -22,7 +23,8 @@ namespace Dragoraptor
 
         #region ClassLifeCycles
 
-        public PlayerCharacterController(CharacterStateHolder csh, TouchInputController tic, WalkController wc, JumpController jc, JumpPainter jp, FlightObserver fo)
+        public PlayerCharacterController(CharacterStateHolder csh, TouchInputController tic, WalkController wc, 
+            JumpController jc, JumpPainter jp, FlightObserver fo, AnimationController ac)
         {
             _stateHolder = csh;
             _touchInputController = tic;
@@ -30,6 +32,7 @@ namespace Dragoraptor
             _jumpController = jc;
             _jumpPainter = jp;
             _flightObserver = fo;
+            _animationController = ac;
         }
 
         #endregion
@@ -46,6 +49,7 @@ namespace Dragoraptor
                 _jumpController.SetBody(_playerBody);
                 _jumpPainter.SetBody(_playerBody);
                 _flightObserver.SetBody(_playerBody);
+                _animationController.SetBody(_playerBody);
 
                 _haveCharacterBody = true;
             }
