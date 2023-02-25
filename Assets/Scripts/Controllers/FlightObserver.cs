@@ -65,6 +65,7 @@ namespace Dragoraptor
             if (_state == CharacterState.FliesUp)
             {
                 _playerBody.OnGroundContact += OnGroundContact;
+                _isFirstFrame = true;
             }
         }
 
