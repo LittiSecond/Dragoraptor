@@ -3,7 +3,7 @@
 
 namespace Dragoraptor
 {
-    public sealed class FlightObserver : IExecutable
+    public sealed class FlightObserver : IExecutable, IBodyUser
     {
         #region Fields
 
@@ -37,26 +37,6 @@ namespace Dragoraptor
 
         #region Methods
 
-        public void SetBody(PlayerBody pb)
-        {
-            if (pb)
-            {
-                _playerBody = pb;
-                _bodyTransform = _playerBody.transform;
-                _rigidbody = _playerBody.GetRigidbody();
-                _haveBody = true;
-            }
-            else
-            {
-                _playerBody = null;
-                _bodyTransform = null;
-                _rigidbody = null;
-                _haveBody = false;
-                _isEnabled = false;
-                _isFirstFrame = false;
-            }
-        }
-
         private void OnStateChanged(CharacterState newState)
         {
             _state = newState;
@@ -79,7 +59,30 @@ namespace Dragoraptor
         #endregion
 
 
-        #region IInterfaces
+        #region IBodyUser
+
+        public void SetBody(PlayerBody pb)
+        {
+            _playerBody = pb;
+            _bodyTransform = _playerBody.transform;
+            _rigidbody = _playerBody.GetRigidbody();
+            _haveBody = true;
+        }
+
+        public void ClearBody()
+        {
+            _playerBody = null;
+            _bodyTransform = null;
+            _rigidbody = null;
+            _haveBody = false;
+            _isEnabled = false;
+            _isFirstFrame = false;
+        }
+
+        #endregion
+
+
+        #region IExecutable
 
         public void Execute()
         { 

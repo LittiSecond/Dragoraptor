@@ -3,7 +3,7 @@
 
 namespace Dragoraptor
 {
-    public sealed class JumpController
+    public sealed class JumpController : IBodyUser 
     {
         #region Fields
 
@@ -34,22 +34,6 @@ namespace Dragoraptor
 
 
         #region Methods
-
-        public void SetBody(PlayerBody pb)
-        {
-            if (pb)
-            {
-                _bodyTransform = pb.transform;
-                _rigidbody = pb.GetRigidbody();
-                _haveBody = true;
-            }
-            else
-            {
-                _bodyTransform = null;
-                _rigidbody = null;
-                _haveBody = false;
-            }
-        }
 
         public void TouchBegin()
         {
@@ -87,5 +71,23 @@ namespace Dragoraptor
 
         #endregion
 
+
+        #region IBodyUser
+
+        public void SetBody(PlayerBody pb)
+        {
+            _bodyTransform = pb.transform;
+            _rigidbody = pb.GetRigidbody();
+            _haveBody = true;
+        }
+
+        public void ClearBody()
+        {
+            _bodyTransform = null;
+            _rigidbody = null;
+            _haveBody = false;
+        }
+
+        #endregion
     }
 }

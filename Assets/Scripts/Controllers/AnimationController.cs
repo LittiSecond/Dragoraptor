@@ -3,7 +3,7 @@
 
 namespace Dragoraptor
 {
-    public sealed class AnimationController
+    public sealed class AnimationController : IBodyUser
     {
         #region Fields
 
@@ -37,21 +37,23 @@ namespace Dragoraptor
             }
         }
 
+        #endregion
+
+
+        #region IBodyUser
+
         public void SetBody(PlayerBody pb)
         {
-            if (pb)
-            {
-                _bodyAnimator = pb.GetBodyAnimator();
-                _haveAnimator = true;
-            }
-            else
-            {
-                _bodyAnimator = null;
-                _haveAnimator = false;
-            }
+            _bodyAnimator = pb.GetBodyAnimator();
+            _haveAnimator = true;
+        }
+
+        public void ClearBody()
+        {
+            _bodyAnimator = null;
+            _haveAnimator = false;
         }
 
         #endregion
-
     }
 }
