@@ -89,13 +89,13 @@ namespace Dragoraptor
             if (_isEnabled)
             {
                 float currentY = _bodyTransform.position.y;
-                if (_isFirstFrame)
+                if (_state == CharacterState.FliesUp)
                 {
-                    _isFirstFrame = false;
-                }
-                else if (_state == CharacterState.FliesUp)
-                {
-                    if (currentY < _previousY)
+                    if (_isFirstFrame)
+                    {
+                        _isFirstFrame = false;
+                    }
+                    else if (currentY < _previousY)
                     {
                         _stateHolder.SetState(CharacterState.FliesDown);
                     }

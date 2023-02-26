@@ -28,9 +28,10 @@ namespace Dragoraptor
             JumpController jumpController = new JumpController(characterStateHolder, jumpCalculator);
             FlightObserver flightObserver = new FlightObserver(characterStateHolder);
             AnimationController animationController = new AnimationController(characterStateHolder);
+            HorizontalDirection horizontalDirection = new HorizontalDirection();
 
             TouchInputController touchInputController = new TouchInputController(characterStateHolder, 
-                walkController, jumpController, jumpPainter);
+                walkController, jumpController, jumpPainter, horizontalDirection);
 
             IBodyUser[] bodyUsers = new IBodyUser[]
             {
@@ -38,7 +39,8 @@ namespace Dragoraptor
                 jumpController,
                 jumpPainter,
                 flightObserver,
-                animationController
+                animationController, 
+                horizontalDirection
             };
 
             PlayerCharacterController playerCharacterController = new PlayerCharacterController(characterStateHolder, 

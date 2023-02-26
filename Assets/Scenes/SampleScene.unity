@@ -852,6 +852,7 @@ MonoBehaviour:
   _trajectoryRenderer: {fileID: 234940051}
   _powerRenderer: {fileID: 1097114746}
   _bodyAnimator: {fileID: 769621957}
+  _bodySpriteRenderer: {fileID: 246591699}
 --- !u!95 &769621957
 Animator:
   serializedVersion: 4

@@ -12,8 +12,11 @@ namespace Dragoraptor
         [SerializeField] private LineRenderer _trajectoryRenderer;
         [SerializeField] private LineRenderer _powerRenderer;
         [SerializeField] private Animator _bodyAnimator;
+        [SerializeField] private SpriteRenderer _bodySpriteRenderer;
 
         public event Action OnGroundContact;
+
+        private bool _isDirectionRight;
 
         #endregion
 
@@ -29,6 +32,11 @@ namespace Dragoraptor
                     OnGroundContact();
                 }
             }
+        }
+
+        private void OnEnable()
+        {
+            _isDirectionRight = _bodySpriteRenderer.flipX;
         }
 
         #endregion
@@ -49,6 +57,15 @@ namespace Dragoraptor
         public Animator GetBodyAnimator()
         {
             return _bodyAnimator;
+        }
+
+        public void SetDirectionIsRight(bool isRight)
+        {
+            if (_isDirectionRight != isRight)
+            {
+                _isDirectionRight = isRight;
+                _bodySpriteRenderer.flipX = _isDirectionRight;
+            }
         }
 
         #endregion
