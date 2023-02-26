@@ -3,7 +3,7 @@
 
 namespace Dragoraptor
 {
-    public sealed class WalkController : IExecutable
+    public sealed class WalkController : IExecutable, IBodyUser
     {
         #region Fields
 
@@ -39,28 +39,6 @@ namespace Dragoraptor
 
 
         #region Methods
-
-        public void SetBody(PlayerBody pb)
-        {
-            if (pb)
-            {
-                _playerBody = pb;
-                _transform = _playerBody.transform;
-                _rigidbody = _playerBody.GetRigidbody();
-                _isEnabled = true;
-            }
-            else
-            {
-                if (_isEnabled)
-                {
-                    StopMovement();
-                }
-                _playerBody = null;
-                _transform = null;
-                _rigidbody = null;
-                _isEnabled = false;
-            }
-        }
 
         public void SetDestination(float x)
         {
@@ -108,6 +86,31 @@ namespace Dragoraptor
 
                 _state = newState;
             }
+        }
+
+        #endregion
+
+
+        #region IBodyUser
+
+        public void SetBody(PlayerBody pb)
+        {
+            _playerBody = pb;
+            _transform = _playerBody.transform;
+            _rigidbody = _playerBody.GetRigidbody();
+            _isEnabled = true;
+        }
+
+        public void ClearBody()
+        {
+            if (_isEnabled)
+            {
+                StopMovement();
+            }
+            _playerBody = null;
+            _transform = null;
+            _rigidbody = null;
+            _isEnabled = false;
         }
 
         #endregion

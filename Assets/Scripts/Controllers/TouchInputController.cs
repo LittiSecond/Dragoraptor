@@ -8,10 +8,10 @@ namespace Dragoraptor
     {
         #region Fields
 
-
         private readonly WalkController _walkController;
         private readonly JumpController _jumpController;
         private readonly JumpPainter _jumpPainter;
+        private readonly HorizontalDirection _horizontalDirection;
 
         private CharacterState _state;
 
@@ -22,12 +22,13 @@ namespace Dragoraptor
 
         #region ClassLifeCycles
 
-        public TouchInputController(CharacterStateHolder csh, WalkController wc, JumpController jk, JumpPainter jp )
+        public TouchInputController(CharacterStateHolder csh, WalkController wc, JumpController jk, JumpPainter jp, HorizontalDirection hd )
         {
             csh.OnStateChanged += OnStateChanged;
             _walkController = wc;
             _jumpController = jk;
             _jumpPainter = jp;
+            _horizontalDirection = hd;
         }
 
         #endregion
@@ -56,6 +57,7 @@ namespace Dragoraptor
                     if (type == ObjctType.Ground)
                     {
                         _walkController.SetDestination(position.x);
+                        _horizontalDirection.SetDistination(position);
                     }
                     else if (type == ObjctType.Player)
                     {
@@ -75,6 +77,7 @@ namespace Dragoraptor
                 else if (touch.phase == TouchPhase.Moved)
                 {
                     _jumpPainter.SetTouchPosition(position);
+                    _horizontalDirection.SetTouchPosition(position);
                 }
             }
         }

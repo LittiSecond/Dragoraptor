@@ -71,7 +71,8 @@ namespace Dragoraptor
 
         private void CalculateTraectory(Vector2 velocity)
         {
-            float bodyY = _bodyTransform.position.y;
+            float xMin = _xMin - _bodyTransform.position.x;
+            float xMax = _xMax - _bodyTransform.position.x;
             _count = 1;
 
             for (int i = 1; i < TRAECTORY_CAPACITY; i++)
@@ -85,7 +86,7 @@ namespace Dragoraptor
                 _traectory[i] = current;
                 _count++;
 
-                if ( current.x <= _xMin || current.x > _xMax || current.y <= bodyY )
+                if ( current.x <= xMin || current.x > xMax || current.y <= 0.0f )
                 {
                     break;
                 }

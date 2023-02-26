@@ -3,7 +3,7 @@
 
 namespace Dragoraptor
 {
-    public sealed class JumpPainter : IExecutable
+    public sealed class JumpPainter : IExecutable, IBodyUser
     {
         #region Fields
 
@@ -31,23 +31,6 @@ namespace Dragoraptor
 
 
         #region Methods
-
-        public void SetBody(PlayerBody playerBody)
-        {
-            if (playerBody)
-            {
-                (LineRenderer, LineRenderer) lr = playerBody.GetLineRenderers();
-                _powerLinePainter.SetData(playerBody.transform , lr.Item2);
-                _trajectoryPainter.SetData(playerBody.transform, lr.Item1);
-                _haveBody = true;
-            }
-            else
-            {
-                _powerLinePainter.ClearData();
-                _trajectoryPainter.ClearData();
-                _haveBody = false;
-            }
-        }
 
         public void SetTouchPosition(Vector2 position)
         {
@@ -92,6 +75,26 @@ namespace Dragoraptor
             }
             _isEnabled = false;
         }
+        #endregion
+
+
+        #region IBodyUser
+
+        public void SetBody(PlayerBody playerBody)
+        {
+            (LineRenderer, LineRenderer) lr = playerBody.GetLineRenderers();
+            _powerLinePainter.SetData(playerBody.transform, lr.Item2);
+            _trajectoryPainter.SetData(playerBody.transform, lr.Item1);
+            _haveBody = true;
+        }
+
+        public void ClearBody()
+        {
+            _powerLinePainter.ClearData();
+            _trajectoryPainter.ClearData();
+            _haveBody = false;
+        }
+
         #endregion
 
 
