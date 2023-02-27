@@ -2,6 +2,7 @@
 
 using Dragoraptor.Ui;
 
+
 namespace Dragoraptor
 {
     public sealed class Services
@@ -30,6 +31,7 @@ namespace Dragoraptor
         public SceneGeometry SceneGeometry { get; private set; }
         public GameStateManager GameStateManager { get; private set; }
         public UiManager UiManager { get; private set; }
+        public GameProgress GameProgress { get; private set; }
 
         #endregion
 
@@ -41,7 +43,7 @@ namespace Dragoraptor
             SceneGeometry = new SceneGeometry();
             GameStateManager = new GameStateManager();
             UiManager = new UiManager();
-
+            GameProgress = new GameProgress();
 
             GameStateManager.SetUiManager(UiManager);
         }

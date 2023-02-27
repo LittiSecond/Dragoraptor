@@ -11,8 +11,6 @@ namespace Dragoraptor
         private GameObject _backGround;
         private LevelDescriptor _currentLevel;
 
-        private int _currentLevelNumber;
-
         private bool _isMainScreen;
         private bool _isLevelActive;
         private bool _isLevelCreated;
@@ -31,32 +29,32 @@ namespace Dragoraptor
             _isMainScreen = true;
         }
 
-        public void LoadLevel(int levelNumber)
+        public void BuildLevel()
         {
-            if (levelNumber > 0)
+
+            if (_isMainScreen)
             {
-                if (_isMainScreen)
-                {
-                    DeactivateMainScreen();
-                }
+                DeactivateMainScreen();
+            }
 
-                if (_currentLevelNumber != levelNumber)
-                {
-                    DeactivateLevel();
-                    DestroyLevel();
+            LevelDescriptor level = Services.Instance.GameProgress.GetCurrentLevel();
 
-                    _currentLevel = PrefabLoader.GetLevelDescriptor(levelNumber);
-                    _currentLevelNumber = _currentLevel.LevelNumber;
-                    CreateLevel();
-                }
-                else
+            if (_currentLevel != level)
+            {
+                DeactivateLevel();
+                DestroyLevel();
+
+                _currentLevel = level;
+                CreateLevel();
+            }
+            else
+            {
+                if (!_isLevelActive)
                 {
-                    if (!_isLevelActive)
-                    {
-                        ActivateLevel();
-                    }
+                    ActivateLevel();
                 }
             }
+
         }
 
         private void ActivateLevel()

@@ -67,10 +67,12 @@ namespace Dragoraptor
         {
             if (_state == GameState.MainScreen)
             {
+                Services.Instance.GameProgress.ChooseNextLevel();
+
                 _uiManager.SwichToHuntScreen();
                 _state = GameState.Hunt;
 
-                _sceneController.LoadLevel(1);
+                _sceneController.BuildLevel();
                 _characterController.CreateCharacter();
                 ActivateCharacterControll();
             }
