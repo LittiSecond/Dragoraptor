@@ -7,8 +7,11 @@ namespace Dragoraptor
     {
         #region Fields
 
+        private const string CHARACTER_PREFAB_ID = "PlayerCharacter";
+
         private readonly CharacterStateHolder _stateHolder;
         private readonly TouchInputController _touchInputController;
+        private GameObject _playerGO;
         private PlayerBody _playerBody;
 
         private IBodyUser[] _bodyUsers;
@@ -36,7 +39,8 @@ namespace Dragoraptor
         {
             if (!_haveCharacterBody)
             {
-                _playerBody = GameObject.FindObjectOfType<PlayerBody>();
+                InstantiateCharacter();
+
                 for (int i = 0; i < _bodyUsers.Length; i++)
                 {
                     _bodyUsers[i].SetBody(_playerBody);
@@ -55,6 +59,14 @@ namespace Dragoraptor
         {
             _touchInputController.Off();
         }
+
+        private void InstantiateCharacter()
+        {
+            GameObject prefab = PrefabLoader.GetPrefab(CHARACTER_PREFAB_ID);
+            _playerGO = GameObject.Instantiate(prefab);
+            _playerBody = _playerGO.GetComponent<PlayerBody>();
+        }
+
 
         #endregion
 

@@ -20,6 +20,7 @@ namespace Dragoraptor
 
         private UiManager _uiManager;
         private PlayerCharacterController _characterController;
+        private SceneController _sceneController;
 
         private GameState _state;
 
@@ -29,6 +30,12 @@ namespace Dragoraptor
         #region Methods
 
         public void SetCharacterController(PlayerCharacterController pcc) => _characterController = pcc;
+
+        public void SetControllers(PlayerCharacterController pcc, SceneController sc)
+        {
+            _characterController = pcc;
+            _sceneController = sc;
+        }
 
         public void SetMainScreenAtStartGame()
         {

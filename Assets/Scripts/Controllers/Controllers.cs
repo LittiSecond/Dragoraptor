@@ -54,7 +54,9 @@ namespace Dragoraptor
                 flightObserver
             };
 
-            Services.Instance.GameStateManager.SetCharacterController(playerCharacterController);
+            SceneController sceneController = new SceneController();
+
+            Services.Instance.GameStateManager.SetControllers(playerCharacterController, sceneController);
 
         }
 
