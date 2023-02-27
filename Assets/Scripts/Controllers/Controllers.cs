@@ -44,7 +44,7 @@ namespace Dragoraptor
             };
 
             PlayerCharacterController playerCharacterController = new PlayerCharacterController(characterStateHolder, 
-                touchInputController, bodyUsers);
+                gamePlaySettings, touchInputController, bodyUsers);
 
             _executeControllers = new IExecutable[]
             {

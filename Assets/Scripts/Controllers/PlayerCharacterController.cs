@@ -16,16 +16,20 @@ namespace Dragoraptor
 
         private IBodyUser[] _bodyUsers;
 
+        private Vector2 _spawnPosition;
+
         private bool _haveCharacterBody;
+        private bool _isCharacterControllEnabled;
 
         #endregion
 
 
         #region ClassLifeCycles
 
-        public PlayerCharacterController(CharacterStateHolder csh, TouchInputController tic, IBodyUser[] bu)
+        public PlayerCharacterController( CharacterStateHolder csh, GamePlaySettings gps, TouchInputController tic, IBodyUser[] bu)
         {
             _stateHolder = csh;
+            _spawnPosition = gps.CharacterSpawnPosition;
             _touchInputController = tic;
             _bodyUsers = bu;
         }
@@ -47,17 +51,31 @@ namespace Dragoraptor
                 }
                 _haveCharacterBody = true;
             }
+
+            _playerGO.transform.position = _spawnPosition;
+            _playerGO.SetActive(true);
+            _stateHolder.SetState(CharacterState.Idle);
         }
 
         public void CharacterControllOn()
         {
             _touchInputController.On();
-            _stateHolder.SetState(CharacterState.Idle);
+            _isCharacterControllEnabled = true;
         }
 
         public void CharacterControllOff()
         {
             _touchInputController.Off();
+            _isCharacterControllEnabled = false;
+        }
+
+        public void RemoveCharacter()
+        {
+            if (_isCharacterControllEnabled)
+            {
+                CharacterControllOff();
+            }
+            _playerGO.SetActive(false);
         }
 
         private void InstantiateCharacter()
