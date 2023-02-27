@@ -7,11 +7,15 @@ namespace Dragoraptor
     {
         public static readonly Dictionary<string, string> Paths = new Dictionary<string, string>()
         {
+
             {
                 "HuntScreen", "Prefabs/Ui/HuntScreen"
             },
             {
                 "MainScreen", "Prefabs/Ui/MainScreen"
+            },
+            {
+                "PlayerCharacter", "Prefabs/PlayerCharacter"
             }
         };
     }

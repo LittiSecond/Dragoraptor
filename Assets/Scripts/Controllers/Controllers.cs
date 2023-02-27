@@ -44,7 +44,7 @@ namespace Dragoraptor
             };
 
             PlayerCharacterController playerCharacterController = new PlayerCharacterController(characterStateHolder, 
-                touchInputController, bodyUsers);
+                gamePlaySettings, touchInputController, bodyUsers);
 
             _executeControllers = new IExecutable[]
             {
@@ -54,7 +54,9 @@ namespace Dragoraptor
                 flightObserver
             };
 
-            Services.Instance.GameStateManager.SetCharacterController(playerCharacterController);
+            SceneController sceneController = new SceneController();
+
+            Services.Instance.GameStateManager.SetControllers(playerCharacterController, sceneController);
 
         }
 

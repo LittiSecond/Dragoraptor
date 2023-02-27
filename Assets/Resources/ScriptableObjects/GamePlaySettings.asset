@@ -17,3 +17,4 @@ MonoBehaviour:
   NoJumpPowerIndicatorLength: 0.5
   MaxJumpPowerIndicatorLength: 1.5
   WalkSpeed: 1.75
+  CharacterSpawnPosition: {x: -1, y: -3}

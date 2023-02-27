@@ -20,6 +20,7 @@ namespace Dragoraptor
 
         private UiManager _uiManager;
         private PlayerCharacterController _characterController;
+        private SceneController _sceneController;
 
         private GameState _state;
 
@@ -28,7 +29,11 @@ namespace Dragoraptor
 
         #region Methods
 
-        public void SetCharacterController(PlayerCharacterController pcc) => _characterController = pcc;
+        public void SetControllers(PlayerCharacterController pcc, SceneController sc)
+        {
+            _characterController = pcc;
+            _sceneController = sc;
+        }
 
         public void SetMainScreenAtStartGame()
         {
@@ -36,9 +41,7 @@ namespace Dragoraptor
             {
                 _uiManager.SwichToMainScreen();
                 _state = GameState.MainScreen;
-
-                _characterController.CreateCharacter();
-                ActivateCharacterControll();
+                _sceneController.SetMainScreenScene();
             }
         }
 
@@ -53,6 +56,10 @@ namespace Dragoraptor
             {
                 _uiManager.SwichToMainScreen();
                 _state = GameState.MainScreen;
+
+                DeactivateCharacterControll();
+                _characterController.RemoveCharacter();
+                _sceneController.SetMainScreenScene();
             }
         }
 
@@ -60,8 +67,14 @@ namespace Dragoraptor
         {
             if (_state == GameState.MainScreen)
             {
+                Services.Instance.GameProgress.ChooseNextLevel();
+
                 _uiManager.SwichToHuntScreen();
                 _state = GameState.Hunt;
+
+                _sceneController.BuildLevel();
+                _characterController.CreateCharacter();
+                ActivateCharacterControll();
             }
         }
 
@@ -75,9 +88,7 @@ namespace Dragoraptor
             _characterController.CharacterControllOff();
         }
 
-
         #endregion
-
 
     }
 }

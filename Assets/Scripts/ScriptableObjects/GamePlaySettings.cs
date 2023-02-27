@@ -11,5 +11,6 @@ namespace Dragoraptor
         public float NoJumpPowerIndicatorLength;
         public float MaxJumpPowerIndicatorLength;
         public float WalkSpeed;
+        public Vector2 CharacterSpawnPosition;
     }
 }
