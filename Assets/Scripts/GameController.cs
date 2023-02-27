@@ -17,6 +17,10 @@ namespace Dragoraptor
 
         private void Start()
         {
+#if UNITY_EDITOR
+            UnityEditor.AssetDatabase.SaveAssets();
+#endif
+
             CameraFitter.FitCamera();
 
             _controllers = new Controllers(DefaultGamePlaySettings);
