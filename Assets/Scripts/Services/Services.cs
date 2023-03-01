@@ -32,6 +32,7 @@ namespace Dragoraptor
         public GameStateManager GameStateManager { get; private set; }
         public UiManager UiManager { get; private set; }
         public GameProgress GameProgress { get; private set; }
+        public ObjectPool ObjectPool { get; private set; }
 
         #endregion
 
@@ -44,6 +45,7 @@ namespace Dragoraptor
             GameStateManager = new GameStateManager();
             UiManager = new UiManager();
             GameProgress = new GameProgress();
+            ObjectPool = new ObjectPool();
 
             GameStateManager.SetUiManager(UiManager);
         }

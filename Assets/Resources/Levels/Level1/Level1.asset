@@ -15,3 +15,4 @@ MonoBehaviour:
   LevelNumber: 1
   GroundPrefab: {fileID: 317694793326652323, guid: 6a9d8886edd87c147b5cd6f69639281e, type: 3}
   BackgroundPrefab: {fileID: 7493370335623808135, guid: c81d237c36ec08540b31688e32121579, type: 3}
+  SpawnRule: {fileID: 11400000, guid: dd20c7d6881f7b340a3d11ee2353d3bb, type: 2}

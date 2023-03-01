@@ -10,5 +10,6 @@ namespace Dragoraptor
         public int LevelNumber;
         public GameObject GroundPrefab;
         public GameObject BackgroundPrefab;
+        public NpcSpawnRule SpawnRule;
     }
 }
