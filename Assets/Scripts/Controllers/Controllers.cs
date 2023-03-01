@@ -45,13 +45,17 @@ namespace Dragoraptor
 
             PlayerCharacterController playerCharacterController = new PlayerCharacterController(characterStateHolder, 
                 gamePlaySettings, touchInputController, bodyUsers);
+            TimeRemainingController timeRemainingController = new TimeRemainingController();
 
             _executeControllers = new IExecutable[]
             {
                 touchInputController,
                 walkController,
                 jumpPainter,
-                flightObserver
+                flightObserver,
+
+
+                timeRemainingController
             };
 
             SceneController sceneController = new SceneController();
