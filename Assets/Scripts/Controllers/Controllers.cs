@@ -45,6 +45,8 @@ namespace Dragoraptor
 
             PlayerCharacterController playerCharacterController = new PlayerCharacterController(characterStateHolder, 
                 gamePlaySettings, touchInputController, bodyUsers);
+
+            NpcManager npcManager = new NpcManager();
             TimeRemainingController timeRemainingController = new TimeRemainingController();
 
             _executeControllers = new IExecutable[]
@@ -53,6 +55,7 @@ namespace Dragoraptor
                 walkController,
                 jumpPainter,
                 flightObserver,
+                npcManager,
 
 
                 timeRemainingController
@@ -60,7 +63,7 @@ namespace Dragoraptor
 
             SceneController sceneController = new SceneController();
 
-            Services.Instance.GameStateManager.SetControllers(playerCharacterController, sceneController);
+            Services.Instance.GameStateManager.SetControllers(playerCharacterController, sceneController, npcManager);
 
         }
 

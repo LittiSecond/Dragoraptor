@@ -16,15 +16,15 @@ MonoBehaviour:
   - {fileID: 4124025395643009865, guid: f810b8292ae3b4645b10401e272f9d47, type: 3}
   - {fileID: 7507418633683498011, guid: 6075bdfb8b27ca84ebf88a66dc32b6c3, type: 3}
   SpawnDatas:
-  - Index: 0
+  - PrefabIndex: 0
     Time: 5
     SpawnPosition: {x: -2, y: 1}
-  - Index: 1
+  - PrefabIndex: 1
     Time: 7
     SpawnPosition: {x: 2, y: -1}
-  - Index: 0
+  - PrefabIndex: 0
     Time: 10
     SpawnPosition: {x: -2, y: -1}
-  - Index: 1
+  - PrefabIndex: 1
     Time: 14
     SpawnPosition: {x: 2, y: 3}

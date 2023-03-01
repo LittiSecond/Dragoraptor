@@ -3,8 +3,29 @@
 
 namespace Dragoraptor
 {
-    public class NpcBaseLogick : PooledObject
+    public class NpcBaseLogick : PooledObject, IExecutable
     {
+
+
+
+        #region Methods
+
+        public virtual void DestroyItSelf()
+        {
+
+        }
+
+        #endregion
+
+
+        #region IExecutable
+
+        public void Execute()
+        {
+
+        }
+
+        #endregion
 
     }
 }
