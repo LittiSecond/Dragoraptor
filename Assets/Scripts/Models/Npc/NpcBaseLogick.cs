@@ -12,7 +12,7 @@ namespace Dragoraptor
 
         public virtual void DestroyItSelf()
         {
-
+            ReturnToPool();
         }
 
         #endregion
