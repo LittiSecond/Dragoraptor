@@ -22,6 +22,7 @@ namespace Dragoraptor
             _movement = new Bird1Movement(transform, _rigidbody, _direction);
             AddExecutable(_movement);
             AddInitializable(_movement);
+            AddCleanable(_movement);
         }
 
         #endregion

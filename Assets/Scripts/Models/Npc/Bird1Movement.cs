@@ -3,7 +3,7 @@
 
 namespace Dragoraptor
 {
-    sealed class Bird1Movement : IExecutable, IInitializable
+    sealed class Bird1Movement : IExecutable, IInitializable, ICleanable
     {
         #region Fields
 
@@ -100,6 +100,17 @@ namespace Dragoraptor
                 _destination = _way[_nexWayPointIndex];
                 SetFlightDirection(_destination);
             }
+        }
+
+        #endregion
+
+
+        #region ICleanable
+
+        public void Clear()
+        {
+            _haveWay = false;
+            _way = null;
         }
 
         #endregion

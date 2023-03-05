@@ -17,6 +17,7 @@ namespace Dragoraptor
 
         private readonly List<IExecutable> _executeList = new List<IExecutable>();
         private readonly List<IInitializable> _initializeList = new List<IInitializable>();
+        private readonly List<ICleanable> _clearList = new List<ICleanable>();
 
         protected bool _isEnabled;
 
@@ -37,6 +38,11 @@ namespace Dragoraptor
 
         public virtual void DestroyItSelf()
         {
+            for (int i = 0; i < _clearList.Count; i++)
+            {
+                _clearList[i].Clear();
+            }
+
             _isEnabled = false;
             OnDestroy?.Invoke(this);
             ReturnToPool();
@@ -59,6 +65,11 @@ namespace Dragoraptor
         protected void AddInitializable(IInitializable initializable)
         {
             _initializeList.Add(initializable);
+        }
+
+        protected void AddCleanable(ICleanable cleanable)
+        {
+            _clearList.Add(cleanable);
         }
 
         public virtual void SetAdditionalData(NpcData additionalData)
