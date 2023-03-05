@@ -10,7 +10,7 @@ namespace Dragoraptor
         private PlayerBody _playerBody;
         private Transform _transform;
 
-        bool _isDirectionRight;
+        private Direction _direction;
 
         #endregion
 
@@ -19,22 +19,22 @@ namespace Dragoraptor
 
         public void SetTouchPosition(Vector2 position)
         {
-            bool isRight = _transform.position.x > position.x;
-            SetBodyDirection(isRight);
+            Direction direction = (_transform.position.x > position.x) ? Direction.Rigth : Direction.Left;
+            SetBodyDirection(direction);
         }
 
         public void SetDistination(Vector2 position)
         {
-            bool isRight = _transform.position.x < position.x;
-            SetBodyDirection(isRight);
+            Direction direction = (_transform.position.x < position.x)? Direction.Rigth : Direction.Left;
+            SetBodyDirection(direction);
         }
 
-        private void SetBodyDirection(bool isRight)
+        private void SetBodyDirection(Direction direction)
         {
-            if (isRight != _isDirectionRight)
+            if (direction != _direction)
             {
-                _isDirectionRight = isRight;
-                _playerBody.SetDirectionIsRight(_isDirectionRight);
+                _direction = direction;
+                _playerBody.SetDirection(_direction);
             }
         }
 

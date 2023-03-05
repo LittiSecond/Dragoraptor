@@ -16,7 +16,7 @@ namespace Dragoraptor
 
         public event Action OnGroundContact;
 
-        private bool _isDirectionRight;
+        private Direction _direction;
 
         #endregion
 
@@ -36,7 +36,7 @@ namespace Dragoraptor
 
         private void OnEnable()
         {
-            _isDirectionRight = _bodySpriteRenderer.flipX;
+            _direction = (_bodySpriteRenderer.flipX)? Direction.Rigth : Direction.Left;
         }
 
         #endregion
@@ -59,12 +59,12 @@ namespace Dragoraptor
             return _bodyAnimator;
         }
 
-        public void SetDirectionIsRight(bool isRight)
+        public void SetDirection(Direction direction)
         {
-            if (_isDirectionRight != isRight)
+            if (_direction != direction)
             {
-                _isDirectionRight = isRight;
-                _bodySpriteRenderer.flipX = _isDirectionRight;
+                _direction = direction;
+                _bodySpriteRenderer.flipX = _direction == Direction.Rigth;
             }
         }
 
