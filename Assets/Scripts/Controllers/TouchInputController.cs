@@ -11,7 +11,7 @@ namespace Dragoraptor
         private readonly WalkController _walkController;
         private readonly JumpController _jumpController;
         private readonly JumpPainter _jumpPainter;
-        private readonly HorizontalDirection _horizontalDirection;
+        private readonly PlayerHorizontalDirection _horizontalDirection;
 
         private CharacterState _state;
 
@@ -22,7 +22,7 @@ namespace Dragoraptor
 
         #region ClassLifeCycles
 
-        public TouchInputController(CharacterStateHolder csh, WalkController wc, JumpController jk, JumpPainter jp, HorizontalDirection hd )
+        public TouchInputController(CharacterStateHolder csh, WalkController wc, JumpController jk, JumpPainter jp, PlayerHorizontalDirection hd )
         {
             csh.OnStateChanged += OnStateChanged;
             _walkController = wc;

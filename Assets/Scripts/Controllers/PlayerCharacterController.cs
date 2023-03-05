@@ -55,6 +55,7 @@ namespace Dragoraptor
             _playerGO.transform.position = _spawnPosition;
             _playerGO.SetActive(true);
             _stateHolder.SetState(CharacterState.Idle);
+            Services.Instance.CharacterIntermediary.SetPlayerCharacterTransform(_playerGO.transform);
         }
 
         public void CharacterControllOn()
@@ -75,6 +76,7 @@ namespace Dragoraptor
             {
                 CharacterControllOff();
             }
+            Services.Instance.CharacterIntermediary.SetPlayerCharacterTransform(null);
             _playerGO.SetActive(false);
         }
 

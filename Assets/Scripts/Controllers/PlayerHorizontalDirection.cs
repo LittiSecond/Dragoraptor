@@ -3,7 +3,7 @@
 
 namespace Dragoraptor
 {
-    public sealed class HorizontalDirection : IBodyUser
+    public sealed class PlayerHorizontalDirection : IBodyUser
     {
         #region Fields
 

@@ -10,7 +10,6 @@ namespace Dragoraptor
         private readonly Transform _transform;
         private readonly Rigidbody2D _rigidbody;
         private readonly NpcBaseDirection _visualDirection;
-        private Rect _area;
 
         private Vector2[] _way; 
 
@@ -32,7 +31,6 @@ namespace Dragoraptor
         {
             _transform = transform;
             _rigidbody = rigidbody;
-            _area = Services.Instance.SceneGeometry.GetVisibleArea();
             _visualDirection = direction;
         }
 
