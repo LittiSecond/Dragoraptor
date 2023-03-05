@@ -61,6 +61,11 @@ namespace Dragoraptor
             _initializeList.Add(initializable);
         }
 
+        public virtual void SetAdditionalData(NpcData additionalData)
+        {
+
+        }
+
         #endregion
 
 

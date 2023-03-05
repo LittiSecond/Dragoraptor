@@ -12,15 +12,15 @@ namespace Dragoraptor
         private readonly NpcBaseDirection _visualDirection;
         private Rect _area;
 
-        private Vector2[] _way = new Vector2[]
-            { new Vector2(-1.0f, -1.0f), new Vector2(1.0f, -1.0f),  new Vector2(2.0f, 0.0f),
-              new Vector2(1.0f, 1.0f),   new Vector2(-1.0f, 1.0f),  new Vector2(-2.0f, 0.0f)  };
+        private Vector2[] _way; 
 
         private Vector2 _destination;
 
         private float _arrivalDistanceSqr = 0.01f;
         private float _speed = 1.0f;
         private int _nexWayPointIndex;
+
+        private bool _haveWay;
 
         #endregion
 
@@ -38,22 +38,35 @@ namespace Dragoraptor
 
         private void SetFlightDirection(Vector2 destination)
         {
-            Vector2 position = _transform.position;
-            Vector2 direction = destination - position;
-            direction.Normalize();
-            Vector2 newVelocity = direction * _speed;
-            _rigidbody.velocity = newVelocity;
-            _visualDirection.IsDirectionToLeft = (direction.x < 0.0f);
+            if (_haveWay)
+            {
+                Vector2 position = _transform.position;
+                Vector2 direction = destination - position;
+                direction.Normalize();
+                Vector2 newVelocity = direction * _speed;
+                _rigidbody.velocity = newVelocity;
+                _visualDirection.IsDirectionToLeft = (direction.x < 0.0f);
+            }
         }
 
         private void SelectNewDestination()
         {
-            _nexWayPointIndex++;
-            if (_nexWayPointIndex >= _way.Length)
+            if (_haveWay)
             {
-                _nexWayPointIndex = 0;
+                _nexWayPointIndex++;
+                if (_nexWayPointIndex >= _way.Length)
+                {
+                    _nexWayPointIndex = 0;
+                }
+                _destination = _way[_nexWayPointIndex];
             }
-            _destination = _way[_nexWayPointIndex];
+        }
+
+        public void SetWay(Vector2[] way)
+        {
+            _way = way;
+            _haveWay = _way != null;
+            _nexWayPointIndex = 0;
         }
 
         #endregion
@@ -63,11 +76,14 @@ namespace Dragoraptor
 
         public void Execute()
         {
-            Vector2 direction = _destination - (Vector2)_transform.position;
-            if (direction.sqrMagnitude <= _arrivalDistanceSqr)
+            if (_haveWay)
             {
-                SelectNewDestination();
-                SetFlightDirection(_destination);
+                Vector2 direction = _destination - (Vector2)_transform.position;
+                if (direction.sqrMagnitude <= _arrivalDistanceSqr)
+                {
+                    SelectNewDestination();
+                    SetFlightDirection(_destination);
+                }
             }
         }
 
@@ -79,8 +95,11 @@ namespace Dragoraptor
         public void Initialize()
         {
             _nexWayPointIndex = 0;
-            _destination = _way[_nexWayPointIndex];
-            SetFlightDirection(_destination);
+            if (_haveWay)
+            {
+                _destination = _way[_nexWayPointIndex];
+                SetFlightDirection(_destination);
+            }
         }
 
         #endregion

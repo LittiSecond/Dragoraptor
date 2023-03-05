@@ -10,5 +10,6 @@ namespace Dragoraptor
         public int PrefabIndex;
         public float Time;
         public Vector2 SpawnPosition;
+        public NpcData Data;
     }
 }

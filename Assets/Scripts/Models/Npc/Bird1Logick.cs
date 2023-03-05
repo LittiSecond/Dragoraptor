@@ -25,5 +25,20 @@ namespace Dragoraptor
         }
 
         #endregion
+
+
+        #region Methods
+
+        public override void SetAdditionalData(NpcData additionalData)
+        {
+            NpcDataWay data = additionalData as NpcDataWay;
+            if (data != null)
+            {
+                _movement.SetWay(data.Way);
+            }
+        }
+
+        #endregion
+
     }
 }
