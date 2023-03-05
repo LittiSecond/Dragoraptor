@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System;
 using System.Collections.Generic;
 
 
@@ -12,6 +13,7 @@ namespace Dragoraptor
         private readonly List<NpcBaseLogick> _npcList;
         private readonly List<string> _npcTypes;
         private NpcSpawnRule _spawnRule;
+        private Action<NpcBaseLogick> _onDestroyListener;
 
         private float _timeCounter;
         private float _nextSpawnTime;
@@ -26,10 +28,11 @@ namespace Dragoraptor
 
         #region ClassLifeCycles
 
-        public NpcSpawner(List<NpcBaseLogick> list)
+        public NpcSpawner(List<NpcBaseLogick> list, Action<NpcBaseLogick> onDestroyListener)
         {
             _npcList = list;
             _npcTypes = new List<string>();
+            _onDestroyListener = onDestroyListener;
         }
 
         #endregion
@@ -90,7 +93,9 @@ namespace Dragoraptor
                 if (npc != null)
                 {
                     npc.transform.position = position;
+                    npc.OnDestroy += _onDestroyListener;
                     _npcList.Add(npc);
+                    npc.Initialize();
                 }
             }
         }

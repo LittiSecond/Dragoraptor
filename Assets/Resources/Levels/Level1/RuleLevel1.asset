@@ -21,10 +21,10 @@ MonoBehaviour:
     SpawnPosition: {x: -2, y: 1}
   - PrefabIndex: 1
     Time: 7
-    SpawnPosition: {x: 2, y: -1}
+    SpawnPosition: {x: -2, y: -1}
   - PrefabIndex: 0
     Time: 10
-    SpawnPosition: {x: -2, y: -1}
+    SpawnPosition: {x: 2, y: -1}
   - PrefabIndex: 1
     Time: 14
     SpawnPosition: {x: 2, y: 3}

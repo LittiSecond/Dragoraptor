@@ -54,7 +54,7 @@ namespace Dragoraptor
                     string type = pooledObject.Type;
 
                     int index = GetIndexGroupOfType(type);
-                    if (index > CODE_NOT_EXIST_TYPE)
+                    if (index != CODE_NOT_EXIST_TYPE)
                     {
                         if (_objectsGroupsList[index].ObjectsList.Contains(pooledObject))
                         {

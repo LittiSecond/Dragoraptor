@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using System.Collections.Generic;
 
 
 namespace Dragoraptor
@@ -19,21 +17,16 @@ namespace Dragoraptor
         #endregion
 
 
-        #region Properties
-
-        #endregion
-
-
         #region ClassLifeCycles
 
         public NpcManager()
         {
             _npcOnField = new List<NpcBaseLogick>();
-            _npcSpawner = new NpcSpawner(_npcOnField);
+            _npcSpawner = new NpcSpawner(_npcOnField, OnDestroyNpc);
+            _isNpcLogickEnabled = true;
         }
 
         #endregion
-
 
 
         #region Methods
@@ -84,6 +77,7 @@ namespace Dragoraptor
         {
             for (int i = _npcOnField.Count - 1; i >= 0; i--)
             {
+                _npcOnField[i].OnDestroy -= OnDestroyNpc;
                 _npcOnField[i].DestroyItSelf();
             }
             _npcOnField.Clear();
@@ -105,6 +99,12 @@ namespace Dragoraptor
             {
                 _npcOnField[i].Execute();
             }
+        }
+
+        private void OnDestroyNpc(NpcBaseLogick npc)
+        {
+            _npcOnField.Remove(npc);
+            npc.OnDestroy -= OnDestroyNpc;
         }
 
         #endregion

@@ -285,3 +285,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _type: ShipType3
+  _rigidbody: {fileID: 8391501246653431724}
+  _collider: {fileID: 8391501246653431725}

@@ -190,3 +190,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _type: Bird1
+  _rigidbody: {fileID: 1685298128440692021}
+  _collider: {fileID: 1685298128440692022}
+  _mainSprite: {fileID: 1685298126919530068}
