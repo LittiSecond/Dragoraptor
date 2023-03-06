@@ -5,16 +5,18 @@ using System.Collections.Generic;
 
 namespace Dragoraptor
 {
-    public class NpcBaseLogick : PooledObject, IExecutable
+    public class NpcBaseLogick : PooledObject, IExecutable, ITakeDamag
     {
         #region Fields
 
         [SerializeField] protected Rigidbody2D _rigidbody;
         [SerializeField] protected Collider2D _collider;
         [SerializeField] protected SpriteRenderer _mainSprite;
+        [SerializeField] private int _maxHealth;
 
         public event Action<NpcBaseLogick> OnDestroy;
 
+        private NpcHealth _health;
         private readonly List<IExecutable> _executeList = new List<IExecutable>();
         private readonly List<IInitializable> _initializeList = new List<IInitializable>();
         private readonly List<ICleanable> _clearList = new List<ICleanable>();
@@ -28,7 +30,9 @@ namespace Dragoraptor
 
         protected virtual void Awake()
         {
-
+            _health = new NpcHealth(_maxHealth);
+            _health.OnHealthEnd += OnHealthEnd;
+            _initializeList.Add(_health);
         }
 
         #endregion
@@ -77,6 +81,11 @@ namespace Dragoraptor
 
         }
 
+        private void OnHealthEnd()
+        {
+            DestroyItSelf();
+        }
+
         #endregion
 
 
@@ -91,6 +100,16 @@ namespace Dragoraptor
                     _executeList[i].Execute();
                 }
             }
+        }
+
+        #endregion
+
+
+        #region ITakeDamag
+
+        public void TakeDamage(int amount)
+        {
+            _health.TakeDamage(amount);
         }
 
         #endregion
