@@ -16,6 +16,7 @@
             base.Awake();
             _movement = new ShipType3Movement(transform, _rigidbody);
             AddExecutable(_movement);
+            AddCleanable(_movement);
         }
 
         #endregion

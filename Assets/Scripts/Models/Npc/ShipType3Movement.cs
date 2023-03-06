@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Dragoraptor
 {
-    public sealed class ShipType3Movement : IExecutable
+    public sealed class ShipType3Movement : IExecutable, ICleanable
     {
         #region Fields
 
@@ -17,8 +17,6 @@ namespace Dragoraptor
         private float _verticalSpeed = 0.1f;
         private float _minY = -1.0f;
         private float _maxXError = 0.1f;
-
-        private Direction _currentDirection;
 
         #endregion
 
@@ -85,5 +83,15 @@ namespace Dragoraptor
 
         #endregion
 
+
+        #region ICleanable
+
+        public void Clear()
+        {
+            _rigidbody.velocity = Vector3.zero;
+            _velocity = Vector3.zero;
+        }
+
+        #endregion
     }
 }
