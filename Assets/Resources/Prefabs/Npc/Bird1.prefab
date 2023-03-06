@@ -193,3 +193,4 @@ MonoBehaviour:
   _rigidbody: {fileID: 1685298128440692021}
   _collider: {fileID: 1685298128440692022}
   _mainSprite: {fileID: 1685298126919530068}
+  _maxHealth: 20

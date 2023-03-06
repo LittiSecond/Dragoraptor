@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 
 namespace Dragoraptor
@@ -6,6 +7,8 @@ namespace Dragoraptor
     public sealed class PlayerHorizontalDirection : IBodyUser
     {
         #region Fields
+
+        public event Action<Direction> OnDirectionChanged;
 
         private PlayerBody _playerBody;
         private Transform _transform;
@@ -35,6 +38,7 @@ namespace Dragoraptor
             {
                 _direction = direction;
                 _playerBody.SetDirection(_direction);
+                OnDirectionChanged?.Invoke(_direction);
             }
         }
 
