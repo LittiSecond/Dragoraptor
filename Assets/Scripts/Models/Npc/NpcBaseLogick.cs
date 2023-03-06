@@ -12,6 +12,7 @@ namespace Dragoraptor
         [SerializeField] protected Rigidbody2D _rigidbody;
         [SerializeField] protected Collider2D _collider;
         [SerializeField] protected SpriteRenderer _mainSprite;
+        [SerializeField] private HpIndicator _hpIndicator;
         [SerializeField] private int _maxHealth;
 
         public event Action<NpcBaseLogick> OnDestroy;
@@ -33,6 +34,14 @@ namespace Dragoraptor
             _health = new NpcHealth(_maxHealth);
             _health.OnHealthEnd += OnHealthEnd;
             _initializeList.Add(_health);
+        }
+
+        protected virtual void Start()
+        {
+            if (_hpIndicator)
+            {
+                _hpIndicator.SetIHealth(_health);
+            }
         }
 
         #endregion

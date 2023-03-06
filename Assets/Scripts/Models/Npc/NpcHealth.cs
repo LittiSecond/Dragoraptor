@@ -3,7 +3,7 @@
 
 namespace Dragoraptor
 {
-    public sealed class NpcHealth : ITakeDamag, IInitializable
+    public sealed class NpcHealth : ITakeDamag, IInitializable, IHealth
     {
         #region Fields
 
