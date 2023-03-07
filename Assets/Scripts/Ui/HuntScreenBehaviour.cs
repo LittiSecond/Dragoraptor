@@ -13,6 +13,7 @@ namespace Dragoraptor.Ui
         [SerializeField] private Button _continueButton;
         [SerializeField] private Button _breakHuntButton;
         [SerializeField] private GameObject _menu;
+        [SerializeField] private UiResourceIndicator _hpIndicator;
 
 
         private bool _isMenuOpen;
@@ -28,6 +29,7 @@ namespace Dragoraptor.Ui
             _continueButton.onClick.AddListener(ContinueButtonClick);
             _breakHuntButton.onClick.AddListener(BreakButtonClick);
             HideMenu();
+            Debug.Log("HuntScreenBehaviour->Start:");
         }
 
         #endregion
@@ -68,6 +70,11 @@ namespace Dragoraptor.Ui
         {
             _menu.SetActive(true);
             _isMenuOpen = true;
+        }
+
+        public UiResourceIndicator GetHpIndicator()
+        {
+            return _hpIndicator;
         }
 
         #endregion

@@ -13,6 +13,7 @@ namespace Dragoraptor
         public float WalkSpeed;
         public Vector2 CharacterSpawnPosition;
         public int AttackPower;
+        public int MaxHealth;
         public AttackAreasPack AttackAreas;
     }
 }

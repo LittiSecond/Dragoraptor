@@ -11,6 +11,7 @@ namespace Dragoraptor
 
         private readonly CharacterStateHolder _stateHolder;
         private readonly TouchInputController _touchInputController;
+        private readonly PlayerHealth _playerHealth;
         private GameObject _playerGO;
         private PlayerBody _playerBody;
 
@@ -20,17 +21,21 @@ namespace Dragoraptor
 
         private bool _haveCharacterBody;
         private bool _isCharacterControllEnabled;
+        private bool _isUiConnected;
 
         #endregion
 
 
         #region ClassLifeCycles
 
-        public PlayerCharacterController( CharacterStateHolder csh, GamePlaySettings gps, TouchInputController tic, IBodyUser[] bu)
+        public PlayerCharacterController( CharacterStateHolder csh, GamePlaySettings gps, TouchInputController tic, 
+            PlayerHealth ph, IBodyUser[] bu)
         {
             _stateHolder = csh;
             _spawnPosition = gps.CharacterSpawnPosition;
             _touchInputController = tic;
+            _playerHealth = ph;
+            _playerHealth.OnHealthEnd += OnHealthEnd;
             _bodyUsers = bu;
         }
 
@@ -54,6 +59,7 @@ namespace Dragoraptor
 
             _playerGO.transform.position = _spawnPosition;
             _playerGO.SetActive(true);
+            _playerHealth.ResetHealth();
             _stateHolder.SetState(CharacterState.Idle);
             Services.Instance.CharacterIntermediary.SetPlayerCharacterTransform(_playerGO.transform);
         }
@@ -80,13 +86,17 @@ namespace Dragoraptor
             _playerGO.SetActive(false);
         }
 
+        public void OnHealthEnd()
+        {
+            Services.Instance.GameStateManager.CharacterKilled();
+        }
+
         private void InstantiateCharacter()
         {
             GameObject prefab = PrefabLoader.GetPrefab(CHARACTER_PREFAB_ID);
             _playerGO = GameObject.Instantiate(prefab);
             _playerBody = _playerGO.GetComponent<PlayerBody>();
         }
-
 
         #endregion
 

@@ -85,6 +85,11 @@ namespace Dragoraptor
             }
         }
 
+        public void CharacterKilled()
+        {
+            SwitchToMainScreen();
+        }
+
         private void ActivateCharacterControll()
         {
             _characterController.CharacterControllOn();

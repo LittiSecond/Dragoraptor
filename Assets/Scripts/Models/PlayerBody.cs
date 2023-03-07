@@ -4,7 +4,7 @@ using System;
 
 namespace Dragoraptor
 {
-    public sealed class PlayerBody : MonoBehaviour
+    public sealed class PlayerBody : MonoBehaviour, ITakeDamag
     {
         #region Fields
 
@@ -17,6 +17,7 @@ namespace Dragoraptor
         public event Action OnGroundContact;
 
         private Direction _direction;
+        private ITakeDamag _damagReceiver;
 
         #endregion
 
@@ -66,6 +67,21 @@ namespace Dragoraptor
                 _direction = direction;
                 _bodySpriteRenderer.flipX = _direction == Direction.Rigth;
             }
+        }
+
+        public void SetDamagReceiver(ITakeDamag takeDamag)
+        {
+            _damagReceiver = takeDamag;
+        }
+
+        #endregion
+
+
+        #region ITakeDamag
+
+        public void TakeDamage(int amount)
+        {
+            _damagReceiver?.TakeDamage(amount);
         }
 
         #endregion

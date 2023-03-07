@@ -30,6 +30,7 @@ namespace Dragoraptor
             AnimationController animationController = new AnimationController(characterStateHolder);
             PlayerHorizontalDirection horizontalDirection = new PlayerHorizontalDirection();
             AttackController attackController = new AttackController(characterStateHolder, gamePlaySettings, horizontalDirection);
+            PlayerHealth playerHealth = new PlayerHealth(gamePlaySettings);
 
             TouchInputController touchInputController = new TouchInputController(characterStateHolder, 
                 walkController, jumpController, jumpPainter, horizontalDirection, attackController);
@@ -42,11 +43,12 @@ namespace Dragoraptor
                 flightObserver,
                 animationController, 
                 horizontalDirection,
-                attackController
+                attackController,
+                playerHealth
             };
 
             PlayerCharacterController playerCharacterController = new PlayerCharacterController(characterStateHolder, 
-                gamePlaySettings, touchInputController, bodyUsers);
+                gamePlaySettings, touchInputController, playerHealth, bodyUsers);
 
             NpcManager npcManager = new NpcManager();
             TimeRemainingController timeRemainingController = new TimeRemainingController();

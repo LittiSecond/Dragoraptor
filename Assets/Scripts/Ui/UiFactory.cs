@@ -60,6 +60,16 @@ namespace Dragoraptor.Ui
             return _huntScreen;
         }
 
+        public UiResourceIndicator GetHpIndicator()
+        {
+            if (_huntScreen == null)
+            {
+                GetHuntScreen();
+            }
+
+            return _huntScreen.GetHpIndicator();
+        }
+
         #endregion
 
     }

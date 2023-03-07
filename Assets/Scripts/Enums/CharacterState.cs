@@ -7,6 +7,7 @@
         Walk        = 2,
         PrepareJump = 3,
         FliesUp     = 4,
-        FliesDown   = 5
+        FliesDown   = 5,
+        Death       = 6
     }
 }
