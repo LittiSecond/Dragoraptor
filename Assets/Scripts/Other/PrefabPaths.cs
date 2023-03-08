@@ -16,7 +16,10 @@ namespace Dragoraptor
             },
             {
                 "PlayerCharacter", "Prefabs/PlayerCharacter"
-            }
+            },
+            {
+                "StoneBall", "Prefabs/Bullets/StoneBall"
+            },
         };
     }
 }

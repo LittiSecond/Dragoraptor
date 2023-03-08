@@ -29,7 +29,6 @@ namespace Dragoraptor.Ui
             _continueButton.onClick.AddListener(ContinueButtonClick);
             _breakHuntButton.onClick.AddListener(BreakButtonClick);
             HideMenu();
-            Debug.Log("HuntScreenBehaviour->Start:");
         }
 
         #endregion
