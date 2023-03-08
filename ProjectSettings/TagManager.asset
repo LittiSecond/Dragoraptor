@@ -16,8 +16,8 @@ TagManager:
   - Borders
   - Player
   - Npc
-  - BulletT2
-  - 
+  - BulletPhisic
+  - BulletTrigger
   - 
   - 
   - 

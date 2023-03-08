@@ -49,6 +49,7 @@ namespace Dragoraptor
                 {
                     _fadingLogick.StartFading();
                     _isFadingEnabled = false;
+                    _isDamagEnabled = false;
                 }
             }
         }
