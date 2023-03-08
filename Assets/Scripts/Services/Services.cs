@@ -32,7 +32,7 @@ namespace Dragoraptor
         public GameStateManager GameStateManager { get; private set; }
         public UiManager UiManager { get; private set; }
         public GameProgress GameProgress { get; private set; }
-        public ObjectPool ObjectPool { get; private set; }
+        public ObjectPool2 ObjectPool { get; private set; }
         public CharacterIntermediary CharacterIntermediary { get; private set; }
         public UiFactory UiFactory { get; private set; }
 
@@ -47,7 +47,7 @@ namespace Dragoraptor
             GameStateManager = new GameStateManager();
             UiManager = new UiManager();
             GameProgress = new GameProgress();
-            ObjectPool = new ObjectPool();
+            ObjectPool = new ObjectPool2();
             CharacterIntermediary = new CharacterIntermediary();
             UiFactory = new UiFactory();
 

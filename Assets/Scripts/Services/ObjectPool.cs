@@ -66,7 +66,7 @@ namespace Dragoraptor
             }
         }
 
-        public PooledObject GetObjectOfType(string type)
+        public virtual PooledObject GetObjectOfType(string type)
         {
             if (string.IsNullOrEmpty(type))
             {
@@ -76,6 +76,7 @@ namespace Dragoraptor
             PooledObject obj = null;
 
             int index = GetIndexGroupOfType(type);
+
             if (index != CODE_NOT_EXIST_TYPE)
             {
                 ObjGroup group = _objectsGroupsList[index];
@@ -107,17 +108,6 @@ namespace Dragoraptor
             return obj;
         }
 
-        public void PrepareObjects(PooledObject[] prefabs )
-        {
-            if (prefabs != null)
-            {
-                for (int i = 0; i < prefabs.Length; i++)
-                {
-                    PrepareObject(prefabs[i]);
-                }
-            }
-        }
-
         public void PrepareObject(PooledObject prefab)
         {
             if (prefab)
@@ -130,6 +120,12 @@ namespace Dragoraptor
                     _objectsGroupsList.Add(group);
                 }
             }
+        }
+
+        public bool CheckIfTypeContains(string type)
+        {
+            int index = GetIndexGroupOfType(type);
+            return index != CODE_NOT_EXIST_TYPE;
         }
 
         public void Clear()
