@@ -71,6 +71,7 @@ namespace Dragoraptor
         {
             if (_isLevelActive)
             {
+                Services.Instance.ObjectPool.ReturnAllToPool();
                 _ground.SetActive(false);
                 _backGround.SetActive(false);
                 _isLevelActive = false;
