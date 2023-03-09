@@ -9,6 +9,8 @@ namespace Dragoraptor
 
         private const string CHARACTER_PREFAB_ID = "PlayerCharacter";
 
+        private const float CHARACTER_DEATH_DELAY = 5.0f;
+
         private readonly CharacterStateHolder _stateHolder;
         private readonly TouchInputController _touchInputController;
         private readonly PlayerHealth _playerHealth;
@@ -19,9 +21,11 @@ namespace Dragoraptor
 
         private Vector2 _spawnPosition;
 
+        private ITimeRemaining _timer;
+
         private bool _haveCharacterBody;
         private bool _isCharacterControllEnabled;
-        private bool _isUiConnected;
+        private bool _isTiming;
 
         #endregion
 
@@ -84,11 +88,24 @@ namespace Dragoraptor
             }
             Services.Instance.CharacterIntermediary.SetPlayerCharacterTransform(null);
             _playerGO.SetActive(false);
+
+            if (_isTiming)
+            {
+                _timer.RemoveTimeRemaining();
+                _isTiming = false;
+            }
         }
 
         public void OnHealthEnd()
         {
-            Services.Instance.GameStateManager.CharacterKilled();
+            CharacterControllOff();
+            _stateHolder.SetState(CharacterState.Death);
+            if (!_isTiming)
+            {
+                _timer = new TimeRemaining(OnDeathTimer, CHARACTER_DEATH_DELAY);
+                _timer.AddTimeRemaining();
+                _isTiming = true;
+            }
         }
 
         private void InstantiateCharacter()
@@ -96,6 +113,12 @@ namespace Dragoraptor
             GameObject prefab = PrefabLoader.GetPrefab(CHARACTER_PREFAB_ID);
             _playerGO = GameObject.Instantiate(prefab);
             _playerBody = _playerGO.GetComponent<PlayerBody>();
+        }
+
+        private void OnDeathTimer()
+        {
+            _isTiming = false;
+            Services.Instance.GameStateManager.CharacterKilled();
         }
 
         #endregion
