@@ -12,11 +12,14 @@ namespace Dragoraptor.Ui
         [SerializeField] private Button _settingsButton;
         [SerializeField] private Button _continueButton;
         [SerializeField] private Button _breakHuntButton;
-        [SerializeField] private GameObject _menu;
+        [SerializeField] private Button _restartButton;
+        [SerializeField] private Button _breakDefeatButton;
+        [SerializeField] private GameObject _huntMenu;
+        [SerializeField] private GameObject _defeatMenu;
         [SerializeField] private UiResourceIndicator _hpIndicator;
 
-
-        private bool _isMenuOpen;
+        private bool _isDefeatMenuOpen;
+        private bool _isHuntMenuOpen;
 
         #endregion
 
@@ -28,7 +31,10 @@ namespace Dragoraptor.Ui
             _settingsButton.onClick.AddListener(SettingsButtonClick);
             _continueButton.onClick.AddListener(ContinueButtonClick);
             _breakHuntButton.onClick.AddListener(BreakButtonClick);
-            HideMenu();
+            _restartButton.onClick.AddListener(RestartButtonClick);
+            _breakDefeatButton.onClick.AddListener(BreakButtonClick);
+            HideHuntMenu();
+            HideDefeatMenu();
         }
 
         #endregion
@@ -38,40 +44,65 @@ namespace Dragoraptor.Ui
 
         private void SettingsButtonClick()
         {
-            if (_isMenuOpen)
+            if (_isHuntMenuOpen)
             {
-                HideMenu();
+                HideHuntMenu();
                 Services.Instance.GameStateManager.OnMenuClosed();
             }
             else
             {
-                ShowMenu();
+                ShowHuntMenu();
                 Services.Instance.GameStateManager.OnMenuOpened();
             }
         }
 
         private void ContinueButtonClick()
         {
-            HideMenu();
+            HideHuntMenu();
             Services.Instance.GameStateManager.OnMenuClosed();
         }
 
         private void BreakButtonClick()
         {
-            HideMenu();
+            if (_isHuntMenuOpen)
+            {
+                HideHuntMenu();
+            }
+            if (_isDefeatMenuOpen)
+            {
+                HideDefeatMenu();
+            }
             Services.Instance.GameStateManager.SwitchToMainScreen();
         }
 
-        private void HideMenu()
+        private void RestartButtonClick()
         {
-            _menu.SetActive(false);
-            _isMenuOpen = false;
+            HideDefeatMenu();
+            Services.Instance.GameStateManager.RestartHunt();
         }
 
-        private void ShowMenu()
+        private void HideHuntMenu()
         {
-            _menu.SetActive(true);
-            _isMenuOpen = true;
+            _huntMenu.SetActive(false);
+            _isHuntMenuOpen = false;
+        }
+
+        private void ShowHuntMenu()
+        {
+            _huntMenu.SetActive(true);
+            _isHuntMenuOpen = true;
+        }
+
+        private void HideDefeatMenu()
+        {
+            _defeatMenu.SetActive(false);
+            _isDefeatMenuOpen = false;
+        }
+
+        public void ShowDefeatMenu()
+        {
+            _defeatMenu.SetActive(true);
+            _isDefeatMenuOpen = true;
         }
 
         public UiResourceIndicator GetHpIndicator()

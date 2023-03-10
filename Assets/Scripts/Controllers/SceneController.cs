@@ -57,6 +57,14 @@ namespace Dragoraptor
 
         }
 
+        public void ClearTemporaryObjects()
+        {
+            if (_isLevelActive)
+            {
+                Services.Instance.ObjectPool.ReturnAllToPool();
+            }
+        }
+
         private void ActivateLevel()
         {
             if (!_isLevelActive)

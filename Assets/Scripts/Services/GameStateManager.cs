@@ -91,7 +91,7 @@ namespace Dragoraptor
 
         public void CharacterKilled()
         {
-            SwitchToMainScreen();
+            Services.Instance.UiFactory.GetHuntScreen().ShowDefeatMenu();
         }
 
         private void ActivateCharacterControll()
@@ -131,6 +131,22 @@ namespace Dragoraptor
             {
                 _isPause = true;
                 Time.timeScale = 0.0f;
+            }
+        }
+
+        public void RestartHunt()
+        {
+            if (_state == GameState.Hunt)
+            {
+                _npcManager.StopNpcSpawn();
+                _npcManager.ClearNpc();
+                DeactivateCharacterControll();
+                _characterController.RemoveCharacter();
+                _sceneController.ClearTemporaryObjects();
+
+                _characterController.CreateCharacter();
+                ActivateCharacterControll();
+                _npcManager.RestartNpcSpawn();
             }
         }
 

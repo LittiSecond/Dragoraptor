@@ -46,7 +46,6 @@ namespace Dragoraptor.Ui
             }
         }
 
-
         #endregion
     }
 }
