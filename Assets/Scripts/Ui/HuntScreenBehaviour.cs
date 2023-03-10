@@ -41,10 +41,12 @@ namespace Dragoraptor.Ui
             if (_isMenuOpen)
             {
                 HideMenu();
+                Services.Instance.GameStateManager.OnMenuClosed();
             }
             else
             {
                 ShowMenu();
+                Services.Instance.GameStateManager.OnMenuOpened();
             }
         }
 

@@ -1,4 +1,6 @@
-﻿using Dragoraptor.Ui;
+﻿using UnityEngine;
+using Dragoraptor.Ui;
+
 
 namespace Dragoraptor
 {
@@ -24,6 +26,8 @@ namespace Dragoraptor
         private NpcManager _npcManager;
 
         private GameState _state;
+
+        private bool _isPause;
 
         #endregion
 
@@ -98,6 +102,30 @@ namespace Dragoraptor
         private void DeactivateCharacterControll()
         {
             _characterController.CharacterControllOff();
+        }
+
+        public void OnMenuOpened()
+        {
+            if (_state == GameState.Hunt)
+            {
+                if (!_isPause)
+                {
+                    _isPause = true;
+                    Time.timeScale = 0.0f;
+                }
+            }
+        }
+
+        public void OnMenuClosed()
+        {
+            if (_state == GameState.Hunt)
+            {
+                if (_isPause)
+                {
+                    _isPause = false;
+                    Time.timeScale = 1.0f;
+                }
+            }
         }
 
         #endregion
