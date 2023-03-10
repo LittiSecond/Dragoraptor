@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Dragoraptor
 {
-    public sealed class Fading : MonoBehaviour
+    public sealed class Fading : MonoBehaviour, IExecutable
     {
         #region Fields
 
@@ -39,10 +39,29 @@ namespace Dragoraptor
 
         private void OnDisable()
         {
+            Services.Instance.UpdateService.RemoveFromUpdate(this);
             _renderer.color = _startColor;
+            _isFading = false;
         }
 
-        private void Update()
+        #endregion
+
+
+        #region Methods
+
+        public void StartFading()
+        {
+            _startTime = Time.time;
+            Services.Instance.UpdateService.AddToUpdate(this);
+            _isFading = true;
+        }
+
+        #endregion
+
+
+        #region IExecutable
+
+        public void Execute()
         {
             if (_isFading)
             {
@@ -55,17 +74,6 @@ namespace Dragoraptor
                     OnFadingEnd?.Invoke();
                 }
             }
-        }
-
-        #endregion
-
-
-        #region Methods
-
-        public void StartFading()
-        {
-            _startTime = Time.time;
-            _isFading = true;
         }
 
         #endregion

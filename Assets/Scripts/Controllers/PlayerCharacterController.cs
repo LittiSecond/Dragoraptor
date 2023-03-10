@@ -106,6 +106,7 @@ namespace Dragoraptor
                 _timer.AddTimeRemaining();
                 _isTiming = true;
             }
+            Services.Instance.CharacterIntermediary.SetPlayerCharacterTransform(null);
         }
 
         private void InstantiateCharacter()

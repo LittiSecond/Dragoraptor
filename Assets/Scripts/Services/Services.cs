@@ -35,6 +35,7 @@ namespace Dragoraptor
         public ObjectPool2 ObjectPool { get; private set; }
         public CharacterIntermediary CharacterIntermediary { get; private set; }
         public UiFactory UiFactory { get; private set; }
+        public UpdateService UpdateService { get; private set; }
 
         #endregion
 
@@ -50,6 +51,7 @@ namespace Dragoraptor
             ObjectPool = new ObjectPool2();
             CharacterIntermediary = new CharacterIntermediary();
             UiFactory = new UiFactory();
+            UpdateService = new UpdateService();
 
             GameStateManager.SetUiManager(UiManager);
         }

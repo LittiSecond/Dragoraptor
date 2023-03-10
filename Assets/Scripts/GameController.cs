@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 
@@ -9,6 +10,7 @@ namespace Dragoraptor
 
         [SerializeField] private GamePlaySettings DefaultGamePlaySettings;
         private Controllers _controllers;
+        private List<IExecutable> _executables;
 
         #endregion
 
@@ -17,6 +19,7 @@ namespace Dragoraptor
 
         private void Start()
         {
+            _executables = new List<IExecutable>();
 #if UNITY_EDITOR
             UnityEditor.AssetDatabase.SaveAssets();
 #endif
@@ -26,6 +29,7 @@ namespace Dragoraptor
             _controllers = new Controllers(DefaultGamePlaySettings);
 
             Services.Instance.GameStateManager.SetMainScreenAtStartGame();
+            Services.Instance.UpdateService.SetListToExecute(_executables);
         }
 
 
@@ -34,6 +38,11 @@ namespace Dragoraptor
             for (int i = 0; i < _controllers.Length; i++)
             {
                 _controllers[i].Execute();
+            }
+
+            for (int i = 0; i < _executables.Count; i++)
+            {
+                _executables[i].Execute();
             }
         }
 
