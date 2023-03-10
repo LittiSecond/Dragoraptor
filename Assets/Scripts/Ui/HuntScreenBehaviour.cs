@@ -53,6 +53,7 @@ namespace Dragoraptor.Ui
         private void ContinueButtonClick()
         {
             HideMenu();
+            Services.Instance.GameStateManager.OnMenuClosed();
         }
 
         private void BreakButtonClick()

@@ -61,7 +61,7 @@ namespace Dragoraptor
             if (_state == GameState.Hunt)
             {
                 _state = GameState.MainScreen;
-
+                SwitchPause(false);
 
                 _npcManager.StopNpcSpawn();
                 _npcManager.ClearNpc();
@@ -108,11 +108,7 @@ namespace Dragoraptor
         {
             if (_state == GameState.Hunt)
             {
-                if (!_isPause)
-                {
-                    _isPause = true;
-                    Time.timeScale = 0.0f;
-                }
+                SwitchPause(true);
             }
         }
 
@@ -120,11 +116,21 @@ namespace Dragoraptor
         {
             if (_state == GameState.Hunt)
             {
-                if (_isPause)
-                {
-                    _isPause = false;
-                    Time.timeScale = 1.0f;
-                }
+                SwitchPause(false);
+            }
+        }
+
+        private void SwitchPause(bool isPauseOn)
+        {
+            if ((_isPause == true) && (isPauseOn == false))
+            {
+                _isPause = false;
+                Time.timeScale = 1.0f;
+            }
+            else if ((_isPause == false) && (isPauseOn == true))
+            {
+                _isPause = true;
+                Time.timeScale = 0.0f;
             }
         }
 
