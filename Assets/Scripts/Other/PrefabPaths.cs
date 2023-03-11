@@ -7,7 +7,9 @@ namespace Dragoraptor
     {
         public static readonly Dictionary<string, string> Paths = new Dictionary<string, string>()
         {
-
+            {
+                "EffectBoom", "Prefabs/Effects/EffectBoom"
+            },
             {
                 "HuntScreen", "Prefabs/Ui/HuntScreen"
             },

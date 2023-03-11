@@ -8,6 +8,8 @@ namespace Dragoraptor
     {
         #region Fields
 
+        private const string HIT_VISUAL_EFFECT = "EffectBoom";
+
         private Transform _bodyTransform;
         private AttackAreasPack _attackAreas;
         private CharacterState _state;
@@ -51,6 +53,7 @@ namespace Dragoraptor
                         for (int i = 0; i < targets.Length; i++)
                         {
                             MakeDamag(targets[i]);
+                            CreateVisualHitEffect(damagedArea);
                         }
                     }
 
@@ -120,6 +123,17 @@ namespace Dragoraptor
             if (target != null)
             {
                 target.TakeDamage(_attackPower);
+            }
+        }
+
+        private void CreateVisualHitEffect(Rect area)
+        {
+            PooledObject effect = Services.Instance.ObjectPool.GetObjectOfType(HIT_VISUAL_EFFECT);
+            if (effect)
+            {
+                effect.transform.position = (Vector3)area.center;
+                IInitializable initializable = effect as IInitializable;
+                initializable?.Initialize();
             }
         }
 
