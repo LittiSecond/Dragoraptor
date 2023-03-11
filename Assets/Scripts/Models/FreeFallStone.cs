@@ -26,6 +26,11 @@ namespace Dragoraptor
 
         #region UnityMethods
 
+        private void Awake()
+        {
+            _fadingLogick.OnFadingEnd += DestroyItself;
+        }
+
         private void OnTriggerEnter2D(Collider2D collision)
         {
             GameObject other = collision.gameObject;
@@ -63,12 +68,10 @@ namespace Dragoraptor
         {
             _isDamagEnabled = true;
             _isFadingEnabled = true;
-            _fadingLogick.OnFadingEnd += DestroyItself;
         }
 
         private void DestroyItself()
         {
-            _fadingLogick.OnFadingEnd -= DestroyItself;
             ReturnToPool();
         }
 

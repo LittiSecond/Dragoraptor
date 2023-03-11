@@ -51,6 +51,13 @@ namespace Dragoraptor
 
         public virtual void DestroyItSelf()
         {
+            PrepareToReturnToPool();
+            ReturnToPool();
+        }
+
+        public override void PrepareToReturnToPool()
+        {
+            base.PrepareToReturnToPool();
             for (int i = 0; i < _clearList.Count; i++)
             {
                 _clearList[i].Clear();
@@ -58,7 +65,6 @@ namespace Dragoraptor
 
             _isEnabled = false;
             OnDestroy?.Invoke(this);
-            ReturnToPool();
         }
 
         public virtual void Initialize()

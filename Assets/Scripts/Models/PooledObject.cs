@@ -33,7 +33,7 @@ namespace Dragoraptor
             ObjectPool = op;
         }
 
-        protected virtual void ReturnToPool()
+        protected void ReturnToPool()
         {
             if (ObjectPool != null)
             {
