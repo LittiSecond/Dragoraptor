@@ -96,6 +96,11 @@ namespace Dragoraptor
 
         }
 
+        public virtual void SetAdditionalDataArray(float[] datas)
+        {
+
+        }
+
         private void OnHealthEnd()
         {
             DestroyItSelf();

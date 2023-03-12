@@ -96,10 +96,9 @@ namespace Dragoraptor
                     npc.OnDestroy += _onDestroyListener;
                     _npcList.Add(npc);
                     NpcData data = _spawnRule.SpawnDatas[_nextSpawnDataIndex].Data;
-                    if (data != null)
-                    {
-                        npc.SetAdditionalData(data);
-                    }
+                    npc.SetAdditionalData(data);
+                    float[] dataArray = _spawnRule.SpawnDatas[_nextSpawnDataIndex].FloatDatas;
+                    npc.SetAdditionalDataArray(dataArray);
                     npc.Initialize();
                 }
             }
