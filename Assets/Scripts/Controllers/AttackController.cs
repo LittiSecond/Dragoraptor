@@ -53,8 +53,8 @@ namespace Dragoraptor
                         for (int i = 0; i < targets.Length; i++)
                         {
                             MakeDamag(targets[i]);
-                            CreateVisualHitEffect(damagedArea);
                         }
+                        CreateVisualHitEffect(damagedArea);
                     }
 
                 }
