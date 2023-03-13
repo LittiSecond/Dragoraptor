@@ -7,8 +7,13 @@ namespace Dragoraptor
     {
         #region Fields
 
+        [SerializeField] private Animator _animator;
+        [SerializeField] private float _destroyDelay = 5.0f;
+
         private Bird1Movement _movement;
         private NpcBaseDirection _direction;
+        private Bird1Fall _fall;
+        private Bird1Animation _animation;
 
         #endregion
 
@@ -23,6 +28,20 @@ namespace Dragoraptor
             AddExecutable(_movement);
             AddInitializable(_movement);
             AddCleanable(_movement);
+            _fall = new Bird1Fall(_collider, _rigidbody);
+            AddCleanable(_fall);
+            _animation = new Bird1Animation(_animator);
+        }
+
+        private void OnCollisionEnter2D(Collision2D collision)
+        {
+            if (collision.gameObject.layer == (int)SceneLayer.Ground)
+            {
+                _fall.OnGroundContact();
+                _animation.SetGrounded();
+                DestroyItselfDelay(_destroyDelay);
+                _collider.enabled = false;
+            }
         }
 
         #endregion
@@ -37,6 +56,20 @@ namespace Dragoraptor
             {
                 _movement.SetWay(data.Way);
             }
+        }
+
+        protected override void OnHealthEnd()
+        {
+            _movement.StopMovementLogick();
+            _fall.StartFall();
+            _animation.SetFall();
+        }
+
+        public override void Initialize()
+        {
+            base.Initialize();
+            _animation.SetFlying();
+            _collider.enabled = true;
         }
 
         #endregion

@@ -20,6 +20,7 @@ namespace Dragoraptor
         private int _nexWayPointIndex;
 
         private bool _haveWay;
+        private bool _isEnabled;
 
         #endregion
 
@@ -67,6 +68,11 @@ namespace Dragoraptor
             _nexWayPointIndex = 0;
         }
 
+        public void StopMovementLogick()
+        {
+            _isEnabled = false;
+        }
+
         #endregion
 
 
@@ -74,7 +80,7 @@ namespace Dragoraptor
 
         public void Execute()
         {
-            if (_haveWay)
+            if (_isEnabled)
             {
                 Vector2 direction = _destination - (Vector2)_transform.position;
                 if (direction.sqrMagnitude <= _arrivalDistanceSqr)
@@ -95,6 +101,7 @@ namespace Dragoraptor
             _nexWayPointIndex = 0;
             if (_haveWay)
             {
+                _isEnabled = true;
                 _destination = _way[_nexWayPointIndex];
                 SetFlightDirection(_destination);
             }
@@ -107,6 +114,7 @@ namespace Dragoraptor
 
         public void Clear()
         {
+            _isEnabled = false;
             _haveWay = false;
             _way = null;
         }

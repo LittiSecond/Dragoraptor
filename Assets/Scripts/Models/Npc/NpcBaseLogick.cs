@@ -22,7 +22,10 @@ namespace Dragoraptor
         private readonly List<IInitializable> _initializeList = new List<IInitializable>();
         private readonly List<ICleanable> _clearList = new List<ICleanable>();
 
+        private float _destroyTimeCounter;
+
         protected bool _isEnabled;
+        private bool _isDestroyTimer;
 
         #endregion
 
@@ -55,6 +58,12 @@ namespace Dragoraptor
             ReturnToPool();
         }
 
+        protected void DestroyItselfDelay(float delay)
+        {
+            _destroyTimeCounter = delay;
+            _isDestroyTimer = true;
+        }
+
         public override void PrepareToReturnToPool()
         {
             base.PrepareToReturnToPool();
@@ -64,6 +73,7 @@ namespace Dragoraptor
             }
 
             _isEnabled = false;
+            _isDestroyTimer = false;
             OnDestroy?.Invoke(this);
         }
 
@@ -101,7 +111,7 @@ namespace Dragoraptor
 
         }
 
-        private void OnHealthEnd()
+        protected virtual void OnHealthEnd()
         {
             DestroyItSelf();
         }
@@ -111,13 +121,23 @@ namespace Dragoraptor
 
         #region IExecutable
 
-        public void Execute()
+        public virtual void Execute()
         {
             if (_isEnabled)
             {
                 for (int i = 0; i < _executeList.Count; i++)
                 {
                     _executeList[i].Execute();
+                }
+
+                if (_isDestroyTimer)
+                {
+                    _destroyTimeCounter -= Time.deltaTime;
+                    if (_destroyTimeCounter <= 0.0f)
+                    {
+                        _isDestroyTimer = false;
+                        DestroyItSelf();
+                    }
                 }
             }
         }
@@ -127,7 +147,7 @@ namespace Dragoraptor
 
         #region ITakeDamag
 
-        public void TakeDamage(int amount)
+        public virtual void TakeDamage(int amount)
         {
             _health.TakeDamage(amount);
         }
