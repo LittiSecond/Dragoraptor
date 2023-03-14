@@ -31,6 +31,37 @@ Transform:
   m_Father: {fileID: 8391501246653431727}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6746130623996887930
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4736386339536165899}
+  m_Layer: 10
+  m_Name: FlyingDamagStartPiont
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4736386339536165899
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6746130623996887930}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.67, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8391501246653431727}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8391501244731786147
 GameObject:
   m_ObjectHideFlags: 0
@@ -255,6 +286,7 @@ Transform:
   m_Children:
   - {fileID: 8391501244842507817}
   - {fileID: 9022848595490287980}
+  - {fileID: 4736386339536165899}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -322,9 +354,10 @@ MonoBehaviour:
   _collider: {fileID: 8391501246653431725}
   _mainSprite: {fileID: 8391501244842507814}
   _hpIndicator: {fileID: 5829230529815999446}
+  _flyingDamagStartPoint: {fileID: 4736386339536165899}
   _maxHealth: 500
   _bulletStartPoint: {fileID: 9022848595490287980}
-  _reloadTime: 5
+  _reloadTime: 40
   _damag: 40
 --- !u!1001 &7990530937966141327
 PrefabInstance:

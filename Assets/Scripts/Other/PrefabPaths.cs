@@ -11,6 +11,9 @@ namespace Dragoraptor
                 "EffectBoom", "Prefabs/Effects/EffectBoom"
             },
             {
+                "FlyingDamag", "Prefabs/Effects/FlyingDamag"
+            },
+            {
                 "HuntScreen", "Prefabs/Ui/HuntScreen"
             },
             {

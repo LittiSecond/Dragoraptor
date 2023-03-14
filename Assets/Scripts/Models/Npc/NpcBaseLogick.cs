@@ -13,11 +13,13 @@ namespace Dragoraptor
         [SerializeField] protected Collider2D _collider;
         [SerializeField] protected SpriteRenderer _mainSprite;
         [SerializeField] private HpIndicator _hpIndicator;
+        [SerializeField] private Transform _flyingDamagStartPoint;
         [SerializeField] private int _maxHealth;
 
         public event Action<NpcBaseLogick> OnDestroy;
 
         private NpcHealth _health;
+        private NpcFlyingDamagCreator _flyingDamagCreator;
         private readonly List<IExecutable> _executeList = new List<IExecutable>();
         private readonly List<IInitializable> _initializeList = new List<IInitializable>();
         private readonly List<ICleanable> _clearList = new List<ICleanable>();
@@ -37,6 +39,10 @@ namespace Dragoraptor
             _health = new NpcHealth(_maxHealth);
             _health.OnHealthEnd += OnHealthEnd;
             _initializeList.Add(_health);
+            if (_flyingDamagStartPoint)
+            {
+                _flyingDamagCreator = new NpcFlyingDamagCreator(_flyingDamagStartPoint);
+            }
         }
 
         protected virtual void Start()
@@ -149,6 +155,7 @@ namespace Dragoraptor
 
         public virtual void TakeDamage(int amount)
         {
+            _flyingDamagCreator?.OnDamaged(amount);
             _health.TakeDamage(amount);
         }
 
