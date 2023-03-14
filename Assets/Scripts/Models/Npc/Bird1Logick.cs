@@ -8,7 +8,8 @@ namespace Dragoraptor
         #region Fields
 
         [SerializeField] private Animator _animator;
-        [SerializeField] private float _destroyDelay = 5.0f;
+        [SerializeField] private Fading _fading;
+        [SerializeField] private float _destroyDelay = 5.1f;
 
         private Bird1Movement _movement;
         private NpcBaseDirection _direction;
@@ -31,6 +32,7 @@ namespace Dragoraptor
             _fall = new Bird1Fall(_collider, _rigidbody);
             AddCleanable(_fall);
             _animation = new Bird1Animation(_animator);
+            AddExecutable(_fading);
         }
 
         private void OnCollisionEnter2D(Collision2D collision)
@@ -41,6 +43,7 @@ namespace Dragoraptor
                 _animation.SetGrounded();
                 DestroyItselfDelay(_destroyDelay);
                 _collider.enabled = false;
+                _fading.StartFading();
             }
         }
 
