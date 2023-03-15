@@ -21,15 +21,21 @@ namespace Dragoraptor
 
         public void AddToUpdate(IExecutable executable)
         {
-            if (!_executeList.Contains(executable))
+            if (executable != null)
             {
-                _executeList.Add(executable);
+                if (!_executeList.Contains(executable))
+                {
+                    _executeList.Add(executable);
+                }
             }
         }
 
         public void RemoveFromUpdate(IExecutable executable)
         {
-            _executeList.Remove(executable);
+            if (executable != null)
+            {
+                _executeList.Remove(executable);
+            }
         }
 
         #endregion

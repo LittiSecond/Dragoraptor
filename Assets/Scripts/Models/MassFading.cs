@@ -4,18 +4,18 @@ using UnityEngine;
 
 namespace Dragoraptor
 {
-    public class Fading : MonoBehaviour, IExecutable
+    public class MassFading : MonoBehaviour, IExecutable
     {
         #region Fields
 
-        public event Action OnFadingEnd;
+        [SerializeField] private SpriteRenderer[] _renderersToFade;
+        [SerializeField] private float _fadingDuration = 5.0f;
 
-        [SerializeField] private SpriteRenderer _renderer;
+        private Color[] _startColors;
+        private Color[] _endColors;
 
-        private Color _startColor;
-        private Color _endColor;
-        private float _fadingDuration = 5.0f;
         private float _startTime;
+
         private bool _isFading;
 
         #endregion
@@ -32,15 +32,28 @@ namespace Dragoraptor
 
         private void Awake()
         {
-            _startColor = _renderer.color;
-            _endColor = _startColor;
-            _endColor.a = 0.0f;
+            int quantity = _renderersToFade.Length;
+            _startColors = new Color[quantity];
+            _endColors = new Color[quantity];
+
+            for (int i = 0; i < quantity; i++)
+            {
+                Color color = _renderersToFade[i].color;
+                _startColors[i] = color;
+                color.a = 0.0f;
+                _endColors[i] = color;
+            }
         }
 
         private void OnDisable()
         {
             Services.Instance.UpdateService.RemoveFromUpdate(this);
-            _renderer.color = _startColor;
+
+            for (int i = 0; i < _renderersToFade.Length; i++)
+            {
+                _renderersToFade[i].color = _startColors[i];
+            }
+
             _isFading = false;
         }
 
@@ -66,12 +79,16 @@ namespace Dragoraptor
             if (_isFading)
             {
                 float timepassed = Time.time - _startTime;
-                Color newColor = Color.Lerp(_startColor, _endColor, timepassed / _fadingDuration);
-                _renderer.color = newColor;
+
+                for (int i = 0; i < _renderersToFade.Length; i++)
+                {
+                    Color newColor = Color.Lerp(_startColors[i], _endColors[i], timepassed / _fadingDuration);
+                    _renderersToFade[i].color = newColor;
+                }
+
                 if (timepassed >= _fadingDuration)
                 {
                     _isFading = false;
-                    OnFadingEnd?.Invoke();
                 }
             }
         }
