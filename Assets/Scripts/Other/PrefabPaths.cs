@@ -23,6 +23,9 @@ namespace Dragoraptor
                 "PlayerCharacter", "Prefabs/PlayerCharacter"
             },
             {
+                "ShipType3Crash", "Prefabs/Npc/ShipType3Crash"
+            },
+            {
                 "StoneBall", "Prefabs/Bullets/StoneBall"
             },
         };

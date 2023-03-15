@@ -7,6 +7,8 @@ namespace Dragoraptor
     {
         #region Fields
 
+        private const string DESTRACTION_EFFECT = "ShipType3Crash";
+
         [SerializeField] private Transform _bulletStartPoint;
         [SerializeField] private float _reloadTime;
         [SerializeField] private int _damag;
@@ -30,6 +32,24 @@ namespace Dragoraptor
             AddExecutable(_attack);
             AddInitializable(_attack);
 
+        }
+
+        #endregion
+
+
+        #region Methods
+
+        protected override void OnHealthEnd()
+        {
+            PooledObject obj = Services.Instance.ObjectPool.GetObjectOfType(DESTRACTION_EFFECT);
+            if (obj != null)
+            {
+                obj.transform.position = transform.position;
+                IInitializable initializable = obj as IInitializable;
+                initializable?.Initialize();
+            }
+
+            base.OnHealthEnd();
         }
 
         #endregion

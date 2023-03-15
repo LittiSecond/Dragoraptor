@@ -19,12 +19,14 @@ namespace Dragoraptor
         [SerializeField] private HingeJoint2D _sternJoint;
         [SerializeField] private Rigidbody2D _bowRigedbody;
         [SerializeField] private Rigidbody2D _sternRigedbody;
+        [SerializeField] private float _selfDestroyDelay = 8.0f;
 
         private Vector3[] _positions;
         private Quaternion[] _rotations;
 
         private float _breakAngle = 45.0f;
         private float _ballonDeactivateYPosition;
+        private float _destroyTimeCounter;
 
         private bool _isBowConnected;
         private bool _isSternConnected;
@@ -54,15 +56,15 @@ namespace Dragoraptor
 
         }
 
-        private void OnEnable()
-        {
-            Initialize();
-        }
+        //private void OnEnable()
+        //{
+        //    Initialize();
+        //}
 
-        private void OnDisable()
-        {
-            PrepareToReturnToPool();
-        }
+        //private void OnDisable()
+        //{
+        //    PrepareToReturnToPool();
+        //}
 
         #endregion
 
@@ -92,6 +94,12 @@ namespace Dragoraptor
             base.PrepareToReturnToPool();
             RestoreStartingState();
             Services.Instance.UpdateService.RemoveFromUpdate(this);
+        }
+
+        private void DestroyItself()
+        {
+            PrepareToReturnToPool();
+            ReturnToPool();
         }
 
         #endregion
@@ -135,6 +143,12 @@ namespace Dragoraptor
                     _isBallonEnabled = false;
                 }
             }
+
+            _destroyTimeCounter += Time.deltaTime;
+            if (_destroyTimeCounter >= _selfDestroyDelay)
+            {
+                DestroyItself();
+            }
         }
 
         #endregion
@@ -144,6 +158,7 @@ namespace Dragoraptor
 
         public void Initialize()
         {
+            _destroyTimeCounter = 0.0f;
             Services.Instance.UpdateService.AddToUpdate(this);
         }
 
