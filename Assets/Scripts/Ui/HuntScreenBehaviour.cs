@@ -17,6 +17,7 @@ namespace Dragoraptor.Ui
         [SerializeField] private GameObject _huntMenu;
         [SerializeField] private GameObject _defeatMenu;
         [SerializeField] private UiResourceIndicator _hpIndicator;
+        [SerializeField] private UiSatietyIndicator _satietyIndicator;
 
         private bool _isDefeatMenuOpen;
         private bool _isHuntMenuOpen;
@@ -108,6 +109,11 @@ namespace Dragoraptor.Ui
         public UiResourceIndicator GetHpIndicator()
         {
             return _hpIndicator;
+        }
+
+        public UiSatietyIndicator GetSatietyIndicator()
+        {
+            return _satietyIndicator;
         }
 
         #endregion

@@ -31,6 +31,7 @@ namespace Dragoraptor
             PlayerHorizontalDirection horizontalDirection = new PlayerHorizontalDirection();
             AttackController attackController = new AttackController(characterStateHolder, gamePlaySettings, horizontalDirection);
             PlayerHealth playerHealth = new PlayerHealth(gamePlaySettings);
+            PlayerSatiety playerSatiety = new PlayerSatiety(gamePlaySettings);
 
             TouchInputController touchInputController = new TouchInputController(characterStateHolder, 
                 walkController, jumpController, jumpPainter, horizontalDirection, attackController);
@@ -45,6 +46,11 @@ namespace Dragoraptor
                 horizontalDirection,
                 attackController,
                 playerHealth
+            };
+
+            IOnceInitializable[] onceInitializables = new IOnceInitializable[]
+            {
+                playerSatiety
             };
 
             PlayerCharacterController playerCharacterController = new PlayerCharacterController(characterStateHolder, 
@@ -67,7 +73,8 @@ namespace Dragoraptor
 
             SceneController sceneController = new SceneController();
 
-            Services.Instance.GameStateManager.SetControllers(playerCharacterController, sceneController, npcManager);
+            Services.Instance.GameStateManager.SetControllers(playerCharacterController, sceneController, npcManager, 
+                onceInitializables);
 
         }
 

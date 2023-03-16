@@ -70,6 +70,16 @@ namespace Dragoraptor.Ui
             return _huntScreen.GetHpIndicator();
         }
 
+        public UiSatietyIndicator GetSatietyIndicator()
+        {
+            if (_huntScreen == null)
+            {
+                GetHuntScreen();
+            }
+
+            return _huntScreen.GetSatietyIndicator();
+        }
+
         #endregion
 
     }

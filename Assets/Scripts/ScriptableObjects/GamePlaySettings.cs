@@ -15,5 +15,6 @@ namespace Dragoraptor
         public int AttackPower;
         public int MaxHealth;
         public AttackAreasPack AttackAreas;
+        public int MaxSatiety;
     }
 }

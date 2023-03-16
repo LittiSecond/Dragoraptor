@@ -56,16 +56,6 @@ namespace Dragoraptor
 
         }
 
-        //private void OnEnable()
-        //{
-        //    Initialize();
-        //}
-
-        //private void OnDisable()
-        //{
-        //    PrepareToReturnToPool();
-        //}
-
         #endregion
 
 

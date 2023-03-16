@@ -69,3 +69,4 @@ MonoBehaviour:
       y: -0.3
       width: 0.7
       height: 1
+  MaxSatiety: 85
