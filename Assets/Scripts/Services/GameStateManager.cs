@@ -24,6 +24,7 @@ namespace Dragoraptor
         private PlayerCharacterController _characterController;
         private SceneController _sceneController;
         private NpcManager _npcManager;
+        private LevelProgressControler _levelProgressControler;
 
         private GameState _state;
 
@@ -34,11 +35,13 @@ namespace Dragoraptor
 
         #region Methods
 
-        public void SetControllers(PlayerCharacterController pcc, SceneController sc, NpcManager nm)
+        public void SetControllers(PlayerCharacterController pcc, SceneController sc, NpcManager nm, 
+            LevelProgressControler lpc)
         {
             _characterController = pcc;
             _sceneController = sc;
             _npcManager = nm;
+            _levelProgressControler = lpc;
         }
 
         public void SetMainScreenAtStartGame()
@@ -62,6 +65,8 @@ namespace Dragoraptor
             {
                 _state = GameState.MainScreen;
                 SwitchPause(false);
+                
+                _levelProgressControler.LevelEnd();
 
                 _npcManager.StopNpcSpawn();
                 _npcManager.ClearNpc();
@@ -86,11 +91,13 @@ namespace Dragoraptor
                 ActivateCharacterControll();
                 _npcManager.PrepareNpcSpawn();
                 _npcManager.RestartNpcSpawn();
+                _levelProgressControler.LevelStart();
             }
         }
 
         public void CharacterKilled()
         {
+            _levelProgressControler.LevelEnd();
             Services.Instance.UiFactory.GetHuntScreen().ShowDefeatMenu();
         }
 
@@ -138,6 +145,7 @@ namespace Dragoraptor
         {
             if (_state == GameState.Hunt)
             {
+                _levelProgressControler.LevelEnd();
                 _npcManager.StopNpcSpawn();
                 _npcManager.ClearNpc();
                 DeactivateCharacterControll();
@@ -147,6 +155,7 @@ namespace Dragoraptor
                 _characterController.CreateCharacter();
                 ActivateCharacterControll();
                 _npcManager.RestartNpcSpawn();
+                _levelProgressControler.LevelStart();
             }
         }
 

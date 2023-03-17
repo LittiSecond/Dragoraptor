@@ -11,6 +11,7 @@ namespace Dragoraptor
 
 
         #region Properties
+
         public int Length => _executeControllers.Length;
         public IExecutable this[int index] => _executeControllers[index];
 
@@ -33,6 +34,8 @@ namespace Dragoraptor
             PlayerHealth playerHealth = new PlayerHealth(gamePlaySettings);
             PlayerSatiety playerSatiety = new PlayerSatiety(gamePlaySettings);
             PickUpController pickUpController = new PickUpController(playerSatiety);
+            ScoreController scoreController = new ScoreController();
+            LevelProgressControler levelProgressControler = new LevelProgressControler(playerHealth, playerSatiety, scoreController);
 
             TouchInputController touchInputController = new TouchInputController(characterStateHolder, 
                 walkController, jumpController, jumpPainter, horizontalDirection, attackController);
@@ -69,8 +72,9 @@ namespace Dragoraptor
 
             SceneController sceneController = new SceneController();
 
-            Services.Instance.GameStateManager.SetControllers(playerCharacterController, sceneController, npcManager);
-            Services.Instance.CharacterIntermediary.SetControllers(pickUpController);
+            Services.Instance.GameStateManager.SetControllers(playerCharacterController, sceneController, npcManager,
+                levelProgressControler);
+            Services.Instance.CharacterIntermediary.SetControllers(pickUpController, scoreController);
             Ui.HuntScreenBehaviour huntScreenBehaviour = Services.Instance.UiFactory.GetHuntScreen();
             huntScreenBehaviour.SetControllers(playerHealth, playerSatiety);
         }

@@ -9,6 +9,7 @@ namespace Dragoraptor
 
         private Transform _playerCharacterTransform;
         private PickUpController _pickUpController;
+        private ScoreController _scoreController;
 
         private bool _havePlayerCharacterTransform;
 
@@ -39,9 +40,15 @@ namespace Dragoraptor
             return _pickUpController.PickUp(content);
         }
 
-        public void SetControllers(PickUpController puc)
+        public void SetControllers(PickUpController puc, ScoreController sc)
         {
             _pickUpController = puc;
+            _scoreController = sc;
+        }
+
+        public void AddScore(int amount)
+        {
+            _scoreController.AddScore(amount);
         }
 
         #endregion
