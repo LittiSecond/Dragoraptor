@@ -9,6 +9,8 @@
         Player          = 9,
         Npc             = 10,
         BulletPhisic    = 11,
-        BulletTrigger   = 12
+        BulletTrigger   = 12,
+        FallToGround    = 14,
+        Items           = 15
     }
 }

@@ -8,6 +8,7 @@ namespace Dragoraptor
         #region Fields
 
         private Transform _playerCharacterTransform;
+        private PickUpController _pickUpController;
 
         private bool _havePlayerCharacterTransform;
 
@@ -31,6 +32,16 @@ namespace Dragoraptor
             }
 
             return position;
+        }
+
+        public bool PickUp(PickableResource[] content)
+        {
+            return _pickUpController.PickUp(content);
+        }
+
+        public void SetControllers(PickUpController puc)
+        {
+            _pickUpController = puc;
         }
 
         #endregion
