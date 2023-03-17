@@ -625,6 +625,7 @@ GameObject:
   - component: {fileID: 4201648112268169289}
   - component: {fileID: 4201648112268169288}
   - component: {fileID: 5370205378492632894}
+  - component: {fileID: 4606420551198805347}
   m_Layer: 5
   m_Name: HuntScreen
   m_TagString: Untagged
@@ -677,6 +678,7 @@ MonoBehaviour:
   _hpIndicator: {fileID: 2756918683918557889}
   _satietyIndicator: {fileID: 3579510938342793943}
   _scoreIndicator: {fileID: 5370205378492632894}
+  _timeLeftIndicator: {fileID: 4606420551198805347}
 --- !u!114 &5370205378492632894
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -690,6 +692,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _text: {fileID: 8683744871303860037}
+--- !u!114 &4606420551198805347
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4201648112268169290}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c765385f150668e469c35f4819205811, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _text: {fileID: 4201648112584008738}
 --- !u!1 &4201648112584008765
 GameObject:
   m_ObjectHideFlags: 0

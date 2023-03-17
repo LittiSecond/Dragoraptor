@@ -36,12 +36,13 @@ namespace Dragoraptor
         #region Methods
 
         public void SetControllers(PlayerCharacterController pcc, SceneController sc, NpcManager nm, 
-            LevelProgressControler lpc)
+            LevelProgressControler lpc, TimeController tc)
         {
             _characterController = pcc;
             _sceneController = sc;
             _npcManager = nm;
             _levelProgressControler = lpc;
+            tc.OnTimeUp += TimeUp;
         }
 
         public void SetMainScreenAtStartGame()
@@ -157,6 +158,12 @@ namespace Dragoraptor
                 _npcManager.RestartNpcSpawn();
                 _levelProgressControler.LevelStart();
             }
+        }
+
+        public void TimeUp()
+        {
+            _levelProgressControler.LevelEnd();
+            Services.Instance.UiFactory.GetHuntScreen().ShowDefeatMenu();
         }
 
         #endregion

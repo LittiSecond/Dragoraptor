@@ -30,12 +30,15 @@ namespace Dragoraptor
             FlightObserver flightObserver = new FlightObserver(characterStateHolder);
             AnimationController animationController = new AnimationController(characterStateHolder);
             PlayerHorizontalDirection horizontalDirection = new PlayerHorizontalDirection();
-            AttackController attackController = new AttackController(characterStateHolder, gamePlaySettings, horizontalDirection);
+            AttackController attackController = new AttackController(characterStateHolder, gamePlaySettings, 
+                horizontalDirection);
             PlayerHealth playerHealth = new PlayerHealth(gamePlaySettings);
             PlayerSatiety playerSatiety = new PlayerSatiety(gamePlaySettings);
             PickUpController pickUpController = new PickUpController(playerSatiety);
             ScoreController scoreController = new ScoreController();
-            LevelProgressControler levelProgressControler = new LevelProgressControler(playerHealth, playerSatiety, scoreController);
+            TimeController timeController = new TimeController();
+            LevelProgressControler levelProgressControler = new LevelProgressControler(playerHealth, playerSatiety,
+                scoreController, timeController);
 
             TouchInputController touchInputController = new TouchInputController(characterStateHolder, 
                 walkController, jumpController, jumpPainter, horizontalDirection, attackController);
@@ -73,10 +76,10 @@ namespace Dragoraptor
             SceneController sceneController = new SceneController();
 
             Services.Instance.GameStateManager.SetControllers(playerCharacterController, sceneController, npcManager,
-                levelProgressControler);
+                levelProgressControler, timeController);
             Services.Instance.CharacterIntermediary.SetControllers(pickUpController, scoreController);
             Ui.HuntScreenBehaviour huntScreenBehaviour = Services.Instance.UiFactory.GetHuntScreen();
-            huntScreenBehaviour.SetControllers(playerHealth, playerSatiety, scoreController);
+            huntScreenBehaviour.SetControllers(playerHealth, playerSatiety, timeController, scoreController);
         }
 
         #endregion
