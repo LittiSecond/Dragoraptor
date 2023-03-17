@@ -14,6 +14,7 @@ namespace Dragoraptor
         private readonly CharacterStateHolder _stateHolder;
         private readonly TouchInputController _touchInputController;
         private readonly PlayerHealth _playerHealth;
+        private readonly PlayerSatiety _playerSatiety;
         private GameObject _playerGO;
         private PlayerBody _playerBody;
 
@@ -33,13 +34,14 @@ namespace Dragoraptor
         #region ClassLifeCycles
 
         public PlayerCharacterController( CharacterStateHolder csh, GamePlaySettings gps, TouchInputController tic, 
-            PlayerHealth ph, IBodyUser[] bu)
+            PlayerHealth ph, PlayerSatiety ps, IBodyUser[] bu)
         {
             _stateHolder = csh;
             _spawnPosition = gps.CharacterSpawnPosition;
             _touchInputController = tic;
             _playerHealth = ph;
             _playerHealth.OnHealthEnd += OnHealthEnd;
+            _playerSatiety = ps;
             _bodyUsers = bu;
         }
 
@@ -64,6 +66,7 @@ namespace Dragoraptor
             _playerGO.transform.position = _spawnPosition;
             _playerGO.SetActive(true);
             _playerHealth.ResetHealth();
+            _playerSatiety.ResetSetiety();
             _stateHolder.SetState(CharacterState.Idle);
             Services.Instance.CharacterIntermediary.SetPlayerCharacterTransform(_playerGO.transform);
         }

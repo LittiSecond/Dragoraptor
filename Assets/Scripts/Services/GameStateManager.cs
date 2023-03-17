@@ -24,25 +24,21 @@ namespace Dragoraptor
         private PlayerCharacterController _characterController;
         private SceneController _sceneController;
         private NpcManager _npcManager;
-        private IOnceInitializable[] _initAtStartHunt;
 
         private GameState _state;
 
         private bool _isPause;
-        private bool _isInitializedAtStartHunt;
 
         #endregion
 
 
         #region Methods
 
-        public void SetControllers(PlayerCharacterController pcc, SceneController sc, NpcManager nm, 
-            IOnceInitializable[] initAtStartHunt)
+        public void SetControllers(PlayerCharacterController pcc, SceneController sc, NpcManager nm)
         {
             _characterController = pcc;
             _sceneController = sc;
             _npcManager = nm;
-            _initAtStartHunt = initAtStartHunt;
         }
 
         public void SetMainScreenAtStartGame()
@@ -84,15 +80,6 @@ namespace Dragoraptor
                 Services.Instance.GameProgress.ChooseNextLevel();
 
                 _uiManager.SwichToHuntScreen();
-
-                if (!_isInitializedAtStartHunt)
-                {
-                    _isInitializedAtStartHunt = true;
-                    for (int i = 0; i < _initAtStartHunt.Length; i++)
-                    {
-                        _initAtStartHunt[i].OnceInitialize();
-                    }
-                }
 
                 _sceneController.BuildLevel();
                 _characterController.CreateCharacter();

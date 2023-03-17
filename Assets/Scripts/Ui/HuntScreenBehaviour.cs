@@ -106,14 +106,10 @@ namespace Dragoraptor.Ui
             _isDefeatMenuOpen = true;
         }
 
-        public UiResourceIndicator GetHpIndicator()
+        public void SetControllers(PlayerHealth playerHealth, PlayerSatiety playerSatiety)
         {
-            return _hpIndicator;
-        }
-
-        public UiSatietyIndicator GetSatietyIndicator()
-        {
-            return _satietyIndicator;
+            _hpIndicator.SetSource(playerHealth);
+            _satietyIndicator.SetSatietySource(playerSatiety);
         }
 
         #endregion

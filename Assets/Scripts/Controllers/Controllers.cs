@@ -49,13 +49,8 @@ namespace Dragoraptor
                 playerHealth
             };
 
-            IOnceInitializable[] initAtFirstHuntStart = new IOnceInitializable[]
-            {
-                playerSatiety
-            };
-
             PlayerCharacterController playerCharacterController = new PlayerCharacterController(characterStateHolder, 
-                gamePlaySettings, touchInputController, playerHealth, bodyUsers);
+                gamePlaySettings, touchInputController, playerHealth, playerSatiety, bodyUsers);
 
             NpcManager npcManager = new NpcManager();
             TimeRemainingController timeRemainingController = new TimeRemainingController();
@@ -74,9 +69,10 @@ namespace Dragoraptor
 
             SceneController sceneController = new SceneController();
 
-            Services.Instance.GameStateManager.SetControllers(playerCharacterController, sceneController, npcManager, 
-                initAtFirstHuntStart);
+            Services.Instance.GameStateManager.SetControllers(playerCharacterController, sceneController, npcManager);
             Services.Instance.CharacterIntermediary.SetControllers(pickUpController);
+            Ui.HuntScreenBehaviour huntScreenBehaviour = Services.Instance.UiFactory.GetHuntScreen();
+            huntScreenBehaviour.SetControllers(playerHealth, playerSatiety);
         }
 
         #endregion

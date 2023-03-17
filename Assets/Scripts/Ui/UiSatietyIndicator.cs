@@ -15,7 +15,7 @@ namespace Dragoraptor.Ui
 
         #region Methods
 
-        public void SetSatietyThreshold(float relativeMaxValue)
+        private void SetSatietyThreshold(float relativeMaxValue)
         {
             float xOffset = -_parentOfMarker.rect.width * (1.0f - relativeMaxValue);
             Vector2 offsetMax = _marker.offsetMax;
@@ -25,6 +25,18 @@ namespace Dragoraptor.Ui
             _marker.offsetMax = offsetMax;
             _marker.offsetMin = offsetMin;
         }
+
+        public void SetSatietySource(PlayerSatiety playerSatiety)
+        {
+            SetSource(playerSatiety);
+            playerSatiety.OnVictorySatietyChanged += OnVictorySatietyChanged;
+        }
+
+        private void OnVictorySatietyChanged(float newVictorySatiety)
+        {
+            SetSatietyThreshold(newVictorySatiety);
+        }
+
 
         #endregion
 

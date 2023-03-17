@@ -5,17 +5,16 @@ using Dragoraptor.Ui;
 
 namespace Dragoraptor
 {
-    public sealed class PlayerSatiety : IObservableResource, IOnceInitializable
+    public sealed class PlayerSatiety : IObservableResource
     {
         #region Fields
 
         public event Action OnVictorySatietyReached;
-
-        private UiSatietyIndicator _satietyIndicator;
+        public event Action<float> OnVictorySatietyChanged;
 
         private int _maxSatiety;
         private int _satiety;
-        private int _victorySatiety;
+        private float _victorySatiety;
 
         #endregion
 
@@ -44,9 +43,10 @@ namespace Dragoraptor
             OnMaxValueChanged?.Invoke(_maxSatiety);
         }
 
-        public void SetVictorySatiety(int satiety)
+        public void SetVictorySatiety(float satietyRelativeMax)
         {
-            _victorySatiety = satiety;
+            _victorySatiety = satietyRelativeMax;
+            OnVictorySatietyChanged?.Invoke(_victorySatiety);
         }
 
         public void AddSatiety(int additionalSatiety)
@@ -60,7 +60,7 @@ namespace Dragoraptor
                 }
                 OnValueChanged?.Invoke(_satiety);
 
-                if (_satiety >= _victorySatiety)
+                if (_satiety >= _victorySatiety * _maxSatiety)
                 {
                     OnVictorySatietyReached?.Invoke();
                 }
@@ -78,18 +78,6 @@ namespace Dragoraptor
 
         public event Action<int> OnMaxValueChanged;
         public event Action<int> OnValueChanged;
-
-        #endregion
-
-
-        #region IOnceInitializable
-
-        public void OnceInitialize()
-        {
-            _satietyIndicator = Services.Instance.UiFactory.GetSatietyIndicator();
-            _satietyIndicator.SetSource(this);
-            _satietyIndicator.SetSatietyThreshold(0.75f);
-        }
 
         #endregion
     }

@@ -14,8 +14,6 @@ namespace Dragoraptor
         private int _maxHealth;
         private int _health;
 
-        private bool _isUiConnected;
-
         #endregion
 
 
@@ -74,11 +72,6 @@ namespace Dragoraptor
         public void SetBody(PlayerBody body)
         {
             body.SetDamagReceiver(this);
-            if (!_isUiConnected)
-            {
-                _isUiConnected = true;
-                Services.Instance.UiFactory.GetHpIndicator().SetSource(this);
-            }
         }
 
         public void ClearBody()

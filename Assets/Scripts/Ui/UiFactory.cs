@@ -55,29 +55,10 @@ namespace Dragoraptor.Ui
                 {
                     var go = UnityEngine.Object.Instantiate(prefab, _canvas);
                     _huntScreen = go.GetComponent<HuntScreenBehaviour>();
+                    _huntScreen.Hide();
                 }
             }
             return _huntScreen;
-        }
-
-        public UiResourceIndicator GetHpIndicator()
-        {
-            if (_huntScreen == null)
-            {
-                GetHuntScreen();
-            }
-
-            return _huntScreen.GetHpIndicator();
-        }
-
-        public UiSatietyIndicator GetSatietyIndicator()
-        {
-            if (_huntScreen == null)
-            {
-                GetHuntScreen();
-            }
-
-            return _huntScreen.GetSatietyIndicator();
         }
 
         #endregion

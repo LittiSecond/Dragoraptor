@@ -11,5 +11,7 @@ namespace Dragoraptor
         public GameObject GroundPrefab;
         public GameObject BackgroundPrefab;
         public NpcSpawnRule SpawnRule;
+        [Range(0,1.0f), Tooltip("relative maximum satiety")]
+        public float SatietyToSucces;
     }
 }
