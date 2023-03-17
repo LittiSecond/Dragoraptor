@@ -16,6 +16,7 @@ namespace Dragoraptor
         public void ClearScore()
         {
             _score = 0;
+            OnScoreChanged?.Invoke(_score);
         }
 
         public void AddScore(int amount)

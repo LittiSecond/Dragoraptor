@@ -76,7 +76,7 @@ namespace Dragoraptor
                 levelProgressControler);
             Services.Instance.CharacterIntermediary.SetControllers(pickUpController, scoreController);
             Ui.HuntScreenBehaviour huntScreenBehaviour = Services.Instance.UiFactory.GetHuntScreen();
-            huntScreenBehaviour.SetControllers(playerHealth, playerSatiety);
+            huntScreenBehaviour.SetControllers(playerHealth, playerSatiety, scoreController);
         }
 
         #endregion

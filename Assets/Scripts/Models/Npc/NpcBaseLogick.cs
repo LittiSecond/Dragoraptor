@@ -15,6 +15,7 @@ namespace Dragoraptor
         [SerializeField] private HpIndicator _hpIndicator;
         [SerializeField] private Transform _flyingDamagStartPoint;
         [SerializeField] private int _maxHealth;
+        [SerializeField] private int _scoreCost;
         [SerializeField] private string _dropItemID;
         [SerializeField] private PickableResource _dropContent;
 
@@ -121,6 +122,7 @@ namespace Dragoraptor
 
         protected virtual void OnHealthEnd()
         {
+            SendScoreRevard();
             DropItem();
             DestroyItSelf();
         }
@@ -160,6 +162,12 @@ namespace Dragoraptor
 
             return shouldDrop;
         }
+
+        protected void SendScoreRevard()
+        {
+            Services.Instance.CharacterIntermediary.AddScore(_scoreCost);
+        }
+
 
         #endregion
 

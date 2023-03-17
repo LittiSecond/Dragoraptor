@@ -356,6 +356,11 @@ MonoBehaviour:
   _hpIndicator: {fileID: 5829230529815999446}
   _flyingDamagStartPoint: {fileID: 4736386339536165899}
   _maxHealth: 500
+  _scoreCost: 12
+  _dropItemID: 
+  _dropContent:
+    Type: 0
+    Amount: 0
   _bulletStartPoint: {fileID: 9022848595490287980}
   _reloadTime: 40
   _damag: 40

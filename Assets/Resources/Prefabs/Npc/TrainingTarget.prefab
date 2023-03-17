@@ -93,6 +93,11 @@ MonoBehaviour:
   _hpIndicator: {fileID: 6018607070274947722}
   _flyingDamagStartPoint: {fileID: 2294270218250431398}
   _maxHealth: 2000
+  _scoreCost: 15
+  _dropItemID: 
+  _dropContent:
+    Type: 0
+    Amount: 0
   _speed: 3
 --- !u!1 &2004290266690342157
 GameObject:
