@@ -41,6 +41,7 @@ namespace Dragoraptor
             {
                 _fall.OnGroundContact();
                 _animation.SetGrounded();
+                DropItem();
                 DestroyItselfDelay(_destroyDelay);
                 _collider.enabled = false;
                 _fading.StartFading();

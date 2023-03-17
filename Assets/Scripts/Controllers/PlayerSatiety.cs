@@ -38,6 +38,12 @@ namespace Dragoraptor
             OnValueChanged?.Invoke(_satiety);
         }
 
+        public void SetMaxSatiety(int maxSatiety)
+        {
+            _maxSatiety = maxSatiety;
+            OnMaxValueChanged?.Invoke(_maxSatiety);
+        }
+
         public void SetVictorySatiety(int satiety)
         {
             _victorySatiety = satiety;

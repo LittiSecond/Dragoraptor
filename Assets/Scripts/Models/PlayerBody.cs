@@ -33,6 +33,10 @@ namespace Dragoraptor
                     OnGroundContact();
                 }
             }
+            if (collision.gameObject.layer == (int)SceneLayer.Items)
+            {
+                Debug.Log("PlayerBody->OnCollisionEnter2D: ");
+            }
         }
 
         private void OnEnable()

@@ -20,6 +20,9 @@ namespace Dragoraptor
                 "MainScreen", "Prefabs/Ui/MainScreen"
             },
             {
+                "Meat", "Prefabs/Items/Meat"
+            },
+            {
                 "PlayerCharacter", "Prefabs/PlayerCharacter"
             },
             {

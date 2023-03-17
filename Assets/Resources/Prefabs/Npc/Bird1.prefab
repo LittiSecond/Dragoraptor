@@ -211,6 +211,10 @@ MonoBehaviour:
   _hpIndicator: {fileID: 0}
   _flyingDamagStartPoint: {fileID: 4034496464035040386}
   _maxHealth: 20
+  _dropItemID: Meat
+  _dropContent:
+    Type: 1
+    Amount: 11
   _animator: {fileID: 1685298128440692020}
   _fading: {fileID: 8772926449474844031}
   _destroyDelay: 5

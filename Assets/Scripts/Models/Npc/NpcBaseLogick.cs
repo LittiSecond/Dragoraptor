@@ -15,6 +15,8 @@ namespace Dragoraptor
         [SerializeField] private HpIndicator _hpIndicator;
         [SerializeField] private Transform _flyingDamagStartPoint;
         [SerializeField] private int _maxHealth;
+        [SerializeField] private string _dropItemID;
+        [SerializeField] private PickableResource _dropContent;
 
         public event Action<NpcBaseLogick> OnDestroy;
 
@@ -119,7 +121,44 @@ namespace Dragoraptor
 
         protected virtual void OnHealthEnd()
         {
+            DropItem();
             DestroyItSelf();
+        }
+
+        protected virtual void DropItem()
+        {
+            if (CheckShouldDrop())
+            {
+                PooledObject obj = Services.Instance.ObjectPool.GetObjectOfType(_dropItemID);
+                if (obj != null)
+                {
+                    PickUpItem item = obj as PickUpItem;
+                    if (item != null)
+                    {
+                        item.transform.position = transform.position;
+                        PickableResource[] content = new PickableResource[]
+                        {
+                            _dropContent
+                        };
+                        item.SetContent(content);
+                    }
+                }
+            }
+        }
+
+        private bool CheckShouldDrop()
+        {
+            bool shouldDrop = false;
+
+            if (!string.IsNullOrEmpty(_dropItemID))
+            {
+                if (_dropContent.Type != ResourceType.None)
+                {
+                    shouldDrop = true;
+                }
+            }
+
+            return shouldDrop;
         }
 
         #endregion

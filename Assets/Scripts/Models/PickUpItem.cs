@@ -4,11 +4,11 @@ using UnityEngine;
 
 namespace Dragoraptor
 {
-    public sealed class PickUpItem :  MonoBehaviour //PooledObject
+    public sealed class PickUpItem : PooledObject
     {
         #region Fields
 
-        [SerializeField] private PickableResource[] _content;
+        private PickableResource[] _content;
 
         #endregion
 
@@ -19,7 +19,10 @@ namespace Dragoraptor
         {
             if (collision.gameObject.layer == (int)SceneLayer.Player)
             {
-                Services.Instance.CharacterIntermediary.PickUp(_content);
+                if ( Services.Instance.CharacterIntermediary.PickUp(_content))
+                {
+                    ReturnToPool();
+                }
             }
         }
 
@@ -27,6 +30,11 @@ namespace Dragoraptor
 
 
         #region Methods
+
+        public void SetContent(PickableResource[] newContent)
+        {
+            _content = newContent;
+        }
 
         #endregion
 
