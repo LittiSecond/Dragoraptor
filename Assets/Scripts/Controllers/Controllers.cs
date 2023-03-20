@@ -76,7 +76,7 @@ namespace Dragoraptor
             SceneController sceneController = new SceneController();
 
             Services.Instance.GameStateManager.SetControllers(playerCharacterController, sceneController, npcManager,
-                levelProgressControler, timeController);
+                levelProgressControler);
             Services.Instance.CharacterIntermediary.SetControllers(pickUpController, scoreController);
             Ui.HuntScreenBehaviour huntScreenBehaviour = Services.Instance.UiFactory.GetHuntScreen();
             huntScreenBehaviour.SetControllers(playerHealth, playerSatiety, timeController, scoreController);

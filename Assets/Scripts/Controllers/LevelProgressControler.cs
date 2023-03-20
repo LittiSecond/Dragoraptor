@@ -65,7 +65,7 @@ namespace Dragoraptor
 
         public bool CheckIsVictory()
         {
-            return _isCharacterAlive && _isSatietyConditionMet && (!_isTimeUp);
+            return _isCharacterAlive && _isSatietyConditionMet && _isTimeUp;
         }
 
         private void OnSatietyConditionMet()
@@ -76,6 +76,7 @@ namespace Dragoraptor
         private void OnTimeUp()
         {
             _isTimeUp = true;
+            Services.Instance.GameStateManager.TimeUp();
         }
 
         #endregion
