@@ -12,17 +12,15 @@ namespace Dragoraptor.Ui
         [SerializeField] private Button _settingsButton;
         [SerializeField] private Button _continueButton;
         [SerializeField] private Button _breakHuntButton;
-        [SerializeField] private Button _restartButton;
-        [SerializeField] private Button _breakDefeatButton;
         [SerializeField] private GameObject _huntMenu;
-        [SerializeField] private GameObject _defeatMenu;
         [SerializeField] private UiResourceIndicator _hpIndicator;
         [SerializeField] private UiSatietyIndicator _satietyIndicator;
         [SerializeField] private UiScoreIndicator _scoreIndicator;
         [SerializeField] private UiTimeLeftIndicator _timeLeftIndicator;
+        [SerializeField] private UiHuntResultsScreen _huntResultsScreen;
 
-        private bool _isDefeatMenuOpen;
         private bool _isHuntMenuOpen;
+        private bool _isEndHuntScreenOpen;
 
         #endregion
 
@@ -33,11 +31,10 @@ namespace Dragoraptor.Ui
         {
             _settingsButton.onClick.AddListener(SettingsButtonClick);
             _continueButton.onClick.AddListener(ContinueButtonClick);
+            _huntResultsScreen.AddListeners(BreakButtonClick, RestartButtonClick);
             _breakHuntButton.onClick.AddListener(BreakButtonClick);
-            _restartButton.onClick.AddListener(RestartButtonClick);
-            _breakDefeatButton.onClick.AddListener(BreakButtonClick);
             HideHuntMenu();
-            HideDefeatMenu();
+            HideEndHuntScreen();
         }
 
         #endregion
@@ -71,16 +68,16 @@ namespace Dragoraptor.Ui
             {
                 HideHuntMenu();
             }
-            if (_isDefeatMenuOpen)
+            if (_isEndHuntScreenOpen)
             {
-                HideDefeatMenu();
+                HideEndHuntScreen();
             }
             Services.Instance.GameStateManager.SwitchToMainScreen();
         }
 
         private void RestartButtonClick()
         {
-            HideDefeatMenu();
+            HideEndHuntScreen();
             Services.Instance.GameStateManager.RestartHunt();
         }
 
@@ -96,25 +93,26 @@ namespace Dragoraptor.Ui
             _isHuntMenuOpen = true;
         }
 
-        private void HideDefeatMenu()
-        {
-            _defeatMenu.SetActive(false);
-            _isDefeatMenuOpen = false;
-        }
-
-        public void ShowDefeatMenu()
-        {
-            _defeatMenu.SetActive(true);
-            _isDefeatMenuOpen = true;
-        }
-
         public void SetControllers(PlayerHealth playerHealth, PlayerSatiety playerSatiety, 
-            TimeController timeController, IScoreSource scoreSource)
+            TimeController timeController, IScoreSource scoreSource, IHuntResultsSource huntResultsSource)
         {
             _hpIndicator.SetSource(playerHealth);
             _satietyIndicator.SetSatietySource(playerSatiety);
             timeController.SetTimeView(_timeLeftIndicator);
             scoreSource.OnScoreChanged += _scoreIndicator.SetScore;
+            _huntResultsScreen.SetHuntResultsSource(huntResultsSource);
+        }
+
+        public void ShowEndHuntScreen()
+        {
+            _huntResultsScreen.Show();
+            _isEndHuntScreenOpen = true;
+        }
+
+        private void HideEndHuntScreen()
+        {
+            _huntResultsScreen.Hide();
+            _isEndHuntScreenOpen = false;
         }
 
         #endregion

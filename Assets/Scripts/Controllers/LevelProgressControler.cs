@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Dragoraptor
 {
-    public sealed class LevelProgressControler
+    public sealed class LevelProgressControler : IHuntResultsSource
     {
 
         #region Fields
@@ -12,6 +12,10 @@ namespace Dragoraptor
         private readonly PlayerSatiety _playerSatiety;
         private readonly ScoreController _scoreController;
         private readonly TimeController _timeController;
+
+        private float _satietyToSucces;
+        private float _victoryScoreMultipler;
+        private float _defeatScoreMultipler;
 
         private bool _isCharacterAlive;
         private bool _isSatietyConditionMet;
@@ -22,8 +26,11 @@ namespace Dragoraptor
 
         #region ClassLifeCycles
 
-        public LevelProgressControler(PlayerHealth ph, PlayerSatiety ps, ScoreController sc, TimeController tc)
+        public LevelProgressControler(GamePlaySettings gps, PlayerHealth ph, PlayerSatiety ps, ScoreController sc, 
+            TimeController tc)
         {
+            _victoryScoreMultipler = gps.VictoryScoreMultipler;
+            _defeatScoreMultipler = gps.DefeatScoreMultipler;
             ph.OnHealthEnd += OnCharacterKilled;
             _playerSatiety = ps;
             _playerSatiety.OnVictorySatietyReached += OnSatietyConditionMet;
@@ -45,7 +52,8 @@ namespace Dragoraptor
             _isTimeUp = false;
 
             LevelDescriptor levelDescriptor = Services.Instance.GameProgress.GetCurrentLevel();
-            _playerSatiety.SetVictorySatiety(levelDescriptor.SatietyToSucces);
+            _satietyToSucces = levelDescriptor.SatietyToSucces;
+            _playerSatiety.SetVictorySatiety(_satietyToSucces);
             _timeController.SetLevelDuration(levelDescriptor.LevelDuration);
             _timeController.StartTimer();
         }
@@ -77,6 +85,40 @@ namespace Dragoraptor
         {
             _isTimeUp = true;
             Services.Instance.GameStateManager.TimeUp();
+        }
+
+        private float CalculateSatietyScoreMultipler()
+        {
+            return 1.0f;
+        }
+
+        private int CalculateTotalScore()
+        {
+            return 0;
+        }
+
+
+        #endregion
+
+
+        #region IHuntResultsSource
+
+        public IHuntResults GetHuntResults()
+        {
+            HuntResults huntResults = new HuntResults();
+            huntResults.IsAlive = _isCharacterAlive && _isTimeUp;
+            huntResults.IsSatietyCompleted = _isSatietyConditionMet;
+            bool isVictory = CheckIsVictory();
+            huntResults.IsSucces = isVictory;
+            huntResults.BaseScore = _scoreController.GetScore();
+            huntResults.CollectedSatiety = _playerSatiety.Value;
+            huntResults.MaxSatiety = _playerSatiety.MaxValue;
+            huntResults.SatietyCondition = (int)(_satietyToSucces * _playerSatiety.MaxValue);
+            huntResults.SatietyScoreMultipler = CalculateSatietyScoreMultipler();
+            huntResults.TotalScore = CalculateTotalScore();
+            huntResults.VictoryScoreMultipler = isVictory ? _victoryScoreMultipler : _defeatScoreMultipler;
+
+            return huntResults;
         }
 
         #endregion

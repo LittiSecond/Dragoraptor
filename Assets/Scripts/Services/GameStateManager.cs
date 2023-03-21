@@ -98,7 +98,7 @@ namespace Dragoraptor
         public void CharacterKilled()
         {
             _levelProgressControler.LevelEnd();
-            Services.Instance.UiFactory.GetHuntScreen().ShowDefeatMenu();
+            Services.Instance.UiFactory.GetHuntScreen().ShowEndHuntScreen();
         }
 
         private void ActivateCharacterControll()
@@ -156,13 +156,15 @@ namespace Dragoraptor
                 ActivateCharacterControll();
                 _npcManager.RestartNpcSpawn();
                 _levelProgressControler.LevelStart();
+                SwitchPause(false);
             }
         }
 
         public void TimeUp()
         {
             _levelProgressControler.LevelEnd();
-            Services.Instance.UiFactory.GetHuntScreen().ShowDefeatMenu();
+            Services.Instance.UiFactory.GetHuntScreen().ShowEndHuntScreen();
+            SwitchPause(true);
         }
 
         #endregion

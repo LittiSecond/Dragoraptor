@@ -16,5 +16,7 @@ namespace Dragoraptor
         public int MaxHealth;
         public AttackAreasPack AttackAreas;
         public int MaxSatiety;
+        public float VictoryScoreMultipler = 2.0f;
+        public float DefeatScoreMultipler = 1.0f;
     }
 }
