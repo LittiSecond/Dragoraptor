@@ -18,5 +18,7 @@ namespace Dragoraptor
         public int MaxSatiety;
         public float VictoryScoreMultipler = 2.0f;
         public float DefeatScoreMultipler = 1.0f;
+        public float NullSatietyScoreMultipler = 0.5f;
+        public float SatietySuccefScoreMultipler = 1.0f;
     }
 }

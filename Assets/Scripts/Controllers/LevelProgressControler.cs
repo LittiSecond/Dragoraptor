@@ -16,6 +16,10 @@ namespace Dragoraptor
         private float _satietyToSucces;
         private float _victoryScoreMultipler;
         private float _defeatScoreMultipler;
+        private float _nullSatietyScoreMultipler;
+        private float _satietyConditionScoreMultipler;
+
+        private float _scoreСoefficient;
 
         private bool _isCharacterAlive;
         private bool _isSatietyConditionMet;
@@ -26,11 +30,16 @@ namespace Dragoraptor
 
         #region ClassLifeCycles
 
-        public LevelProgressControler(GamePlaySettings gps, PlayerHealth ph, PlayerSatiety ps, ScoreController sc, 
-            TimeController tc)
+        public LevelProgressControler(GamePlaySettings gamePlaySettings, PlayerHealth ph, PlayerSatiety ps,  
+            ScoreController sc, TimeController tc)
         {
-            _victoryScoreMultipler = gps.VictoryScoreMultipler;
-            _defeatScoreMultipler = gps.DefeatScoreMultipler;
+            _victoryScoreMultipler = gamePlaySettings.VictoryScoreMultipler;
+            _defeatScoreMultipler = gamePlaySettings.DefeatScoreMultipler;
+            _nullSatietyScoreMultipler = gamePlaySettings.NullSatietyScoreMultipler;
+            _satietyConditionScoreMultipler = gamePlaySettings.SatietySuccefScoreMultipler;
+
+            _scoreСoefficient = (_satietyConditionScoreMultipler - _nullSatietyScoreMultipler) / _satietyToSucces;
+
             ph.OnHealthEnd += OnCharacterKilled;
             _playerSatiety = ps;
             _playerSatiety.OnVictorySatietyReached += OnSatietyConditionMet;
@@ -89,12 +98,17 @@ namespace Dragoraptor
 
         private float CalculateSatietyScoreMultipler()
         {
-            return 1.0f;
+            int currentSatiety = _playerSatiety.Value;
+            float satietyMultipler = _scoreСoefficient * currentSatiety + _nullSatietyScoreMultipler;
+            return satietyMultipler;
         }
 
         private int CalculateTotalScore()
         {
-            return 0;
+            int currentScore = _scoreController.GetScore();
+            float victoryMultipler = CheckIsVictory() ? _victoryScoreMultipler : _defeatScoreMultipler;
+            int totalScore = (int)(currentScore * victoryMultipler * CalculateSatietyScoreMultipler());
+            return totalScore;
         }
 
 
