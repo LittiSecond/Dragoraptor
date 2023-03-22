@@ -8,6 +8,9 @@ namespace Dragoraptor
         public static readonly Dictionary<string, string> Paths = new Dictionary<string, string>()
         {
             {
+                "BigTextPattern", "Text/BigTextPatternRU"
+            },
+            {
                 "EffectBoom", "Prefabs/Effects/EffectBoom"
             },
             {

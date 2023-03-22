@@ -65,6 +65,11 @@ namespace Dragoraptor
             return PATH_PART + levelNumber.ToString() + SECOND_PATH_PART + levelNumber.ToString();
         }
 
+        public static TextAsset LoadTextAsset(string assetID)
+        {
+            return Resources.Load(PrefabPaths.Paths[assetID], typeof(TextAsset)) as TextAsset;
+        }
+
         #endregion
     }
 }

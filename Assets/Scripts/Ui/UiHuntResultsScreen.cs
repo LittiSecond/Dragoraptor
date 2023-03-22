@@ -71,8 +71,7 @@ namespace Dragoraptor.Ui
                 CreateCheckBoxValue(_ateCheckBox, huntResults.IsSatietyCompleted);
                 _victoryText.text = _textGenerator.CreateVictoryText(huntResults.IsSucces);
                 _bigText.text = _textGenerator.CreateBigDescription(huntResults);
-
-
+                _resultScoreText.text = _textGenerator.CreateResultsScoreText(huntResults);
             }
 
         }

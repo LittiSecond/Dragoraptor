@@ -38,8 +38,6 @@ namespace Dragoraptor
             _nullSatietyScoreMultipler = gamePlaySettings.NullSatietyScoreMultipler;
             _satietyConditionScoreMultipler = gamePlaySettings.SatietySuccefScoreMultipler;
 
-            _scoreСoefficient = (_satietyConditionScoreMultipler - _nullSatietyScoreMultipler) / _satietyToSucces;
-
             ph.OnHealthEnd += OnCharacterKilled;
             _playerSatiety = ps;
             _playerSatiety.OnVictorySatietyReached += OnSatietyConditionMet;
@@ -63,6 +61,9 @@ namespace Dragoraptor
             LevelDescriptor levelDescriptor = Services.Instance.GameProgress.GetCurrentLevel();
             _satietyToSucces = levelDescriptor.SatietyToSucces;
             _playerSatiety.SetVictorySatiety(_satietyToSucces);
+
+            _scoreСoefficient = (_satietyConditionScoreMultipler - _nullSatietyScoreMultipler) / (_satietyToSucces * _playerSatiety.MaxValue);
+
             _timeController.SetLevelDuration(levelDescriptor.LevelDuration);
             _timeController.StartTimer();
         }

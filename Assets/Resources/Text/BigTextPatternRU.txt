@@ -1,0 +1,6 @@
+﻿Очков набрано: {score}
+Сытость:
+	набрано: {collectedSatiety}/{maxSatiety}
+	требуется: {needSatiety}
+Бонус за сытость: х{satietyMultipler}
+Бонус за победу: х{victoryMultipler}
