@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Prefabs:
   - {fileID: 4678621681868905676, guid: 2fead5c1668e63f48b4bbd3145293667, type: 3}
+  - {fileID: 1320265219322353415, guid: 6cc94854fd109804c8b450b7b173b827, type: 3}
   SpawnDatas:
   - PrefabIndex: 0
     Time: 1
@@ -25,12 +26,12 @@ MonoBehaviour:
     SpawnPosition: {x: -4, y: -1}
     FloatDatas: []
     Data: {fileID: 11400000, guid: bab18fdc27e9f1a47ba4ab0490e535ff, type: 2}
-  - PrefabIndex: 0
+  - PrefabIndex: 1
     Time: 6
     SpawnPosition: {x: -4, y: -1}
     FloatDatas: []
     Data: {fileID: 11400000, guid: 50fbb4ad835b7f24b9a883acb1197002, type: 2}
-  - PrefabIndex: 0
+  - PrefabIndex: 1
     Time: 8
     SpawnPosition: {x: -4, y: 0}
     FloatDatas: []
