@@ -29,6 +29,7 @@ namespace Dragoraptor
             AddExecutable(_movement);
             AddInitializable(_movement);
             AddCleanable(_movement);
+            _movement.OnWayFinished += OnWayFinished;
             _fall = new Bird1Fall(_collider, _rigidbody);
             AddCleanable(_fall);
             _animation = new Bird1Animation(_animator);
@@ -41,7 +42,6 @@ namespace Dragoraptor
             {
                 _fall.OnGroundContact();
                 _animation.SetGrounded();
-                SendScoreRevard();
                 DropItem();
                 DestroyItselfDelay(_destroyDelay);
                 _collider.enabled = false;
@@ -59,7 +59,7 @@ namespace Dragoraptor
             NpcDataWay data = additionalData as NpcDataWay;
             if (data != null)
             {
-                _movement.SetWay(data.Way);
+                _movement.SetWay(data);
             }
         }
 
@@ -68,6 +68,7 @@ namespace Dragoraptor
             _movement.StopMovementLogick();
             _fall.StartFall();
             _animation.SetFall();
+            SendScoreRevard();
         }
 
         public override void Initialize()
@@ -75,6 +76,11 @@ namespace Dragoraptor
             base.Initialize();
             _animation.SetFlying();
             _collider.enabled = true;
+        }
+
+        private void OnWayFinished()
+        {
+            DestroyItSelf();
         }
 
         #endregion

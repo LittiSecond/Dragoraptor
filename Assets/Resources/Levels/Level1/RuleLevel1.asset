@@ -21,8 +21,8 @@ MonoBehaviour:
     Time: 1
     SpawnPosition: {x: -4, y: 0}
     FloatDatas:
+    - -5
     - 0
-    - -3
     Data: {fileID: 0}
   - PrefabIndex: 0
     Time: 5

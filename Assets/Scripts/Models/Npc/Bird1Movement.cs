@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 
 namespace Dragoraptor
@@ -6,6 +7,8 @@ namespace Dragoraptor
     sealed class Bird1Movement : IExecutable, IInitializable, ICleanable
     {
         #region Fields
+
+        public event Action OnWayFinished;
 
         private readonly Transform _transform;
         private readonly Rigidbody2D _rigidbody;
@@ -20,6 +23,7 @@ namespace Dragoraptor
         private int _nexWayPointIndex;
 
         private bool _haveWay;
+        private bool _isCyclic;
         private bool _isEnabled;
 
         #endregion
@@ -48,29 +52,47 @@ namespace Dragoraptor
             }
         }
 
-        private void SelectNewDestination()
+        private bool SelectNewDestination()
         {
+            bool isSelected = false;
             if (_haveWay)
             {
                 _nexWayPointIndex++;
                 if (_nexWayPointIndex >= _way.Length)
                 {
-                    _nexWayPointIndex = 0;
+                    if (_isCyclic)
+                    {
+                        _nexWayPointIndex = 0;
+                        _destination = _way[_nexWayPointIndex];
+                        isSelected = true;
+                    }
                 }
-                _destination = _way[_nexWayPointIndex];
+                else
+                {
+                    _destination = _way[_nexWayPointIndex];
+                    isSelected = true;
+                }
             }
+            return isSelected;
         }
 
-        public void SetWay(Vector2[] way)
+        public void SetWay(NpcDataWay way)
         {
-            _way = way;
+            _way = way.Way;
+            _isCyclic = way.IsCyclic;
             _haveWay = _way != null;
             _nexWayPointIndex = 0;
+
         }
 
         public void StopMovementLogick()
         {
             _isEnabled = false;
+        }
+
+        private void StopMovement()
+        {
+            _rigidbody.velocity = Vector2.zero;
         }
 
         #endregion
@@ -85,8 +107,16 @@ namespace Dragoraptor
                 Vector2 direction = _destination - (Vector2)_transform.position;
                 if (direction.sqrMagnitude <= _arrivalDistanceSqr)
                 {
-                    SelectNewDestination();
-                    SetFlightDirection(_destination);
+                    if (SelectNewDestination())
+                    {
+                        SetFlightDirection(_destination);
+                    }
+                    else
+                    {
+                        StopMovement();
+                        StopMovementLogick();
+                        OnWayFinished?.Invoke();
+                    }
                 }
             }
         }
