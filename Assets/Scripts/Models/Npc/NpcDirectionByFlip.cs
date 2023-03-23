@@ -3,7 +3,7 @@
 
 namespace Dragoraptor
 {
-    public class NpcBaseDirection
+    public class NpcDirectionByFlip
     {
         #region Fields
 
@@ -31,7 +31,7 @@ namespace Dragoraptor
 
         #region ClassLifeCycles
 
-        public NpcBaseDirection(SpriteRenderer mainSprite)
+        public NpcDirectionByFlip(SpriteRenderer mainSprite)
         {
             _spriteRenderer = mainSprite;
         }

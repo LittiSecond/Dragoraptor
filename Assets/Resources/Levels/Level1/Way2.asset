@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 040cd4effbb5c3d4087e144b30cb779f, type: 3}
   m_Name: Way2
   m_EditorClassIdentifier: 
-  IsCyclic: 0
+  IsCyclic: 1
   Way:
   - {x: -2, y: -0.5}
   - {x: -1.7, y: 0.2}

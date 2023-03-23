@@ -12,7 +12,7 @@ namespace Dragoraptor
         [SerializeField] private float _destroyDelay = 5.1f;
 
         private Bird1Movement _movement;
-        private NpcBaseDirection _direction;
+        private NpcDirectionByScale _direction;
         private Bird1Fall _fall;
         private Bird1Animation _animation;
 
@@ -24,7 +24,7 @@ namespace Dragoraptor
         protected override void Awake()
         {
             base.Awake();
-            _direction = new NpcBaseDirection(_mainSprite);
+            _direction = new NpcDirectionByScale(transform);
             _movement = new Bird1Movement(transform, _rigidbody, _direction);
             AddExecutable(_movement);
             AddInitializable(_movement);

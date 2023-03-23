@@ -12,7 +12,7 @@ namespace Dragoraptor
 
         private readonly Transform _transform;
         private readonly Rigidbody2D _rigidbody;
-        private readonly NpcBaseDirection _visualDirection;
+        private readonly INpcDirection _visualDirection;
 
         private Vector2[] _way; 
 
@@ -32,7 +32,7 @@ namespace Dragoraptor
 
         #region Methods
 
-        public Bird1Movement(Transform transform, Rigidbody2D rigidbody, NpcBaseDirection direction)
+        public Bird1Movement(Transform transform, Rigidbody2D rigidbody, INpcDirection direction)
         {
             _transform = transform;
             _rigidbody = rigidbody;
