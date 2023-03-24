@@ -1,11 +1,10 @@
-﻿using UnityEngine;
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 
 namespace Dragoraptor
 {
-    public sealed class NpcSpawner : IExecutable
+    public sealed class NpcSpawner : IExecutable, INpcSpawner
     {
 
         #region Fields
@@ -14,14 +13,9 @@ namespace Dragoraptor
         private readonly List<string> _npcTypes;
         private NpcSpawnRule _spawnRule;
         private Action<NpcBaseLogick> _onDestroyListener;
-
-        private float _timeCounter;
-        private float _nextSpawnTime;
-        private int _nextSpawnDataIndex;
+        private NpcSpawnFixedChain _fixedChainLogick;
 
         private bool _isEnabled;
-        private bool _isSpawnDataRedy;
-        private bool _isSpawnRuleFinished;
 
         #endregion
 
@@ -33,6 +27,7 @@ namespace Dragoraptor
             _npcList = list;
             _npcTypes = new List<string>();
             _onDestroyListener = onDestroyListener;
+            _fixedChainLogick = new NpcSpawnFixedChain(this);
         }
 
         #endregion
@@ -56,8 +51,8 @@ namespace Dragoraptor
             {
                 _npcTypes.Add(prefabs[i].Type);
             }
-            _isSpawnDataRedy = _spawnRule.SpawnDatas.Length > 0;
 
+            _fixedChainLogick.SetSpawnData(_spawnRule.SpawnDatas);
         }
 
         public void RestartNpcSpawn()
@@ -69,37 +64,36 @@ namespace Dragoraptor
         private void StopSpawnLogick()
         {
             _isEnabled = false;
+            _fixedChainLogick.StopSpawnLogick();
         }
 
         private void StartSpawnLogick()
         {
-            if (_isSpawnDataRedy)
-            {
-                _timeCounter = 0.0f;
-                _nextSpawnTime = _spawnRule.SpawnDatas[0].Time;
-                _nextSpawnDataIndex = 0;
-                _isSpawnRuleFinished = false;
-                _isEnabled = true;
-            }
+            _fixedChainLogick.StartSpawnLogick();
+            _isEnabled = true;
         }
 
-        private void SpawnNpc(int index, Vector2 position)
+        #endregion
+
+
+        #region INpcSpawner
+
+        public void SpawnNpc(SpawnData spawnData)
         {
-            string npsType = _npcTypes[index];
+            string npsType = _npcTypes[spawnData.PrefabIndex];
             PooledObject obj = Services.Instance.ObjectPool.GetObjectOfType(npsType);
             if (obj != null)
             {
                 NpcBaseLogick npc = obj as NpcBaseLogick;
                 if (npc != null)
                 {
-                    npc.transform.position = position;
+                    npc.transform.position = spawnData.SpawnPosition;
                     npc.OnDestroy += _onDestroyListener;
-                    _npcList.Add(npc);
-                    NpcData data = _spawnRule.SpawnDatas[_nextSpawnDataIndex].Data;
-                    npc.SetAdditionalData(data);
-                    float[] dataArray = _spawnRule.SpawnDatas[_nextSpawnDataIndex].FloatDatas;
-                    npc.SetAdditionalDataArray(dataArray);
+                    npc.SetAdditionalData(spawnData.Data);
+                    npc.SetAdditionalDataArray(spawnData.FloatDatas);
                     npc.Initialize();
+
+                    _npcList.Add(npc);
                 }
             }
         }
@@ -111,26 +105,9 @@ namespace Dragoraptor
 
         public void Execute()
         {
-            if (_isEnabled && !_isSpawnRuleFinished)
+            if (_isEnabled)
             {
-                _timeCounter += Time.deltaTime;
-                if (_timeCounter >= _nextSpawnTime)
-                {
-                    int npcIndex = _spawnRule.SpawnDatas[_nextSpawnDataIndex].PrefabIndex;
-                    Vector2 pos = _spawnRule.SpawnDatas[_nextSpawnDataIndex].SpawnPosition;
-                    SpawnNpc(npcIndex, pos);
-                    _nextSpawnDataIndex++;
-                    if (_nextSpawnDataIndex >= _spawnRule.SpawnDatas.Length)
-                    {
-                        _isSpawnRuleFinished = true;
-                    }
-                    else
-                    {
-                        _nextSpawnTime = _spawnRule.SpawnDatas[_nextSpawnDataIndex].Time;
-                    }
-
-                }
-
+                _fixedChainLogick.Execute();
             }
         }
 

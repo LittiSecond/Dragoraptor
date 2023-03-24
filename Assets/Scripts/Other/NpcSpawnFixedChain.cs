@@ -1,0 +1,91 @@
+﻿using System;
+using UnityEngine;
+
+
+namespace Dragoraptor
+{
+    public sealed class NpcSpawnFixedChain
+    {
+        #region Fields
+
+        private readonly INpcSpawner _npcSpawner;
+        private SpawnData[] _spawnDatas;
+
+        private float _timeCounter;
+        private float _nextSpawnTime;
+        private int _nextSpawnDataIndex;
+
+        private bool _isSpawnRuleFinished;
+        private bool _isSpawnDataRedy;
+
+        #endregion
+
+
+        #region ClassLifeCycles
+
+        public NpcSpawnFixedChain(INpcSpawner npcSpawner)
+        {
+            _npcSpawner = npcSpawner;
+        }
+
+        #endregion
+
+
+        #region Methods
+
+        public void SetSpawnData(SpawnData[] spawnDatas)
+        {
+            _spawnDatas = spawnDatas;
+            _isSpawnDataRedy = false;
+            if (spawnDatas != null)
+            {
+                if (spawnDatas.Length > 0)
+                {
+                    _isSpawnDataRedy = true;
+                }
+            }
+        }
+
+        public  void StartSpawnLogick()
+        {
+            if (_isSpawnDataRedy)
+            {
+                _timeCounter = 0.0f;
+                _nextSpawnTime = _spawnDatas[0].Time;
+                _nextSpawnDataIndex = 0;
+                _isSpawnRuleFinished = false;
+            }
+        }
+
+        public  void StopSpawnLogick()
+        {
+            _isSpawnRuleFinished = true;
+        }
+
+        public  void Execute()
+        {
+            if (!_isSpawnRuleFinished)
+            {
+                _timeCounter += Time.deltaTime;
+                if (_timeCounter >= _nextSpawnTime)
+                {
+                    _npcSpawner.SpawnNpc(_spawnDatas[_nextSpawnDataIndex]);
+                    _nextSpawnDataIndex++;
+                    if (_nextSpawnDataIndex >= _spawnDatas.Length)
+                    {
+                        _isSpawnRuleFinished = true;
+                    }
+                    else
+                    {
+                        _nextSpawnTime = _spawnDatas[_nextSpawnDataIndex].Time;
+                    }
+
+                }
+
+            }
+        }
+
+        #endregion
+
+    }
+}
