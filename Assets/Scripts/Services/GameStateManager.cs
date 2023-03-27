@@ -95,11 +95,7 @@ namespace Dragoraptor
             }
         }
 
-        public void CharacterKilled()
-        {
-            _levelProgressControler.LevelEnd();
-            Services.Instance.UiFactory.GetHuntScreen().ShowEndHuntScreen();
-        }
+
 
         private void ActivateCharacterControll()
         {
@@ -159,8 +155,13 @@ namespace Dragoraptor
                 SwitchPause(false);
             }
         }
+        public void CharacterKilled()
+        {
+            _levelProgressControler.LevelEnd();
+            Services.Instance.UiFactory.GetHuntScreen().ShowEndHuntScreen();
+        }
 
-        public void TimeUp()
+        public void BreakHunt()
         {
             _levelProgressControler.LevelEnd();
             Services.Instance.UiFactory.GetHuntScreen().ShowEndHuntScreen();

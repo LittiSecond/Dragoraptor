@@ -31,7 +31,7 @@ namespace Dragoraptor.Ui
         {
             _settingsButton.onClick.AddListener(SettingsButtonClick);
             _continueButton.onClick.AddListener(ContinueButtonClick);
-            _huntResultsScreen.AddListeners(BreakButtonClick, RestartButtonClick);
+            _huntResultsScreen.AddListeners(GetOutOfTheHuntButtonClick, RestartButtonClick);
             _breakHuntButton.onClick.AddListener(BreakButtonClick);
             HideHuntMenu();
             HideEndHuntScreen();
@@ -63,6 +63,12 @@ namespace Dragoraptor.Ui
         }
 
         private void BreakButtonClick()
+        {
+            HideHuntMenu();
+            Services.Instance.GameStateManager.BreakHunt();
+        }
+
+        private void GetOutOfTheHuntButtonClick()
         {
             if (_isHuntMenuOpen)
             {

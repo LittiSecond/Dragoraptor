@@ -94,7 +94,7 @@ namespace Dragoraptor
         private void OnTimeUp()
         {
             _isTimeUp = true;
-            Services.Instance.GameStateManager.TimeUp();
+            Services.Instance.GameStateManager.BreakHunt();
         }
 
         private float CalculateSatietyScoreMultipler()
