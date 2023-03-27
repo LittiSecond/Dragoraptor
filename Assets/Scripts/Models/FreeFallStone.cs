@@ -8,7 +8,10 @@ namespace Dragoraptor
     {
         #region Fields
 
+        private const string HIT_VISUAL_EFFECT = "EffectBoom";
+
         [SerializeField] private Fading _fadingLogick;
+        [SerializeField] private float _verticalOffsetVisualEffect = -0.2f;
         [SerializeField] private int _damag;
 
         private bool _isDamagEnabled;
@@ -43,6 +46,7 @@ namespace Dragoraptor
                     if (damagReceiver != null)
                     {
                         damagReceiver.TakeDamage(_damag);
+                        CreateVisualHitEffect();
                         _isDamagEnabled = false;
                     }
                 }
@@ -73,6 +77,19 @@ namespace Dragoraptor
         private void DestroyItself()
         {
             ReturnToPool();
+        }
+
+        private void CreateVisualHitEffect()
+        {
+            PooledObject effect = Services.Instance.ObjectPool.GetObjectOfType(HIT_VISUAL_EFFECT);
+            if (effect)
+            {
+                Vector3 position = transform.position;
+                position.y += _verticalOffsetVisualEffect;
+                effect.transform.position = position;
+                IInitializable initializable = effect as IInitializable;
+                initializable?.Initialize();
+            }
         }
 
         #endregion
