@@ -155,6 +155,7 @@ namespace Dragoraptor
                 SwitchPause(false);
             }
         }
+
         public void CharacterKilled()
         {
             _levelProgressControler.LevelEnd();
