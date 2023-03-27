@@ -357,10 +357,10 @@ MonoBehaviour:
   _flyingDamagStartPoint: {fileID: 4736386339536165899}
   _maxHealth: 500
   _scoreCost: 12
-  _dropItemID: 
+  _dropItemID: BubblesBlue
   _dropContent:
-    Type: 0
-    Amount: 0
+    Type: 2
+    Amount: 10
   _bulletStartPoint: {fileID: 9022848595490287980}
   _reloadTime: 8
   _damag: 40

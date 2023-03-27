@@ -143,6 +143,7 @@ namespace Dragoraptor
                             _dropContent
                         };
                         item.SetContent(content);
+                        item.Initialize();
                     }
                 }
             }

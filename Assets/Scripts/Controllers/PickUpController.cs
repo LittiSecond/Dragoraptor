@@ -9,15 +9,17 @@ namespace Dragoraptor
         #region Fields
 
         private readonly PlayerSatiety _satiety;
+        private readonly ScoreController _scoreController;
 
         #endregion
 
 
         #region ClassLifeCycles
 
-        public PickUpController(PlayerSatiety satiety)
+        public PickUpController(PlayerSatiety satiety, ScoreController scoreController)
         {
             _satiety = satiety;
+            _scoreController = scoreController;
         }
 
         #endregion
@@ -39,6 +41,10 @@ namespace Dragoraptor
                     {
                         case ResourceType.Satiety:
                             _satiety.AddSatiety(item.Amount);
+                            isPicked = true;
+                            break;
+                        case ResourceType.Score:
+                            _scoreController.AddScore(item.Amount);
                             isPicked = true;
                             break;
                     }

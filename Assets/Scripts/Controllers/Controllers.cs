@@ -34,8 +34,8 @@ namespace Dragoraptor
                 horizontalDirection);
             PlayerHealth playerHealth = new PlayerHealth(gamePlaySettings);
             PlayerSatiety playerSatiety = new PlayerSatiety(gamePlaySettings);
-            PickUpController pickUpController = new PickUpController(playerSatiety);
             ScoreController scoreController = new ScoreController();
+            PickUpController pickUpController = new PickUpController(playerSatiety, scoreController);
             TimeController timeController = new TimeController();
             LevelProgressControler levelProgressControler = new LevelProgressControler(gamePlaySettings, playerHealth,
                 playerSatiety, scoreController, timeController);
