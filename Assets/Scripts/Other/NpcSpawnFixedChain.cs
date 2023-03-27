@@ -16,7 +16,7 @@ namespace Dragoraptor
         private int _nextSpawnDataIndex;
 
         private bool _isSpawnRuleFinished;
-        private bool _isSpawnDataRedy;
+        private bool _isSpawnDataReady;
 
         #endregion
 
@@ -35,20 +35,21 @@ namespace Dragoraptor
 
         public void SetSpawnData(SpawnData[] spawnDatas)
         {
+            StopSpawnLogick();
             _spawnDatas = spawnDatas;
-            _isSpawnDataRedy = false;
+            _isSpawnDataReady = false;
             if (spawnDatas != null)
             {
                 if (spawnDatas.Length > 0)
                 {
-                    _isSpawnDataRedy = true;
+                    _isSpawnDataReady = true;
                 }
             }
         }
 
-        public  void StartSpawnLogick()
+        public void StartSpawnLogick()
         {
-            if (_isSpawnDataRedy)
+            if (_isSpawnDataReady)
             {
                 _timeCounter = 0.0f;
                 _nextSpawnTime = _spawnDatas[0].Time;
@@ -57,7 +58,7 @@ namespace Dragoraptor
             }
         }
 
-        public  void StopSpawnLogick()
+        public void StopSpawnLogick()
         {
             _isSpawnRuleFinished = true;
         }
@@ -79,9 +80,7 @@ namespace Dragoraptor
                     {
                         _nextSpawnTime = _spawnDatas[_nextSpawnDataIndex].Time;
                     }
-
                 }
-
             }
         }
 

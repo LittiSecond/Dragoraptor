@@ -44,3 +44,4 @@ MonoBehaviour:
     SpawnPosition: {x: 5, y: 3}
     FloatDatas: []
     Data: {fileID: 0}
+  StrangeArray: 010000000200000004000000

@@ -17,12 +17,14 @@ namespace Dragoraptor
         private Vector2[] _way; 
 
         private Vector2 _destination;
+        private Vector2 _startPosition;
 
         private float _arrivalDistanceSqr = 0.01f;
         private float _speed = 1.0f;
         private int _nexWayPointIndex;
 
         private bool _haveWay;
+        private bool _isRelativStartPosition;
         private bool _isCyclic;
         private bool _isEnabled;
 
@@ -63,23 +65,33 @@ namespace Dragoraptor
                     if (_isCyclic)
                     {
                         _nexWayPointIndex = 0;
-                        _destination = _way[_nexWayPointIndex];
+                        _destination = CalculateDestination(_way[_nexWayPointIndex]);
                         isSelected = true;
                     }
                 }
                 else
                 {
-                    _destination = _way[_nexWayPointIndex];
+                    _destination = CalculateDestination(_way[_nexWayPointIndex]);
                     isSelected = true;
                 }
             }
             return isSelected;
         }
 
+        private Vector2 CalculateDestination(Vector2 wayPoint)
+        {
+            if (_isRelativStartPosition)
+            {
+                wayPoint += _startPosition;
+            }
+            return wayPoint;
+        }
+
         public void SetWay(NpcDataWay way)
         {
             _way = way.Way;
             _isCyclic = way.IsCyclic;
+            _isRelativStartPosition = way.IsRelaiveStartPosition;
             _haveWay = _way != null;
             _nexWayPointIndex = 0;
 
@@ -132,7 +144,8 @@ namespace Dragoraptor
             if (_haveWay)
             {
                 _isEnabled = true;
-                _destination = _way[_nexWayPointIndex];
+                _startPosition = _transform.position;
+                _destination = CalculateDestination(_way[_nexWayPointIndex]);
                 SetFlightDirection(_destination);
             }
         }

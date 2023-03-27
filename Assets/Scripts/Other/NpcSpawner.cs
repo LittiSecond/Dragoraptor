@@ -14,6 +14,7 @@ namespace Dragoraptor
         private NpcSpawnRule _spawnRule;
         private Action<NpcBaseLogick> _onDestroyListener;
         private NpcSpawnFixedChain _fixedChainLogick;
+        private NpcSpawnCyclikChain _cyclikChainLogick;
 
         private bool _isEnabled;
 
@@ -28,6 +29,7 @@ namespace Dragoraptor
             _npcTypes = new List<string>();
             _onDestroyListener = onDestroyListener;
             _fixedChainLogick = new NpcSpawnFixedChain(this);
+            _cyclikChainLogick = new NpcSpawnCyclikChain(this);
         }
 
         #endregion
@@ -53,6 +55,7 @@ namespace Dragoraptor
             }
 
             _fixedChainLogick.SetSpawnData(_spawnRule.SpawnDatas);
+            _cyclikChainLogick.SetSpawnData(_spawnRule.CyclicSpawnDatas, _spawnRule.CycleDuration);
         }
 
         public void RestartNpcSpawn()
@@ -65,11 +68,13 @@ namespace Dragoraptor
         {
             _isEnabled = false;
             _fixedChainLogick.StopSpawnLogick();
+            _cyclikChainLogick.StopSpawnLogick();
         }
 
         private void StartSpawnLogick()
         {
             _fixedChainLogick.StartSpawnLogick();
+            _cyclikChainLogick.StartSpawnLogick();
             _isEnabled = true;
         }
 
@@ -108,6 +113,7 @@ namespace Dragoraptor
             if (_isEnabled)
             {
                 _fixedChainLogick.Execute();
+                _cyclikChainLogick.Execute();
             }
         }
 
