@@ -14,6 +14,7 @@ namespace Dragoraptor
         public Vector2 CharacterSpawnPosition;
         public int AttackPower;
         public int MaxHealth;
+        public int Armor;
         public AttackAreasPack AttackAreas;
         public int MaxSatiety;
         public float VictoryScoreMultipler = 2.0f;

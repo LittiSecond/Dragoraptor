@@ -15,6 +15,7 @@ namespace Dragoraptor
         [SerializeField] private HpIndicator _hpIndicator;
         [SerializeField] private Transform _flyingDamagStartPoint;
         [SerializeField] private int _maxHealth;
+        [SerializeField] private int _armor;
         [SerializeField] private int _scoreCost;
         [SerializeField] private string _dropItemID;
         [SerializeField] private PickableResource _dropContent;
@@ -39,12 +40,13 @@ namespace Dragoraptor
 
         protected virtual void Awake()
         {
-            _health = new NpcHealth(_maxHealth);
+            _health = new NpcHealth(_maxHealth, _armor);
             _health.OnHealthEnd += OnHealthEnd;
             _initializeList.Add(_health);
             if (_flyingDamagStartPoint)
             {
                 _flyingDamagCreator = new NpcFlyingDamagCreator(_flyingDamagStartPoint);
+                _health.SetDamageObserver(_flyingDamagCreator);
             }
         }
 
@@ -203,7 +205,6 @@ namespace Dragoraptor
 
         public virtual void TakeDamage(int amount)
         {
-            _flyingDamagCreator?.OnDamaged(amount);
             _health.TakeDamage(amount);
         }
 

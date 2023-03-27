@@ -13,6 +13,7 @@ namespace Dragoraptor
 
         private int _maxHealth;
         private int _health;
+        private int _armor;
 
         #endregion
 
@@ -22,6 +23,7 @@ namespace Dragoraptor
         public PlayerHealth(GamePlaySettings gps)
         {
             _maxHealth = gps.MaxHealth;
+            _armor = gps.Armor;
         }
 
         #endregion
@@ -48,6 +50,7 @@ namespace Dragoraptor
 
         public void TakeDamage(int amount)
         {
+            amount -= _armor;
             if (amount > 0)
             {
                 _health -= amount;

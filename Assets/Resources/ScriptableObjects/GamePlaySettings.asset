@@ -20,6 +20,7 @@ MonoBehaviour:
   CharacterSpawnPosition: {x: -1, y: -3}
   AttackPower: 100
   MaxHealth: 100
+  Armor: 5
   AttackAreas:
     LeftIdle:
       serializedVersion: 2

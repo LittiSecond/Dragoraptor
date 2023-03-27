@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Dragoraptor
 {
-    public sealed class NpcFlyingDamagCreator
+    public sealed class NpcFlyingDamagCreator : IDamageObserver
     {
         #region Fields
 
@@ -25,7 +25,7 @@ namespace Dragoraptor
         #endregion
 
 
-        #region Methods
+        #region IDamageObserver
 
         public void OnDamaged(int amount)
         {

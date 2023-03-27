@@ -10,8 +10,11 @@ namespace Dragoraptor
         public event Action<int> OnHealthChanged;
         public event Action OnHealthEnd;
 
+        private IDamageObserver _damageObserver;
+
         private int _maxHealth;
         private int _currentHealth;
+        private int _armor;
 
         #endregion
 
@@ -28,9 +31,10 @@ namespace Dragoraptor
 
         #region ClassLifeCycles
 
-        public NpcHealth(int maxHealth)
+        public NpcHealth(int maxHealth, int armor)
         {
             _maxHealth = maxHealth;
+            _armor = armor;
         }
 
         #endregion
@@ -49,6 +53,11 @@ namespace Dragoraptor
             _maxHealth = maxHealth;
         }
 
+        public void SetDamageObserver(IDamageObserver observer)
+        {
+            _damageObserver = observer;
+        }
+
         #endregion
 
 
@@ -56,8 +65,10 @@ namespace Dragoraptor
 
         public void TakeDamage(int amount)
         {
+            amount -= _armor;
             if (amount > 0)
             {
+                _damageObserver?.OnDamaged(amount);
                 _currentHealth -= amount;
                 if (_currentHealth < 0)
                 {
