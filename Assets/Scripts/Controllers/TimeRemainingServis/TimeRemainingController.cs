@@ -34,7 +34,6 @@ namespace Dragoraptor
                 obj.TimeCounter -= time;
                 if (obj.TimeCounter <= 0.0f)
                 {
-                    obj?.Method?.Invoke();
                     if (!obj.IsRepeating)
                     {
                         obj.RemoveTimeRemaining();
@@ -43,6 +42,7 @@ namespace Dragoraptor
                     {
                         obj.TimeCounter = obj.Duration;
                     }
+                    obj?.Method?.Invoke();
                 }
             }
         }
