@@ -10,6 +10,8 @@ namespace Dragoraptor
 
         private const float UPDATE_OBSERVERS_INTERVAL = 0.5f;
 
+        private IMessage _noEnergyMessage;
+
         private float _maxEnergy;
         private float _energy;
         private float _idleRegeneration;
@@ -177,6 +179,11 @@ namespace Dragoraptor
             }
         }
 
+        public void SetNoEnergyMessage(IMessage message)
+        {
+            _noEnergyMessage = message;
+        }
+
         #endregion
 
 
@@ -219,6 +226,10 @@ namespace Dragoraptor
                     _updateObserversTimer = 0.0f;
                     isSpended = true;
                     _isRegeneration = true;
+                }
+                else
+                {
+                    _noEnergyMessage?.ShowMessage();
                 }
             }
             return isSpended;

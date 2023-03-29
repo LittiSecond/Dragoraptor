@@ -18,6 +18,8 @@ namespace Dragoraptor.Editor
         private const string DAMAGE_NPC_FIELD_CAPTION = "damage amount to the NPC: ";
         private const string DAMAGE_NPC_OBJECT_CAPTION = "NPC to damaged: ";
 
+        private const string SHOW_MESSAGE_CAPTION = "Show no energy message";
+
         private const string CHARACTER_NOT_FOUND = "Testing tools: character not found";
 
         private NpcBaseLogick _npc;
@@ -55,6 +57,13 @@ namespace Dragoraptor.Editor
             if (GUILayout.Button(DAMAGE_NPC_BUTTON_CAPTION))
             {
                 DamageNpc();
+            }
+
+            GUILayout.Space(20);
+
+            if (GUILayout.Button(SHOW_MESSAGE_CAPTION))
+            {
+                ShowNoEnergyMessage();
             }
 
         }
@@ -95,6 +104,15 @@ namespace Dragoraptor.Editor
             else
             {
                 Debug.Log(CHARACTER_NOT_FOUND);
+            }
+        }
+
+        private void ShowNoEnergyMessage()
+        {
+            Ui.UiNoEnegyMessage message = FindObjectOfType<Ui.UiNoEnegyMessage>();
+            if (message)
+            {
+                message.ShowMessage();
             }
         }
 
