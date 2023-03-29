@@ -16,6 +16,7 @@ namespace Dragoraptor
         public int Armor;
         public int AttackPower;
         public AttackAreasPack AttackAreas;
+        public float AttackInterval = 0.5f;
         public int MaxSatiety;
         public float Energy;
         public float EnergyRegeneration;

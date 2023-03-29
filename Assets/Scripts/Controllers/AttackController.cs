@@ -13,14 +13,19 @@ namespace Dragoraptor
         private readonly IResouceStore _energyStore;
         private Transform _bodyTransform;
         private AttackAreasPack _attackAreas;
+        private ITimeRemaining _attackDelayTimer;
         private CharacterState _state;
         private Direction _direction;
 
         private float _energyCost;
+        private float _attackInterval;
+
         private int _attackPower;
         private int _layerMaskToAttack = (1 << (int)SceneLayer.Npc);
 
         private bool _haveBody;
+        private bool _isTiming;
+        private bool _shouldAttack;
 
         #endregion
 
@@ -32,9 +37,11 @@ namespace Dragoraptor
             csh.OnStateChanged += OnStateChanged;
             _attackAreas = gps.AttackAreas;
             _energyCost = gps.AttackEnergyCost;
+            _attackInterval = gps.AttackInterval;
             _attackPower = gps.AttackPower;
             phd.OnDirectionChanged += OnDirectionChanged;
             _energyStore = energyStore;
+            _attackDelayTimer = new TimeRemaining(OnAttackTimer, _attackInterval, false);
         }
 
         #endregion
@@ -46,28 +53,44 @@ namespace Dragoraptor
         {
             if (_haveBody)
             {
-                if (_state == CharacterState.Idle || _state == CharacterState.Walk ||
-                    _state == CharacterState.FliesUp || _state == CharacterState.FliesDown)
+                if (CheckStateCanAttack())
                 {
-                    if (_energyStore.SpendResource((int)_energyCost))
+                    if (!_isTiming)
                     {
-                        Rect damagedArea = CalculateDamagedArea();
-                        Collider2D[] targets = Physics2D.OverlapAreaAll(damagedArea.min, damagedArea.max, _layerMaskToAttack);
-
-                        if (targets.Length > 0)
-                        {
-                            for (int i = 0; i < targets.Length; i++)
-                            {
-                                MakeDamag(targets[i]);
-                            }
-                            CreateVisualHitEffect(damagedArea);
-                        }
+                        DoAttack();
                     }
                     else
                     {
-                     
+                        _shouldAttack = true;
                     }
                 }
+            }
+        }
+
+        private bool CheckStateCanAttack()
+        {
+            return (_state == CharacterState.Idle || _state == CharacterState.Walk ||
+                    _state == CharacterState.FliesUp || _state == CharacterState.FliesDown);
+        }
+
+        private void DoAttack()
+        {
+            _shouldAttack = false;
+            if (_energyStore.SpendResource((int)_energyCost))
+            {
+                Rect damagedArea = CalculateDamagedArea();
+                Collider2D[] targets = Physics2D.OverlapAreaAll(damagedArea.min, damagedArea.max, _layerMaskToAttack);
+
+                if (targets.Length > 0)
+                {
+                    for (int i = 0; i < targets.Length; i++)
+                    {
+                        MakeDamag(targets[i]);
+                    }
+                    CreateVisualHitEffect(damagedArea);
+                }
+                _attackDelayTimer.AddTimeRemaining();
+                _isTiming = true;
             }
         }
 
@@ -147,6 +170,22 @@ namespace Dragoraptor
             }
         }
 
+        private void OnAttackTimer()
+        {
+            _isTiming = false;
+            if (_shouldAttack)
+            {
+                if (CheckStateCanAttack())
+                {
+                    DoAttack();
+                }
+                else
+                {
+                    _shouldAttack = false;
+                }
+            }
+        }
+
         #endregion
 
 
@@ -162,6 +201,12 @@ namespace Dragoraptor
         {
             _bodyTransform = null;
             _haveBody = false;
+            _shouldAttack = false;
+            if (_isTiming)
+            {
+                _attackDelayTimer.RemoveTimeRemaining();
+                _isTiming = false;
+            }
         }
 
         #endregion

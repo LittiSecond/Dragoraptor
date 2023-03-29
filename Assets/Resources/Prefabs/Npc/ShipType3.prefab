@@ -363,7 +363,7 @@ MonoBehaviour:
     Type: 2
     Amount: 10
   _bulletStartPoint: {fileID: 9022848595490287980}
-  _reloadTime: 8
+  _reloadTime: 15
   _damag: 40
 --- !u!1001 &7990530937966141327
 PrefabInstance:

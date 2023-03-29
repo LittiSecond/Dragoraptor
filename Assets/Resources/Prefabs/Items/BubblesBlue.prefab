@@ -277,7 +277,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _type: BubblesBlue
-  _activationDelay: 0.5
+  _activationDelay: 1
 --- !u!1 &2546939534304081475
 GameObject:
   m_ObjectHideFlags: 0
