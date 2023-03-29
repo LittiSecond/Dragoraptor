@@ -18,9 +18,9 @@ MonoBehaviour:
   MaxJumpPowerIndicatorLength: 1.5
   WalkSpeed: 1.75
   CharacterSpawnPosition: {x: -1, y: -3}
-  AttackPower: 100
   MaxHealth: 100
   Armor: 5
+  AttackPower: 100
   AttackAreas:
     LeftIdle:
       serializedVersion: 2
@@ -71,6 +71,12 @@ MonoBehaviour:
       width: 0.7
       height: 1
   MaxSatiety: 100
+  Energy: 100
+  EnergyRegeneration: 10
+  WalkEnergyRegeneration: 2.5
+  RegenerationDelay: 0.5
+  AttackEnergyCost: 5
+  JumpEnergyCost: 2
   VictoryScoreMultipler: 2
   DefeatScoreMultipler: 1
   NullSatietyScoreMultipler: 0.5

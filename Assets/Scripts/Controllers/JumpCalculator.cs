@@ -9,10 +9,13 @@ namespace Dragoraptor
 
         private float _minJumpForce;
         private float _maxJumpForce;
+        private float _energyCost;
         //      distances betwin _bodyTransform and touch point
         private float _cancelJumpDistance;
         private float _cancelJumpSqrDistance;
         private float _maxJumpForceDistance;
+
+        private float _jumpForce;
 
         // force calculation data: Force = k*distance + b
         private float _k;
@@ -28,6 +31,7 @@ namespace Dragoraptor
         {
             _minJumpForce = gps.MinJumpForce;
             _maxJumpForce = gps.MaxJumpForce;
+            _energyCost = gps.JumpEnergyCost;
             _cancelJumpDistance = gps.NoJumpPowerIndicatorLength;
             _cancelJumpSqrDistance = _cancelJumpDistance * _cancelJumpDistance;
             _maxJumpForceDistance = gps.MaxJumpPowerIndicatorLength;
@@ -63,8 +67,8 @@ namespace Dragoraptor
                     {
                         distance = _maxJumpForceDistance;
                     }
-                    float jumpForce = CalculateJumpForce(distance);
-                    impulse = jumpDirection * jumpForce;
+                    _jumpForce = CalculateJumpForce(distance);
+                    impulse = jumpDirection * _jumpForce;
                 }
             }
 
@@ -79,6 +83,11 @@ namespace Dragoraptor
         private float CalculateJumpForce(float distance)
         {
             return _k * distance + _b;
+        }
+
+        public float CalculateJumpCost()
+        {
+            return _jumpForce * _energyCost;
         }
 
         #endregion

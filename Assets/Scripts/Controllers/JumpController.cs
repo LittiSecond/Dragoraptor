@@ -12,6 +12,7 @@ namespace Dragoraptor
 
         private readonly CharacterStateHolder _stateHolder;
         private readonly JumpCalculator _jumpCalculator;
+        private readonly IResouceStore _energyStore;
 
         private CharacterState _state;
 
@@ -22,12 +23,13 @@ namespace Dragoraptor
 
         #region ClassLifeCycles
 
-        public JumpController(CharacterStateHolder csh, JumpCalculator jc)
+        public JumpController(CharacterStateHolder csh, JumpCalculator jc, IResouceStore energyStore)
         {
             _stateHolder = csh;
             _stateHolder.OnStateChanged += OnStateChanged;
 
             _jumpCalculator = jc;
+            _energyStore = energyStore;
         }
 
         #endregion
@@ -53,8 +55,16 @@ namespace Dragoraptor
 
                 if (impulse != Vector2.zero)
                 {
-                    _rigidbody.AddForce(impulse, ForceMode2D.Impulse);
-                    _stateHolder.SetState(CharacterState.FliesUp);
+                    int jumpCost = (int)_jumpCalculator.CalculateJumpCost();
+                    if (_energyStore.SpendResource(jumpCost))
+                    {
+                        _rigidbody.AddForce(impulse, ForceMode2D.Impulse);
+                        _stateHolder.SetState(CharacterState.FliesUp);
+                    }
+                    else
+                    {
+                        _stateHolder.SetState(CharacterState.Idle);
+                    }
                 }
                 else
                 {

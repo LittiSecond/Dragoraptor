@@ -14,6 +14,7 @@ namespace Dragoraptor.Ui
         [SerializeField] private Button _breakHuntButton;
         [SerializeField] private GameObject _huntMenu;
         [SerializeField] private UiResourceIndicator _hpIndicator;
+        [SerializeField] private UiResourceIndicator _energyIndicator;
         [SerializeField] private UiSatietyIndicator _satietyIndicator;
         [SerializeField] private UiScoreIndicator _scoreIndicator;
         [SerializeField] private UiTimeLeftIndicator _timeLeftIndicator;
@@ -99,10 +100,12 @@ namespace Dragoraptor.Ui
             _isHuntMenuOpen = true;
         }
 
-        public void SetControllers(PlayerHealth playerHealth, PlayerSatiety playerSatiety, 
-            TimeController timeController, IScoreSource scoreSource, IHuntResultsSource huntResultsSource)
+        public void SetControllers(IObservableResource playerHealth, IObservableResource energyController,
+            PlayerSatiety playerSatiety, 
+            TimeController timeController, IScoreSource scoreSource, IHuntResultsSource huntResultsSource )
         {
             _hpIndicator.SetSource(playerHealth);
+            _energyIndicator.SetSource(energyController);
             _satietyIndicator.SetSatietySource(playerSatiety);
             timeController.SetTimeView(_timeLeftIndicator);
             scoreSource.OnScoreChanged += _scoreIndicator.SetScore;

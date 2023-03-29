@@ -23,15 +23,16 @@ namespace Dragoraptor
         public Controllers(GamePlaySettings gamePlaySettings)
         {
             CharacterStateHolder characterStateHolder = new CharacterStateHolder();
+            EnergyController energyController = new EnergyController(gamePlaySettings, characterStateHolder);
             JumpCalculator jumpCalculator = new JumpCalculator(gamePlaySettings);
             WalkController walkController = new WalkController(characterStateHolder, gamePlaySettings);
             JumpPainter jumpPainter = new JumpPainter(characterStateHolder, gamePlaySettings, jumpCalculator);
-            JumpController jumpController = new JumpController(characterStateHolder, jumpCalculator);
+            JumpController jumpController = new JumpController(characterStateHolder, jumpCalculator, energyController);
             FlightObserver flightObserver = new FlightObserver(characterStateHolder);
             AnimationController animationController = new AnimationController(characterStateHolder);
             PlayerHorizontalDirection horizontalDirection = new PlayerHorizontalDirection();
             AttackController attackController = new AttackController(characterStateHolder, gamePlaySettings, 
-                horizontalDirection);
+                horizontalDirection, energyController);
             PlayerHealth playerHealth = new PlayerHealth(gamePlaySettings);
             PlayerSatiety playerSatiety = new PlayerSatiety(gamePlaySettings);
             ScoreController scoreController = new ScoreController();
@@ -56,7 +57,7 @@ namespace Dragoraptor
             };
 
             PlayerCharacterController playerCharacterController = new PlayerCharacterController(characterStateHolder, 
-                gamePlaySettings, touchInputController, playerHealth, playerSatiety, bodyUsers);
+                gamePlaySettings, touchInputController, playerHealth, playerSatiety, energyController, bodyUsers);
 
             NpcManager npcManager = new NpcManager();
             TimeRemainingController timeRemainingController = new TimeRemainingController();
@@ -68,6 +69,7 @@ namespace Dragoraptor
                 jumpPainter,
                 flightObserver,
                 npcManager,
+                energyController,
 
 
                 timeRemainingController
@@ -79,8 +81,8 @@ namespace Dragoraptor
                 levelProgressControler);
             Services.Instance.CharacterIntermediary.SetControllers(pickUpController, scoreController);
             Ui.HuntScreenBehaviour huntScreenBehaviour = Services.Instance.UiFactory.GetHuntScreen();
-            huntScreenBehaviour.SetControllers(playerHealth, playerSatiety, timeController, scoreController, 
-                levelProgressControler);
+            huntScreenBehaviour.SetControllers(playerHealth, energyController, playerSatiety, timeController, 
+                scoreController, levelProgressControler);
         }
 
         #endregion

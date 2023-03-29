@@ -12,11 +12,17 @@ namespace Dragoraptor
         public float MaxJumpPowerIndicatorLength;
         public float WalkSpeed;
         public Vector2 CharacterSpawnPosition;
-        public int AttackPower;
         public int MaxHealth;
         public int Armor;
+        public int AttackPower;
         public AttackAreasPack AttackAreas;
         public int MaxSatiety;
+        public float Energy;
+        public float EnergyRegeneration;
+        public float WalkEnergyRegeneration;
+        public float RegenerationDelay;
+        public float AttackEnergyCost;
+        public float JumpEnergyCost;
         public float VictoryScoreMultipler = 2.0f;
         public float DefeatScoreMultipler = 1.0f;
         public float NullSatietyScoreMultipler = 0.5f;

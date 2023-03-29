@@ -10,11 +10,13 @@ namespace Dragoraptor
 
         private const string HIT_VISUAL_EFFECT = "EffectBoom";
 
+        private readonly IResouceStore _energyStore;
         private Transform _bodyTransform;
         private AttackAreasPack _attackAreas;
         private CharacterState _state;
         private Direction _direction;
 
+        private float _energyCost;
         private int _attackPower;
         private int _layerMaskToAttack = (1 << (int)SceneLayer.Npc);
 
@@ -25,12 +27,14 @@ namespace Dragoraptor
 
         #region ClassLifeCycles
 
-        public AttackController(CharacterStateHolder csh, GamePlaySettings gps, PlayerHorizontalDirection phd)
+        public AttackController(CharacterStateHolder csh, GamePlaySettings gps, PlayerHorizontalDirection phd, IResouceStore energyStore)
         {
             csh.OnStateChanged += OnStateChanged;
             _attackAreas = gps.AttackAreas;
+            _energyCost = gps.AttackEnergyCost;
             _attackPower = gps.AttackPower;
             phd.OnDirectionChanged += OnDirectionChanged;
+            _energyStore = energyStore;
         }
 
         #endregion
@@ -45,18 +49,24 @@ namespace Dragoraptor
                 if (_state == CharacterState.Idle || _state == CharacterState.Walk ||
                     _state == CharacterState.FliesUp || _state == CharacterState.FliesDown)
                 {
-                    Rect damagedArea = CalculateDamagedArea();
-                    Collider2D[] targets = Physics2D.OverlapAreaAll(damagedArea.min, damagedArea.max, _layerMaskToAttack);
-
-                    if (targets.Length > 0)
+                    if (_energyStore.SpendResource((int)_energyCost))
                     {
-                        for (int i = 0; i < targets.Length; i++)
-                        {
-                            MakeDamag(targets[i]);
-                        }
-                        CreateVisualHitEffect(damagedArea);
-                    }
+                        Rect damagedArea = CalculateDamagedArea();
+                        Collider2D[] targets = Physics2D.OverlapAreaAll(damagedArea.min, damagedArea.max, _layerMaskToAttack);
 
+                        if (targets.Length > 0)
+                        {
+                            for (int i = 0; i < targets.Length; i++)
+                            {
+                                MakeDamag(targets[i]);
+                            }
+                            CreateVisualHitEffect(damagedArea);
+                        }
+                    }
+                    else
+                    {
+                     
+                    }
                 }
             }
         }
