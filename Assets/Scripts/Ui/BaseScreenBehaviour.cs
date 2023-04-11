@@ -14,7 +14,7 @@ namespace Dragoraptor.Ui
 
         #region IScreenBehaviour
 
-        public void Show()
+        public virtual void Show()
         {
             if (!_isActive)
             {

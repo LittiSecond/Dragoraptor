@@ -29,9 +29,9 @@ namespace Dragoraptor
 
             _controllers = new Controllers(DefaultGamePlaySettings);
 
+            Services.Instance.GameProgress.SetCampaign(DefoultCampaign);
             Services.Instance.GameStateManager.SetMainScreenAtStartGame();
             Services.Instance.UpdateService.SetListToExecute(_executables);
-            Services.Instance.GameProgress.SetCampaign(DefoultCampaign);
         }
 
 

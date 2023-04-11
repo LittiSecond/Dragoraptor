@@ -651,6 +651,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _settingsButton: {fileID: 2882731032442152095}
   _goHuntingButton: {fileID: 6816859367123264135}
+  _gameStatisticPanel: {fileID: 8063595570213693682}
 --- !u!1 &2882731032442152093
 GameObject:
   m_ObjectHideFlags: 0
@@ -2161,6 +2162,7 @@ GameObject:
   - component: {fileID: 5861349701045776478}
   - component: {fileID: 5302180732616937836}
   - component: {fileID: 2050278043302583727}
+  - component: {fileID: 8063595570213693682}
   m_Layer: 5
   m_Name: Panel
   m_TagString: Untagged
@@ -2252,6 +2254,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_AspectMode: 1
   m_AspectRatio: 1
+--- !u!114 &8063595570213693682
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8194971137008202990}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1b754eb64a46c324fb0c9e382a99d270, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _levelSelectDropdown: {fileID: 4406919336795634904}
+  _levelsComplited: {fileID: 1596495405349535283}
+  _totalScore: {fileID: 2946948619054948831}
+  _totalHunts: {fileID: 5638009976585668131}
+  _lastHuntScore: {fileID: 7296132872599873396}
+  _bestScore: {fileID: 1244612191341862960}
 --- !u!1 &8419335452991512823
 GameObject:
   m_ObjectHideFlags: 0

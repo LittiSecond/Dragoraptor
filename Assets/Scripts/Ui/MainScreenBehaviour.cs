@@ -10,6 +10,7 @@ namespace Dragoraptor.Ui
 
         [SerializeField] private Button _settingsButton;
         [SerializeField] private Button _goHuntingButton;
+        [SerializeField] private UiGameStatisticsPanel _gameStatisticPanel;
 
         #endregion
 
@@ -35,6 +36,12 @@ namespace Dragoraptor.Ui
         private void GoHuntButtonClick()
         {
             Services.Instance.GameStateManager.SwitchToHunt();
+        }
+
+        public override void Show()
+        {
+            base.Show();
+            _gameStatisticPanel.SetProgressData(Services.Instance.GameProgress.GetProgressData());
         }
 
         #endregion

@@ -66,6 +66,14 @@
             {
                 _progressData.Levels.Add(new LevelProgressInfo(i + 1));
             }
+
+            _progressData.Levels[0].Status = LevelStatus.Avilable;
+            _progressData.Levels[1].Status = LevelStatus.Avilable;
+        }
+
+        public ProgressData GetProgressData()
+        {
+            return _progressData;
         }
 
         #endregion
