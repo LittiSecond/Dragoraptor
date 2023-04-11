@@ -9,6 +9,7 @@ namespace Dragoraptor
         #region Fields
 
         [SerializeField] private GamePlaySettings DefaultGamePlaySettings;
+        [SerializeField] private Campaign DefoultCampaign;
         private Controllers _controllers;
         private List<IExecutable> _executables;
 
@@ -30,6 +31,7 @@ namespace Dragoraptor
 
             Services.Instance.GameStateManager.SetMainScreenAtStartGame();
             Services.Instance.UpdateService.SetListToExecute(_executables);
+            Services.Instance.GameProgress.SetCampaign(DefoultCampaign);
         }
 
 
