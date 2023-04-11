@@ -35,8 +35,6 @@ namespace Dragoraptor.Ui
 
         private void OnLevelSelectChanged(int select)
         {
-            Debug.Log("UiGameStatisticsPanel->OnLevelSelectChanged: select = " + select.ToString());
-
             _bestScore.text = _progresses[select].BestScore.ToString();
         }
 
