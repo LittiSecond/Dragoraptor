@@ -6,8 +6,7 @@ namespace Dragoraptor
 {
     public sealed class GameStateManager
     {
-        #region PrivateData
-
+        
         private enum GameState
         {
             None        = 0,
@@ -15,28 +14,19 @@ namespace Dragoraptor
             Hunt        = 2
         }
 
-        #endregion
-
-
-        #region Fields
-
         private UiManager _uiManager;
         private PlayerCharacterController _characterController;
         private SceneController _sceneController;
         private NpcManager _npcManager;
-        private LevelProgressControler _levelProgressControler;
+        private LevelProgressController _levelProgressControler;
 
         private GameState _state;
 
         private bool _isPause;
 
-        #endregion
-
-
-        #region Methods
 
         public void SetControllers(PlayerCharacterController pcc, SceneController sc, NpcManager nm, 
-            LevelProgressControler lpc)
+            LevelProgressController lpc)
         {
             _characterController = pcc;
             _sceneController = sc;
@@ -48,7 +38,7 @@ namespace Dragoraptor
         {
             if (_state == GameState.None)
             {
-                _uiManager.SwichToMainScreen();
+                _uiManager.SwitchToMainScreen();
                 _state = GameState.MainScreen;
                 _sceneController.SetMainScreenScene();
             }
@@ -70,10 +60,10 @@ namespace Dragoraptor
 
                 _npcManager.StopNpcSpawn();
                 _npcManager.ClearNpc();
-                DeactivateCharacterControll();
+                DeactivateCharacterControl();
                 _characterController.RemoveCharacter();
                 _sceneController.SetMainScreenScene();
-                _uiManager.SwichToMainScreen();
+                _uiManager.SwitchToMainScreen();
             }
         }
 
@@ -84,25 +74,23 @@ namespace Dragoraptor
                 _state = GameState.Hunt;
                 Services.Instance.GameProgress.ChooseNextLevel();
 
-                _uiManager.SwichToHuntScreen();
+                _uiManager.SwitchToHuntScreen();
 
                 _sceneController.BuildLevel();
                 _characterController.CreateCharacter();
-                ActivateCharacterControll();
+                ActivateCharacterControl();
                 _npcManager.PrepareNpcSpawn();
                 _npcManager.RestartNpcSpawn();
                 _levelProgressControler.LevelStart();
             }
         }
 
-
-
-        private void ActivateCharacterControll()
+        private void ActivateCharacterControl()
         {
             _characterController.CharacterControllOn();
         }
 
-        private void DeactivateCharacterControll()
+        private void DeactivateCharacterControl()
         {
             _characterController.CharacterControllOff();
         }
@@ -144,12 +132,12 @@ namespace Dragoraptor
                 _levelProgressControler.LevelEnd();
                 _npcManager.StopNpcSpawn();
                 _npcManager.ClearNpc();
-                DeactivateCharacterControll();
+                DeactivateCharacterControl();
                 _characterController.RemoveCharacter();
                 _sceneController.ClearTemporaryObjects();
 
                 _characterController.CreateCharacter();
-                ActivateCharacterControll();
+                ActivateCharacterControl();
                 _npcManager.RestartNpcSpawn();
                 _levelProgressControler.LevelStart();
                 SwitchPause(false);
@@ -168,8 +156,6 @@ namespace Dragoraptor
             Services.Instance.UiFactory.GetHuntScreen().ShowEndHuntScreen();
             SwitchPause(true);
         }
-
-        #endregion
 
     }
 }

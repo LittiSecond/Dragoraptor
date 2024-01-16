@@ -5,17 +5,12 @@ namespace Dragoraptor
 {
     public sealed class NpcDirectionByScale : INpcDirection
     {
-        #region Fields
 
         private Transform _transform;
 
         private float _startXScale;
         private bool _isDirectionLeft;
 
-        #endregion
-
-
-        #region Properties
 
         public bool IsDirectionToLeft
         {
@@ -43,10 +38,6 @@ namespace Dragoraptor
             }
         }
 
-        #endregion
-
-
-        #region ClassLifeCycles
 
         public NpcDirectionByScale(Transform transform)
         {
@@ -55,6 +46,5 @@ namespace Dragoraptor
             _isDirectionLeft = _startXScale < 0.0f;
         }
 
-        #endregion
     }
 }

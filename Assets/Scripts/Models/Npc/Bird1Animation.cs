@@ -6,7 +6,6 @@ namespace Dragoraptor
 {
     public sealed class Bird1Animation
     {
-        #region Fields
 
         private const string ANIMATION_PROPERTI_NAME = "State";
         private const int ANIMATION_STATE_FLYING = 0;
@@ -17,10 +16,6 @@ namespace Dragoraptor
         private readonly Animator _animator;
         private readonly int _state;
 
-        #endregion
-
-
-        #region ClassLifeCycles
 
         public Bird1Animation(Animator animator)
         {
@@ -28,10 +23,6 @@ namespace Dragoraptor
             _state = Animator.StringToHash(ANIMATION_PROPERTI_NAME);
         }
 
-        #endregion
-
-
-        #region Methods
 
         public void SetFlying()
         {
@@ -48,6 +39,5 @@ namespace Dragoraptor
             _animator.SetInteger(_state, ANIMATION_STATE_GROUNDED);
         }
 
-        #endregion
     }
 }

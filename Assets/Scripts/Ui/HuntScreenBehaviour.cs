@@ -7,8 +7,6 @@ namespace Dragoraptor.Ui
     public sealed class HuntScreenBehaviour : BaseScreenBehaviour
     {
 
-        #region Fields
-
         [SerializeField] private Button _settingsButton;
         [SerializeField] private Button _continueButton;
         [SerializeField] private Button _breakHuntButton;
@@ -24,10 +22,6 @@ namespace Dragoraptor.Ui
         private bool _isHuntMenuOpen;
         private bool _isEndHuntScreenOpen;
 
-        #endregion
-
-
-        #region UnityMethods
 
         private void Start()
         {
@@ -40,10 +34,6 @@ namespace Dragoraptor.Ui
             _noEnergyMessage.Hide();
         }
 
-        #endregion
-
-
-        #region Methods
 
         private void SettingsButtonClick()
         {
@@ -127,6 +117,5 @@ namespace Dragoraptor.Ui
             _isEndHuntScreenOpen = false;
         }
 
-        #endregion
     }
 }

@@ -6,7 +6,6 @@ namespace Dragoraptor
 {
     public sealed class TouchInputController : IExecutable
     {
-        #region Fields
 
         private readonly WalkController _walkController;
         private readonly JumpController _jumpController;
@@ -18,10 +17,6 @@ namespace Dragoraptor
 
         private bool _isEnabled;
 
-        #endregion
-
-
-        #region ClassLifeCycles
 
         public TouchInputController(CharacterStateHolder csh, WalkController wc, JumpController jk, JumpPainter jp,
             PlayerHorizontalDirection hd, AttackController ac )
@@ -34,10 +29,6 @@ namespace Dragoraptor
             _attackController = ac;
         }
 
-        #endregion
-
-
-        #region Methods
 
         public void On()
         {
@@ -60,7 +51,7 @@ namespace Dragoraptor
                     if (type == ObjctType.Ground)
                     {
                         _walkController.SetDestination(position.x);
-                        _horizontalDirection.SetDistination(position);
+                        _horizontalDirection.SetDestination(position);
                     }
                     else if (type == ObjctType.Player)
                     {
@@ -101,8 +92,6 @@ namespace Dragoraptor
         {
             _state = newState;
         }
-
-        #endregion
 
 
         #region IExecutable

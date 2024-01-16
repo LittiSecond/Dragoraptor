@@ -6,7 +6,6 @@ namespace Dragoraptor
 {
     public class Fading : MonoBehaviour, IExecutable
     {
-        #region Fields
 
         public event Action OnFadingEnd;
 
@@ -18,17 +17,9 @@ namespace Dragoraptor
         private float _startTime;
         private bool _isFading;
 
-        #endregion
-
-
-        #region Properties
 
         public float FadingDuration { set => _fadingDuration = value; }
 
-        #endregion
-
-
-        #region UnityMethods
 
         private void Awake()
         {
@@ -44,10 +35,6 @@ namespace Dragoraptor
             _isFading = false;
         }
 
-        #endregion
-
-
-        #region Methods
 
         public void StartFading()
         {
@@ -56,9 +43,7 @@ namespace Dragoraptor
             _isFading = true;
         }
 
-        #endregion
-
-
+        
         #region IExecutable
 
         public void Execute()

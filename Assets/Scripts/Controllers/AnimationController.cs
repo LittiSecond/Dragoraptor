@@ -5,18 +5,13 @@ namespace Dragoraptor
 {
     public sealed class AnimationController : IBodyUser
     {
-        #region Fields
 
-        [SerializeField] private Animator _bodyAnimator;
+        private Animator _bodyAnimator;
 
-        private readonly int _stateParametr = Animator.StringToHash("CharacterState");
+        private readonly int _stateParameter = Animator.StringToHash("CharacterState");
 
         private bool _haveAnimator;
 
-        #endregion
-
-
-        #region ClassLifeCycles
 
         public AnimationController(CharacterStateHolder csh)
         {
@@ -24,20 +19,13 @@ namespace Dragoraptor
         }
 
 
-        #endregion
-
-
-        #region Methods
-
         private void OnStateChanged(CharacterState newState)
         {
             if (_haveAnimator)
             {
-                _bodyAnimator.SetInteger(_stateParametr, (int)newState);
+                _bodyAnimator.SetInteger(_stateParameter, (int)newState);
             }
         }
-
-        #endregion
 
 
         #region IBodyUser

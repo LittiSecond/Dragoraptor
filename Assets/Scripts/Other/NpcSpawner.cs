@@ -68,13 +68,13 @@ namespace Dragoraptor
         {
             _isEnabled = false;
             _fixedChainLogick.StopSpawnLogick();
-            _cyclikChainLogick.StopSpawnLogick();
+            _cyclikChainLogick.StopSpawnLogic();
         }
 
         private void StartSpawnLogick()
         {
             _fixedChainLogick.StartSpawnLogick();
-            _cyclikChainLogick.StartSpawnLogick();
+            _cyclikChainLogick.StartSpawnLogic();
             _isEnabled = true;
         }
 

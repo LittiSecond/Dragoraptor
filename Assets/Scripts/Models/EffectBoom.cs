@@ -6,8 +6,6 @@ namespace Dragoraptor
 {
     public sealed class EffectBoom : PooledObject, IInitializable
     {
-        #region Fields
-
         private const int ADDITIONAL_BITS = 2;
 
         [SerializeField] private float _liveTime = 2.0f;
@@ -17,10 +15,6 @@ namespace Dragoraptor
         private ITimeRemaining _timer;
         private bool _isTiming;
 
-        #endregion
-
-
-        #region Methods
 
         private void DestroyItself()
         {
@@ -47,8 +41,6 @@ namespace Dragoraptor
             rndValue >>= 1;
             _spriteRenderer.sprite = _sprites[rndValue];
         }
-
-        #endregion
 
 
         #region IInitializable

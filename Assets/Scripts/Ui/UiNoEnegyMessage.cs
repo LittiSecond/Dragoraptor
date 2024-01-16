@@ -6,7 +6,6 @@ namespace Dragoraptor.Ui
 {
     public sealed class UiNoEnegyMessage : MonoBehaviour, IExecutable, IMessage 
     {
-        #region Fields
 
         [SerializeField] private Image _mainImage;
         [SerializeField] private float _animationDuration = 2.0f;
@@ -20,20 +19,12 @@ namespace Dragoraptor.Ui
         private bool _isAnimation;
         private bool _isStartColor;
 
-        #endregion
-
-
-        #region UnityMethods
 
         private void Awake()
         {
             _startColor = _mainImage.color;
         }
 
-        #endregion
-
-
-        #region Methods
 
         public void Hide()
         {
@@ -45,7 +36,6 @@ namespace Dragoraptor.Ui
             }
         }
 
-        #endregion
 
 
         #region IExecutable

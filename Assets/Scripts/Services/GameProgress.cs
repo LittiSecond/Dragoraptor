@@ -2,35 +2,25 @@
 {
     public sealed class GameProgress
     {
-        #region Fields
-
+        
         private const int FIRST_LEVEL_NUMBER = 1;
 
         private LevelLoader _levelLoader;
         private ProgressData _progressData;
         private LevelDescriptor _currentLevel;
 
-        #endregion
-
-
-        #region ClassLifeCycles
 
         public GameProgress()
         {
             _progressData = new ProgressData();
         }
 
-        #endregion
-
-
-        #region Methods
 
         public void ChooseNextLevel()
         {
             if (_progressData.CurrentLevelNumber == 0)
             {
                 _progressData.CurrentLevelNumber = FIRST_LEVEL_NUMBER;
-
             }
             else
             {
@@ -67,16 +57,14 @@
                 _progressData.Levels.Add(new LevelProgressInfo(i + 1));
             }
 
-            _progressData.Levels[0].Status = LevelStatus.Avilable;
-            _progressData.Levels[1].Status = LevelStatus.Avilable;
+            _progressData.Levels[0].Status = LevelStatus.Available;
+            _progressData.Levels[1].Status = LevelStatus.Available;
         }
 
         public ProgressData GetProgressData()
         {
             return _progressData;
         }
-
-        #endregion
 
     }
 }

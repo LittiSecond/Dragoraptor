@@ -6,8 +6,7 @@ namespace Dragoraptor
 {
     public sealed class ShipType3Movement : IExecutable, ICleanable
     {
-        #region Fields
-
+        
         private readonly Transform _transform;
         private readonly Rigidbody2D _rigidbody;
 
@@ -18,10 +17,6 @@ namespace Dragoraptor
         private float _minY = -1.0f;
         private float _maxXError = 0.1f;
 
-        #endregion
-
-
-        #region ClassLifeCycles
 
         public ShipType3Movement(Transform transform, Rigidbody2D rigidbody)
         {
@@ -29,10 +24,6 @@ namespace Dragoraptor
             _rigidbody = rigidbody;
         }
 
-        #endregion
-
-
-        #region Methods
 
         private float CalculateVerticalSpeed()
         {
@@ -58,9 +49,7 @@ namespace Dragoraptor
             return speed;
         }
 
-        #endregion
-
-
+        
         #region IExecutable
 
         public void Execute()

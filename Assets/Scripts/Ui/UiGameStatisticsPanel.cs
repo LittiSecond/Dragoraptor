@@ -7,7 +7,6 @@ namespace Dragoraptor.Ui
 {
     public sealed class UiGameStatisticsPanel : MonoBehaviour
     {
-        #region Fields
 
         [SerializeField] private Dropdown _levelSelectDropdown;
         [SerializeField] private Text _levelsComplited;
@@ -18,20 +17,12 @@ namespace Dragoraptor.Ui
 
         private LevelProgressInfo[] _progresses;
 
-        #endregion
-
-
-        #region UnityMethods
 
         private void Awake()
         {
             _levelSelectDropdown.onValueChanged.AddListener(OnLevelSelectChanged);
         }
-
-        #endregion
-
-
-        #region Methods
+        
 
         private void OnLevelSelectChanged(int select)
         {
@@ -46,7 +37,7 @@ namespace Dragoraptor.Ui
             for (int i = 0; i < data.Levels.Count; i++)
             {
                 LevelStatus levelStatus = data.Levels[i].Status;
-                if (levelStatus == LevelStatus.Avilable || levelStatus == LevelStatus.Finished)
+                if (levelStatus == LevelStatus.Available || levelStatus == LevelStatus.Finished)
                 {
                     int levelNumber = data.Levels[i].LevelNumber;
                     _levelSelectDropdown.options.Add(new Dropdown.OptionData(levelNumber.ToString()));
@@ -56,7 +47,7 @@ namespace Dragoraptor.Ui
                     }
                 }
             }
-            _levelsComplited.text = data.ComplitedLevels.ToString();
+            _levelsComplited.text = data.CompletedLevels.ToString();
             _totalScore.text = data.TotalScore.ToString();
             _totalHunts.text = data.HuntsTotal.ToString();
             _lastHuntScore.text = data.LastScore.ToString();
@@ -68,9 +59,6 @@ namespace Dragoraptor.Ui
             }
             _bestScore.text = data.Levels[index].BestScore.ToString();
         }
-
-
-        #endregion
 
     }
 }

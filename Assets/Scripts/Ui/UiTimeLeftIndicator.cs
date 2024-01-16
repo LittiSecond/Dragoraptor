@@ -6,7 +6,6 @@ namespace Dragoraptor.Ui
 {
     public class UiTimeLeftIndicator : MonoBehaviour, ITimeView
     {
-        #region Fields
 
         private const string SEPARATOR = ":";
         private const string LETTER_NULL = "0";
@@ -14,8 +13,6 @@ namespace Dragoraptor.Ui
         private const int TWO_NUMERAL_MIN_NUMBER = 10;
 
         [SerializeField] private Text _text;
-
-        #endregion
 
 
         #region ITimeView

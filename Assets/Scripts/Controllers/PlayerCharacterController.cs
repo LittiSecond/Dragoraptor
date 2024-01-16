@@ -5,7 +5,6 @@ namespace Dragoraptor
 {
     public sealed class PlayerCharacterController
     {
-        #region Fields
 
         private const string CHARACTER_PREFAB_ID = "PlayerCharacter";
 
@@ -29,10 +28,6 @@ namespace Dragoraptor
         private bool _isCharacterControllEnabled;
         private bool _isTiming;
 
-        #endregion
-
-
-        #region ClassLifeCycles
 
         public PlayerCharacterController( CharacterStateHolder csh, GamePlaySettings gps, TouchInputController tic, 
             PlayerHealth ph, PlayerSatiety ps, EnergyController ec, IBodyUser[] bu)
@@ -47,10 +42,6 @@ namespace Dragoraptor
             _bodyUsers = bu;
         }
 
-        #endregion
-
-
-        #region Methods
 
         public void CreateCharacter()
         {
@@ -68,7 +59,7 @@ namespace Dragoraptor
             _playerGO.transform.position = _spawnPosition;
             _playerGO.SetActive(true);
             _playerHealth.ResetHealth();
-            _playerSatiety.ResetSetiety();
+            _playerSatiety.ResetSatiety();
             _energyController.ResetEnergy();
             _energyController.On();
             _stateHolder.SetState(CharacterState.Idle);
@@ -129,8 +120,6 @@ namespace Dragoraptor
             _isTiming = false;
             Services.Instance.GameStateManager.CharacterKilled();
         }
-
-        #endregion
 
     }
 }

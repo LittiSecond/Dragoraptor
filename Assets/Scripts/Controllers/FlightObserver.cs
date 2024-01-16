@@ -5,7 +5,6 @@ namespace Dragoraptor
 {
     public sealed class FlightObserver : IExecutable, IBodyUser
     {
-        #region Fields
 
         private PlayerBody _playerBody;
         private Transform _bodyTransform;
@@ -21,10 +20,6 @@ namespace Dragoraptor
         private bool _isEnabled;
         private bool _isFirstFrame;
 
-        #endregion
-
-
-        #region ClassLifeCycles
 
         public FlightObserver(CharacterStateHolder csh)
         {
@@ -32,10 +27,6 @@ namespace Dragoraptor
             _stateHolder.OnStateChanged += OnStateChanged;
         }
 
-        #endregion
-
-
-        #region Methods
 
         private void OnStateChanged(CharacterState newState)
         {
@@ -60,8 +51,6 @@ namespace Dragoraptor
                 _stateHolder.SetState(CharacterState.Idle);
             }
         }
-
-        #endregion
 
 
         #region IBodyUser

@@ -7,7 +7,6 @@ namespace Dragoraptor.Editor
 {
     public sealed class CustomTools : EditorWindow
     {
-        #region Fields
 
         private const string CAPTION = "    Functional to testing tools";
 
@@ -27,14 +26,6 @@ namespace Dragoraptor.Editor
         private int _damagToCharacter = 1000;
         private int _damagToNpc = 1000;
 
-        #endregion
-
-        #region ClassLifeCycles
-
-        #endregion
-
-
-        #region UnityMethods
 
         private void OnGUI()
         {
@@ -68,10 +59,6 @@ namespace Dragoraptor.Editor
 
         }
 
-        #endregion
-
-
-        #region Methods
 
         [MenuItem("CustomTools/Testing tools")]
         public static void ShowCustomTools()
@@ -116,6 +103,5 @@ namespace Dragoraptor.Editor
             }
         }
 
-        #endregion
     }
 }

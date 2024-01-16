@@ -5,7 +5,6 @@ namespace Dragoraptor
 {
     public sealed class JumpCalculator
     {
-        #region Fields
 
         private float _minJumpForce;
         private float _maxJumpForce;
@@ -22,11 +21,6 @@ namespace Dragoraptor
         private float _b;
 
 
-        #endregion
-
-
-        #region ClassLifeCycles
-
         public JumpCalculator(GamePlaySettings gps)
         {
             _minJumpForce = gps.MinJumpForce;
@@ -39,10 +33,6 @@ namespace Dragoraptor
             CalculateJumpForceCalcData();
         }
 
-        #endregion
-
-
-        #region Methods
 
         private void CalculateJumpForceCalcData()
         {
@@ -50,7 +40,7 @@ namespace Dragoraptor
             _b = _maxJumpForce - _k * _maxJumpForceDistance;
         }
 
-        public Vector2 CalculateJampImpulse(Vector2 jumpDirection)
+        public Vector2 CalculateJumpImpulse(Vector2 jumpDirection)
         {
             Vector2 impulse = Vector2.zero;
 
@@ -89,8 +79,6 @@ namespace Dragoraptor
         {
             return _jumpForce * _energyCost;
         }
-
-        #endregion
 
     }
 }

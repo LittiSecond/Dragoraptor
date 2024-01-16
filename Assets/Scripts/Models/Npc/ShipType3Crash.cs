@@ -6,7 +6,6 @@ namespace Dragoraptor
 {
     public sealed class ShipType3Crash : PooledObject, IExecutable, IInitializable
     {
-        #region Fields
 
         private const float FULL_TURN = 360.0f;
         private const float BALLON_DEACTIVATE_OFFSET = 1.0f;
@@ -25,17 +24,13 @@ namespace Dragoraptor
         private Quaternion[] _rotations;
 
         private float _breakAngle = 45.0f;
-        private float _ballonDeactivateYPosition;
+        private float _balloonDeactivateYPosition;
         private float _destroyTimeCounter;
 
         private bool _isBowConnected;
         private bool _isSternConnected;
-        private bool _isBallonEnabled;
+        private bool _isBalloonEnabled;
 
-        #endregion
-
-
-        #region UnityMethods
 
         private void Awake()
         {
@@ -49,17 +44,13 @@ namespace Dragoraptor
             }
             _isBowConnected = true;
             _isSternConnected = true;
-            _isBallonEnabled = true;
+            _isBalloonEnabled = true;
 
-            _ballonDeactivateYPosition = Services.Instance.SceneGeometry.GetVisibleArea().yMax + 
+            _balloonDeactivateYPosition = Services.Instance.SceneGeometry.GetVisibleArea().yMax + 
                 BALLON_DEACTIVATE_OFFSET;
 
         }
 
-        #endregion
-
-
-        #region Methods
 
         private void RestoreStartingState()
         {
@@ -72,10 +63,10 @@ namespace Dragoraptor
             _sternJoint.enabled = true;
             _isBowConnected = true;
             _isSternConnected = true;
-            if (!_isBallonEnabled)
+            if (!_isBalloonEnabled)
             {
                 _ballon.gameObject.SetActive(true);
-                _isBallonEnabled = true;
+                _isBalloonEnabled = true;
             }
         }
 
@@ -91,8 +82,6 @@ namespace Dragoraptor
             PrepareToReturnToPool();
             ReturnToPool();
         }
-
-        #endregion
 
 
         #region IExecutable
@@ -125,12 +114,12 @@ namespace Dragoraptor
                 }
             }
 
-            if (_isBallonEnabled)
+            if (_isBalloonEnabled)
             {
-                if (_ballon.position.y > _ballonDeactivateYPosition)
+                if (_ballon.position.y > _balloonDeactivateYPosition)
                 {
                     _ballon.gameObject.SetActive(false);
-                    _isBallonEnabled = false;
+                    _isBalloonEnabled = false;
                 }
             }
 

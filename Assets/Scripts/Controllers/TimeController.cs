@@ -6,9 +6,9 @@ namespace Dragoraptor
 {
     public sealed class TimeController
     {
-        #region Fields
 
         private const float TIME_TACT = 1.0f;
+        //private const float ERROR_RATE = 0.1f;
 
         public event Action OnTimeUp;
 
@@ -20,10 +20,6 @@ namespace Dragoraptor
 
         private bool _isTiming;
 
-        #endregion
-
-
-        #region Methods
 
         public void StartTimer()
         {
@@ -36,10 +32,10 @@ namespace Dragoraptor
             {
                 _timer = new TimeRemaining(OnTimeTact, TIME_TACT, true);
             }
-            else if (_timer.Duration != _levelDuration)
-            {
-                _timer = new TimeRemaining(OnTimeTact, TIME_TACT, true);
-            }
+            // else if ( _timer.Duration != _levelDuration )
+            // {
+            //     _timer = new TimeRemaining(OnTimeTact, TIME_TACT, true);
+            // }
 
             _startTime = Time.time;
             _timer.AddTimeRemaining();
@@ -77,6 +73,5 @@ namespace Dragoraptor
             }
         }
 
-        #endregion
     }
 }

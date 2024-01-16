@@ -6,7 +6,6 @@ namespace Dragoraptor
 {
     public class FreeFallStone : PooledObject
     {
-        #region Fields
 
         private const string HIT_VISUAL_EFFECT = "EffectBoom";
 
@@ -17,17 +16,9 @@ namespace Dragoraptor
         private bool _isDamagEnabled;
         private bool _isFadingEnabled;
 
-        #endregion
 
+        public int Damage { set => _damag = value; }
 
-        #region Properties
-
-        public int Damag { set => _damag = value; }
-
-        #endregion
-
-
-        #region UnityMethods
 
         private void Awake()
         {
@@ -42,7 +33,7 @@ namespace Dragoraptor
             {
                 if (other.layer == (int)SceneLayer.Player)
                 {
-                    ITakeDamag damagReceiver = other.GetComponent<ITakeDamag>();
+                    ITakeDamage damagReceiver = other.GetComponent<ITakeDamage>();
                     if (damagReceiver != null)
                     {
                         damagReceiver.TakeDamage(_damag);
@@ -63,10 +54,6 @@ namespace Dragoraptor
             }
         }
 
-        #endregion
-
-
-        #region Methods
 
         public void Kick()
         {
@@ -92,6 +79,5 @@ namespace Dragoraptor
             }
         }
 
-        #endregion
     }
 }

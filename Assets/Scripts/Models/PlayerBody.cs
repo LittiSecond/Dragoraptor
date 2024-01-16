@@ -4,9 +4,8 @@ using System;
 
 namespace Dragoraptor
 {
-    public sealed class PlayerBody : MonoBehaviour, ITakeDamag
+    public sealed class PlayerBody : MonoBehaviour, ITakeDamage
     {
-        #region Fields
 
         [SerializeField] private Rigidbody2D _rigedbody;
         [SerializeField] private LineRenderer _trajectoryRenderer;
@@ -17,12 +16,8 @@ namespace Dragoraptor
         public event Action OnGroundContact;
 
         private Direction _direction;
-        private ITakeDamag _damagReceiver;
+        private ITakeDamage _damageReceiver;
 
-        #endregion
-
-
-        #region UnityMethods
 
         private void OnCollisionEnter2D(Collision2D collision)
         {
@@ -44,10 +39,6 @@ namespace Dragoraptor
             _direction = (_bodySpriteRenderer.flipX)? Direction.Rigth : Direction.Left;
         }
 
-        #endregion
-
-
-        #region Methods
 
         public Rigidbody2D GetRigidbody()
         {
@@ -73,19 +64,17 @@ namespace Dragoraptor
             }
         }
 
-        public void SetDamagReceiver(ITakeDamag takeDamag)
+        public void SetDamageReceiver(ITakeDamage takeDamage)
         {
-            _damagReceiver = takeDamag;
+            _damageReceiver = takeDamage;
         }
-
-        #endregion
 
 
         #region ITakeDamag
 
         public void TakeDamage(int amount)
         {
-            _damagReceiver?.TakeDamage(amount);
+            _damageReceiver?.TakeDamage(amount);
         }
 
         #endregion

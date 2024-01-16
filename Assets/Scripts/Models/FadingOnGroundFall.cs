@@ -5,7 +5,6 @@ namespace Dragoraptor
 {
     public sealed class FadingOnGroundFall : MassFading
     {
-        #region UnityMethods
 
         private void OnCollisionEnter2D(Collision2D collision)
         {
@@ -15,6 +14,5 @@ namespace Dragoraptor
             }
         }
 
-        #endregion
     }
 }

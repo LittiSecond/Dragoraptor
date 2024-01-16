@@ -3,22 +3,13 @@ namespace Dragoraptor
 {
     public sealed class Controllers
     {
-        #region Fields
 
         private readonly IExecutable[] _executeControllers;
 
-        #endregion
-
-
-        #region Properties
 
         public int Length => _executeControllers.Length;
         public IExecutable this[int index] => _executeControllers[index];
 
-        #endregion
-
-
-        #region ClassLifeCycles
 
         public Controllers(GamePlaySettings gamePlaySettings)
         {
@@ -38,7 +29,7 @@ namespace Dragoraptor
             ScoreController scoreController = new ScoreController();
             PickUpController pickUpController = new PickUpController(playerSatiety, scoreController);
             TimeController timeController = new TimeController();
-            LevelProgressControler levelProgressControler = new LevelProgressControler(gamePlaySettings, playerHealth,
+            LevelProgressController levelProgressControler = new LevelProgressController(gamePlaySettings, playerHealth,
                 playerSatiety, scoreController, timeController);
 
             TouchInputController touchInputController = new TouchInputController(characterStateHolder, 
@@ -84,8 +75,6 @@ namespace Dragoraptor
             huntScreenBehaviour.SetControllers(playerHealth, energyController, playerSatiety, timeController, 
                 scoreController, levelProgressControler);
         }
-
-        #endregion
 
     }
 }

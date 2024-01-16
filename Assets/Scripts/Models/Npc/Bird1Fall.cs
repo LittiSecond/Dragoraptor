@@ -6,17 +6,12 @@ namespace Dragoraptor
 {
     public sealed class Bird1Fall : ICleanable
     {
-        #region Fields
 
         private readonly Collider2D _collider;
         private readonly Rigidbody2D _rigidbody;
 
         private bool _isFall;
 
-        #endregion
-
-
-        #region ClassLifeCycles
 
         public Bird1Fall(Collider2D c, Rigidbody2D rb)
         {
@@ -24,10 +19,6 @@ namespace Dragoraptor
             _rigidbody = rb;
         }
 
-        #endregion
-
-
-        #region Methods
 
         public void StartFall()
         {
@@ -56,8 +47,6 @@ namespace Dragoraptor
                 _isFall = false;
             }
         }
-
-        #endregion
 
 
         #region ICleanable

@@ -5,8 +5,6 @@ namespace Dragoraptor
 {
     public sealed class ShipType3Logick : NpcBaseLogick
     {
-        #region Fields
-
         private const string DESTRACTION_EFFECT = "ShipType3Crash";
 
         [SerializeField] private Transform _bulletStartPoint;
@@ -16,10 +14,6 @@ namespace Dragoraptor
         private ShipType3Movement _movement;
         private ShipType3Attack _attack;
 
-        #endregion
-
-
-        #region UnityMethods
 
         protected override void Awake()
         {
@@ -34,11 +28,6 @@ namespace Dragoraptor
 
         }
 
-        #endregion
-
-
-        #region Methods
-
         protected override void OnHealthEnd()
         {
             PooledObject obj = Services.Instance.ObjectPool.GetObjectOfType(DESTRACTION_EFFECT);
@@ -51,8 +40,6 @@ namespace Dragoraptor
 
             base.OnHealthEnd();
         }
-
-        #endregion
 
     }
 }

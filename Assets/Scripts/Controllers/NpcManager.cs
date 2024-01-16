@@ -5,31 +5,22 @@ namespace Dragoraptor
 {
     public sealed class NpcManager : IExecutable
     {
-        #region Fields
 
         private readonly List<NpcBaseLogick> _npcOnField;
         private readonly NpcSpawner _npcSpawner;
 
         private bool _isSpawnEnabled;
-        private bool _isNpcLogickEnabled;
+        private bool _isNpcLogicEnabled;
         private bool _haveSpawnRule;
 
-        #endregion
-
-
-        #region ClassLifeCycles
 
         public NpcManager()
         {
             _npcOnField = new List<NpcBaseLogick>();
             _npcSpawner = new NpcSpawner(_npcOnField, OnDestroyNpc);
-            _isNpcLogickEnabled = true;
+            _isNpcLogicEnabled = true;
         }
 
-        #endregion
-
-
-        #region Methods
 
         public void PrepareNpcSpawn()
         {
@@ -93,7 +84,7 @@ namespace Dragoraptor
             Services.Instance.ObjectPool.PrepareObjects(pooledObjects);
         }
 
-        private void ExecuteNpcLogick()
+        private void ExecuteNpcLogic()
         {
             for (int i = 0; i < _npcOnField.Count; i++)
             {
@@ -107,16 +98,14 @@ namespace Dragoraptor
             npc.OnDestroy -= OnDestroyNpc;
         }
 
-        #endregion
-
 
         #region IExecutable
 
         public void Execute()
         {
-            if (_isNpcLogickEnabled)
+            if (_isNpcLogicEnabled)
             {
-                ExecuteNpcLogick();
+                ExecuteNpcLogic();
             }
 
             if (_isSpawnEnabled)

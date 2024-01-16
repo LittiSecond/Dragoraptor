@@ -6,8 +6,6 @@ namespace Dragoraptor
     sealed class TrajectoryPainter : BaseLinePainter
     {
 
-        #region Fields
-
         private const float TIME_STEP = 0.1f;
 
         private const int TRAECTORY_CAPACITY = 32;
@@ -22,10 +20,6 @@ namespace Dragoraptor
 
         private int _count;
 
-        #endregion
-
-
-        #region ClassLifeCycles
 
         public TrajectoryPainter(JumpCalculator jc)
         {
@@ -39,10 +33,6 @@ namespace Dragoraptor
             _xMax = visibleArea.xMax;
         }
 
-        #endregion
-
-
-        #region Methods
 
         public override void SetData(Transform bodyTransform, LineRenderer lineRenderer)
         {
@@ -54,7 +44,7 @@ namespace Dragoraptor
         {
 
             Vector2 jumpDirection = _bodyPosition - _touchPosition;
-            Vector2 impulse = _jumpCalculator.CalculateJampImpulse(jumpDirection);
+            Vector2 impulse = _jumpCalculator.CalculateJumpImpulse(jumpDirection);
 
             if (impulse == Vector2.zero)
             {
@@ -106,7 +96,5 @@ namespace Dragoraptor
             }
         }
 
-
-        #endregion
     }
 }

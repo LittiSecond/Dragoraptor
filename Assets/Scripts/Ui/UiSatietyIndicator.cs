@@ -5,15 +5,10 @@ namespace Dragoraptor.Ui
 {
     public sealed class UiSatietyIndicator : UiResourceIndicator
     {
-        #region Fields
-
+        
         [SerializeField] private RectTransform _marker;
         [SerializeField] private RectTransform _parentOfMarker;
 
-        #endregion
-
-
-        #region Methods
 
         private void SetSatietyThreshold(float relativeMaxValue)
         {
@@ -36,9 +31,6 @@ namespace Dragoraptor.Ui
         {
             SetSatietyThreshold(newVictorySatiety);
         }
-
-
-        #endregion
 
     }
 }

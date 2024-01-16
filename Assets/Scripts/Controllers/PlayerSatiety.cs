@@ -1,13 +1,10 @@
 ﻿using System;
-using UnityEngine;
 
-using Dragoraptor.Ui;
 
 namespace Dragoraptor
 {
     public sealed class PlayerSatiety : IObservableResource
     {
-        #region Fields
 
         public event Action OnVictorySatietyReached;
         public event Action<float> OnVictorySatietyChanged;
@@ -16,22 +13,14 @@ namespace Dragoraptor
         private int _satiety;
         private float _victorySatiety;
 
-        #endregion
-
-
-        #region ClassLifeCycles
 
         public PlayerSatiety(GamePlaySettings gps)
         {
             _maxSatiety = gps.MaxSatiety;
         }
 
-        #endregion
 
-
-        #region Methods
-
-        public void ResetSetiety()
+        public void ResetSatiety()
         {
             _satiety = 0;
             OnValueChanged?.Invoke(_satiety);
@@ -66,8 +55,6 @@ namespace Dragoraptor
                 }
             }
         }
-
-        #endregion
 
 
         #region IObservableResource

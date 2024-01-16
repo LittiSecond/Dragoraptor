@@ -6,17 +6,12 @@ namespace Dragoraptor
 {
     public sealed class GameController : MonoBehaviour
     {
-        #region Fields
 
         [SerializeField] private GamePlaySettings DefaultGamePlaySettings;
         [SerializeField] private Campaign DefoultCampaign;
         private Controllers _controllers;
         private List<IExecutable> _executables;
 
-        #endregion
-
-
-        #region UnityMethods
 
         private void Start()
         {
@@ -47,8 +42,6 @@ namespace Dragoraptor
                 _executables[i].Execute();
             }
         }
-
-        #endregion
 
     }
 }

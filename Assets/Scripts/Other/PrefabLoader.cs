@@ -5,8 +5,6 @@ namespace Dragoraptor
 { 
     public static class PrefabLoader
     {
-        #region Methods
-
         public static GameObject GetPrefab(string prefabID)
         {
             GameObject go = null;
@@ -23,6 +21,5 @@ namespace Dragoraptor
             return Resources.Load(PrefabPaths.Paths[assetID], typeof(TextAsset)) as TextAsset;
         }
 
-        #endregion
     }
 }

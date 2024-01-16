@@ -7,17 +7,12 @@ namespace Dragoraptor.Ui
 {
     public static class UiChecker
     {
-        #region Fields
 
         private static List<RaycastResult> _hitObjects;
         private static PointerEventData _pointerEventData;
 
         private static bool _isInitialized;
 
-        #endregion
-
-
-        #region Methods
 
         public static bool CheckIsUiElement(Vector2 positionInPx)
         {
@@ -39,6 +34,5 @@ namespace Dragoraptor.Ui
             _isInitialized = true;
         }
 
-        #endregion
     }
 }

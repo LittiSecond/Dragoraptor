@@ -5,9 +5,8 @@ using System.Collections.Generic;
 
 namespace Dragoraptor
 {
-    public class NpcBaseLogick : PooledObject, IExecutable, ITakeDamag
+    public class NpcBaseLogick : PooledObject, IExecutable, ITakeDamage
     {
-        #region Fields
 
         [SerializeField] protected Rigidbody2D _rigidbody;
         [SerializeField] protected Collider2D _collider;
@@ -23,7 +22,7 @@ namespace Dragoraptor
         public event Action<NpcBaseLogick> OnDestroy;
 
         private NpcHealth _health;
-        private NpcFlyingDamagCreator _flyingDamagCreator;
+        private NpcFlyingDamagCreator _flyingDamageCreator;
         private readonly List<IExecutable> _executeList = new List<IExecutable>();
         private readonly List<IInitializable> _initializeList = new List<IInitializable>();
         private readonly List<ICleanable> _clearList = new List<ICleanable>();
@@ -33,10 +32,6 @@ namespace Dragoraptor
         protected bool _isEnabled;
         private bool _isDestroyTimer;
 
-        #endregion
-
-
-        #region UnityMethods
 
         protected virtual void Awake()
         {
@@ -45,8 +40,8 @@ namespace Dragoraptor
             _initializeList.Add(_health);
             if (_flyingDamagStartPoint)
             {
-                _flyingDamagCreator = new NpcFlyingDamagCreator(_flyingDamagStartPoint);
-                _health.SetDamageObserver(_flyingDamagCreator);
+                _flyingDamageCreator = new NpcFlyingDamagCreator(_flyingDamagStartPoint);
+                _health.SetDamageObserver(_flyingDamageCreator);
             }
         }
 
@@ -58,10 +53,6 @@ namespace Dragoraptor
             }
         }
 
-        #endregion
-
-
-        #region Methods
 
         public virtual void DestroyItSelf()
         {
@@ -124,7 +115,7 @@ namespace Dragoraptor
 
         protected virtual void OnHealthEnd()
         {
-            SendScoreRevard();
+            SendScoreReward();
             DropItem();
             DestroyItSelf();
         }
@@ -166,13 +157,10 @@ namespace Dragoraptor
             return shouldDrop;
         }
 
-        protected void SendScoreRevard()
+        protected void SendScoreReward()
         {
             Services.Instance.CharacterIntermediary.AddScore(_scoreCost);
         }
-
-
-        #endregion
 
 
         #region IExecutable

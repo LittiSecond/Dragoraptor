@@ -7,7 +7,6 @@ namespace Dragoraptor.Ui
 {
     public sealed class UiHuntResultsScreen : MonoBehaviour
     {
-        #region Fields
 
         [SerializeField] private Image _aliveCheckBox;
         [SerializeField] private Image _ateCheckBox;
@@ -29,11 +28,6 @@ namespace Dragoraptor.Ui
         private Action _returnListener;
 
 
-        #endregion
-
-
-        #region UnityMethods
-
         private void Awake()
         {
             _textGenerator = new TextGenerator();
@@ -41,11 +35,7 @@ namespace Dragoraptor.Ui
             _restartButton.onClick.AddListener(OnRestartButtonClick);
         }
 
-        #endregion
-
-
-        #region Methods
-
+        
         public void Show()
         {
             gameObject.SetActive(true);
@@ -106,6 +96,5 @@ namespace Dragoraptor.Ui
             _restartListener();
         }
 
-        #endregion
     }
 }

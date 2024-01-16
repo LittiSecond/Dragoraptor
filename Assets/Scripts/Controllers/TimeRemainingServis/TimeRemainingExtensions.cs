@@ -5,21 +5,12 @@ namespace Dragoraptor
 {
     public static partial class TimeRemainingExtensions
     {
-        #region Fields
 
         private static readonly List<ITimeRemaining> _timeRemainings = new List<ITimeRemaining>();
 
-        #endregion
-
-
-        #region Properties
 
         public static List<ITimeRemaining> TimeRemainings => _timeRemainings;
 
-        #endregion
-
-
-        #region Methods
 
         public static void AddTimeRemaining(this ITimeRemaining value)
         {
@@ -41,6 +32,5 @@ namespace Dragoraptor
             _timeRemainings.Remove(value);
         }
 
-        #endregion
     }
 }

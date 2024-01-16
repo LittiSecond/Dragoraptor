@@ -6,35 +6,26 @@ namespace Dragoraptor
 {
     public class ShipType3Attack : IExecutable, IInitializable
     {
-        #region Fields
 
         private string BULLET_ID = "StoneBall";
         private float MAX_X_DEVIATION = 0.3f;
-
 
         private readonly Transform _bulletStartPoint;
 
         private float _reloadTime;
         private float _timeCounter;
-        private int _damag;
+        private int _damage;
 
         private bool _isReady;
 
-        #endregion
 
-        #region ClassLifeCycles
-
-        public ShipType3Attack(Transform bulletStartPoint, float reloadTime, int damag)
+        public ShipType3Attack(Transform bulletStartPoint, float reloadTime, int damage)
         {
             _bulletStartPoint = bulletStartPoint;
             _reloadTime = reloadTime;
-            _damag = damag;
+            _damage = damage;
         }
 
-        #endregion
-
-
-        #region Methods
 
         private void Attack()
         {
@@ -45,13 +36,11 @@ namespace Dragoraptor
                 if (bullet != null)
                 {
                     bullet.transform.position = _bulletStartPoint.position;
-                    bullet.Damag = _damag;
+                    bullet.Damage = _damage;
                     bullet.Kick();
                 }
             }
         }
-
-        #endregion
 
 
         #region IExecutable

@@ -6,7 +6,6 @@ namespace Dragoraptor
 {
     public class MassFading : MonoBehaviour, IExecutable
     {
-        #region Fields
 
         [SerializeField] private SpriteRenderer[] _renderersToFade;
         [SerializeField] private float _fadingDuration = 5.0f;
@@ -18,17 +17,9 @@ namespace Dragoraptor
 
         private bool _isFading;
 
-        #endregion
-
-
-        #region Properties
 
         public float FadingDuration { set => _fadingDuration = value; }
 
-        #endregion
-
-
-        #region UnityMethods
 
         private void Awake()
         {
@@ -57,10 +48,6 @@ namespace Dragoraptor
             _isFading = false;
         }
 
-        #endregion
-
-
-        #region Methods
 
         public void StartFading()
         {
@@ -68,8 +55,6 @@ namespace Dragoraptor
             Services.Instance.UpdateService.AddToUpdate(this);
             _isFading = true;
         }
-
-        #endregion
 
 
         #region IExecutable

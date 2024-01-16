@@ -6,8 +6,6 @@ namespace Dragoraptor
 {
     public class ObjectPool
     {
-        #region PrivateData
-
         private struct ObjGroup
         {
             public string _type;
@@ -21,29 +19,17 @@ namespace Dragoraptor
             }
         }
 
-        #endregion
-
-
-        #region Fields
 
         private const int CODE_NOT_EXIST_TYPE = -1;
         
         private readonly List<ObjGroup> _objectsGroupsList;
 
-        #endregion
-
-
-        #region ClassLifeCycles
 
         public ObjectPool()
         {
             _objectsGroupsList = new List<ObjGroup>();
         }
 
-        #endregion
-
-
-        #region Methods
 
         public void ReturnToPool(PooledObject pooledObject)
         {
@@ -205,6 +191,5 @@ namespace Dragoraptor
             obj.gameObject.SetActive(false);
         }
 
-        #endregion
     }
 }

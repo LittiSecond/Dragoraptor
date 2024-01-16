@@ -5,15 +5,9 @@ namespace Dragoraptor
 {
     public class NpcDirectionByFlip
     {
-        #region Fields
-
         private SpriteRenderer _spriteRenderer;
 
-        #endregion
-
-
-        #region Properties
-
+        
         public bool IsDirectionToLeft
         { 
             get
@@ -26,16 +20,11 @@ namespace Dragoraptor
             }
         }
 
-        #endregion
-
-
-        #region ClassLifeCycles
 
         public NpcDirectionByFlip(SpriteRenderer mainSprite)
         {
             _spriteRenderer = mainSprite;
         }
 
-        #endregion
     }
 }

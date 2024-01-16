@@ -5,7 +5,6 @@ namespace Dragoraptor
 {
     public sealed class CharacterIntermediary
     {
-        #region Fields
 
         private Transform _playerCharacterTransform;
         private PickUpController _pickUpController;
@@ -13,10 +12,6 @@ namespace Dragoraptor
 
         private bool _havePlayerCharacterTransform;
 
-        #endregion
-
-
-        #region Methods
 
         public void SetPlayerCharacterTransform(Transform transform)
         {
@@ -51,6 +46,5 @@ namespace Dragoraptor
             _scoreController.AddScore(amount);
         }
 
-        #endregion
     }
 }

@@ -4,10 +4,8 @@ using UnityEngine;
 
 namespace Dragoraptor
 {
-    public sealed class PlayerHealth : ITakeDamag, IBodyUser, IObservableResource
+    public sealed class PlayerHealth : ITakeDamage, IBodyUser, IObservableResource
     {
-
-        #region Fields
 
         public event Action OnHealthEnd;
 
@@ -15,21 +13,13 @@ namespace Dragoraptor
         private int _health;
         private int _armor;
 
-        #endregion
-
-
-        #region ClassLifeCycles
-
+        
         public PlayerHealth(GamePlaySettings gps)
         {
             _maxHealth = gps.MaxHealth;
             _armor = gps.Armor;
         }
 
-        #endregion
-
-
-        #region Methods
 
         public void ResetHealth()
         {
@@ -42,8 +32,6 @@ namespace Dragoraptor
             _maxHealth = newMaxHealth;
             OnMaxValueChanged?.Invoke(_maxHealth);
         }
-
-        #endregion
 
 
         #region ITakeDamag
@@ -74,7 +62,7 @@ namespace Dragoraptor
 
         public void SetBody(PlayerBody body)
         {
-            body.SetDamagReceiver(this);
+            body.SetDamageReceiver(this);
         }
 
         public void ClearBody()

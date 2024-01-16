@@ -6,15 +6,9 @@ namespace Dragoraptor
     public class PooledObject : MonoBehaviour
     {
 
-        #region Fields
-
         [SerializeField] protected string _type = string.Empty;
         public ObjectPool ObjectPool { get; private set; }
 
-        #endregion
-
-
-        #region Properties
 
         public bool IsUsed { get; set; }
 
@@ -23,10 +17,6 @@ namespace Dragoraptor
             get { return _type; }
         }
 
-        #endregion
-
-
-        #region Methods
 
         public void SetObjectPool(ObjectPool op)
         {
@@ -46,6 +36,5 @@ namespace Dragoraptor
 
         }
 
-        #endregion
     }
 }

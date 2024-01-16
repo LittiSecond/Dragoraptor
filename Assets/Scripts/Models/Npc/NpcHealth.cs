@@ -3,9 +3,8 @@
 
 namespace Dragoraptor
 {
-    public sealed class NpcHealth : ITakeDamag, IInitializable, IHealth
+    public sealed class NpcHealth : ITakeDamage, IInitializable, IHealth
     {
-        #region Fields
 
         public event Action<int> OnHealthChanged;
         public event Action OnHealthEnd;
@@ -16,20 +15,11 @@ namespace Dragoraptor
         private int _currentHealth;
         private int _armor;
 
-        #endregion
-
-
-        #region Properties
 
         public int Health { get => _currentHealth; }
 
         public int MaxHealth { get => _maxHealth; }
 
-
-        #endregion
-
-
-        #region ClassLifeCycles
 
         public NpcHealth(int maxHealth, int armor)
         {
@@ -37,10 +27,6 @@ namespace Dragoraptor
             _armor = armor;
         }
 
-        #endregion
-
-
-        #region Methods
 
         public void ResetHealth()
         {
@@ -57,8 +43,6 @@ namespace Dragoraptor
         {
             _damageObserver = observer;
         }
-
-        #endregion
 
 
         #region ITakeDamag
@@ -94,8 +78,6 @@ namespace Dragoraptor
         }
 
         #endregion
-
-
 
     }
 }

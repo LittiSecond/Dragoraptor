@@ -6,24 +6,17 @@ namespace Dragoraptor
 {
     public sealed class TimeRemainingController : IExecutable
     {
-        #region Fields
 
         private readonly List<ITimeRemaining> _timeRemainings;
 
-        #endregion
-
-
-        #region ClassLifeCycles
 
         public TimeRemainingController()
         {
             _timeRemainings = TimeRemainingExtensions.TimeRemainings;
         }
 
-        #endregion
 
-
-        #region IExecute
+        #region IExecutable
 
         public void Execute()
         {

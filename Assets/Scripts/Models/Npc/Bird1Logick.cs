@@ -5,7 +5,6 @@ namespace Dragoraptor
 {
     public sealed class Bird1Logick : NpcBaseLogick
     {
-        #region Fields
 
         [SerializeField] private Animator _animator;
         [SerializeField] private Fading _fading;
@@ -16,16 +15,13 @@ namespace Dragoraptor
         private Bird1Fall _fall;
         private Bird1Animation _animation;
 
-        #endregion
-
-
-        #region UnityMethods
 
         protected override void Awake()
         {
             base.Awake();
-            _direction = new NpcDirectionByScale(transform);
-            _movement = new Bird1Movement(transform, _rigidbody, _direction);
+            var tempTransform = transform;
+            _direction = new NpcDirectionByScale(tempTransform);
+            _movement = new Bird1Movement(tempTransform, _rigidbody, _direction);
             AddExecutable(_movement);
             AddInitializable(_movement);
             AddCleanable(_movement);
@@ -49,10 +45,6 @@ namespace Dragoraptor
             }
         }
 
-        #endregion
-
-
-        #region Methods
 
         public override void SetAdditionalData(NpcData additionalData)
         {
@@ -65,10 +57,10 @@ namespace Dragoraptor
 
         protected override void OnHealthEnd()
         {
-            _movement.StopMovementLogick();
+            _movement.StopMovementLogic();
             _fall.StartFall();
             _animation.SetFall();
-            SendScoreRevard();
+            SendScoreReward();
         }
 
         public override void Initialize()
@@ -82,8 +74,6 @@ namespace Dragoraptor
         {
             DestroyItSelf();
         }
-
-        #endregion
 
     }
 }

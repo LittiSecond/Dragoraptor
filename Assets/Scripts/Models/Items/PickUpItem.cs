@@ -6,17 +6,12 @@ namespace Dragoraptor
 {
     public class PickUpItem : PooledObject, IInitializable
     {
-        #region Fields
 
         [SerializeField] private float _activationDelay = 0.0f;
 
         private PickableResource[] _content;
         private float _startTime;
 
-        #endregion
-
-
-        #region UnityMethods
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
@@ -32,19 +27,13 @@ namespace Dragoraptor
             }
         }
 
-        #endregion
-
-
-        #region Methods
 
         public void SetContent(PickableResource[] newContent)
         {
             _content = newContent;
         }
 
-        #endregion
-
-
+        
         #region IInitializable
 
         public virtual void Initialize()

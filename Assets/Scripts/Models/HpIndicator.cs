@@ -6,7 +6,6 @@ namespace Dragoraptor
 {
     public sealed class HpIndicator : MonoBehaviour
     {
-        #region Fields
 
         [SerializeField] private Transform _barTransform;
         [SerializeField] private GameObject _root;
@@ -16,10 +15,6 @@ namespace Dragoraptor
 
         private bool _isVisible;
 
-        #endregion
-
-
-        #region UnityMethods
 
         private void Awake()
         {
@@ -27,10 +22,6 @@ namespace Dragoraptor
             _isVisible = _root.activeSelf;
         }
 
-        #endregion
-
-
-        #region Methods
 
         public void SetIHealth(IHealth health)
         {
@@ -83,6 +74,5 @@ namespace Dragoraptor
             _isVisible = false;
         }
 
-        #endregion
     }
 }

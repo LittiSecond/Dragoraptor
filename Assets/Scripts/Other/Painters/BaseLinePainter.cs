@@ -5,7 +5,6 @@ namespace Dragoraptor
 {
     abstract class BaseLinePainter
     {
-        #region Fields
 
         protected Transform _bodyTransform;
         protected LineRenderer _lineRenderer;
@@ -13,10 +12,6 @@ namespace Dragoraptor
         protected Vector2 _bodyPosition;
         protected Vector2 _touchPosition;
 
-        #endregion
-
-
-        #region Methods
 
         public abstract void Execute();
 
@@ -50,6 +45,5 @@ namespace Dragoraptor
             _lineRenderer.enabled = false;
         }
 
-        #endregion
     }
 }

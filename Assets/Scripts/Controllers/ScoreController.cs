@@ -5,13 +5,9 @@ namespace Dragoraptor
 {
     public sealed class ScoreController : IScoreSource
     {
-        #region Fields
 
         private int _score;
 
-        #endregion
-
-        #region Methods
 
         public void ClearScore()
         {
@@ -27,8 +23,6 @@ namespace Dragoraptor
                 OnScoreChanged?.Invoke(_score);
             }
         }
-
-        #endregion
 
 
         #region IScoreSource

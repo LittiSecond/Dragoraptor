@@ -5,14 +5,9 @@ namespace Dragoraptor
 {
     public sealed class UpdateService
     {
-        #region Fields
 
         private List<IExecutable> _executeList;
 
-        #endregion
-
-
-        #region Methods
 
         public void SetListToExecute(List<IExecutable> list)
         {
@@ -37,8 +32,6 @@ namespace Dragoraptor
                 _executeList.Remove(executable);
             }
         }
-
-        #endregion
 
     }
 }

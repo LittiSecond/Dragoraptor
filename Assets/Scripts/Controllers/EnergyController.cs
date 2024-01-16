@@ -6,7 +6,6 @@ namespace Dragoraptor
 {
     public sealed class EnergyController : IExecutable, IObservableResource, IResouceStore
     {
-        #region Fields
 
         private const float UPDATE_OBSERVERS_INTERVAL = 0.5f;
 
@@ -27,8 +26,6 @@ namespace Dragoraptor
         private bool _isRegeneration;
         private bool _isChangeTimer;
 
-        #endregion
-
 
         #region IObservableResource
 
@@ -43,8 +40,6 @@ namespace Dragoraptor
         #endregion
 
 
-        #region ClassLifeCycles
-
         public EnergyController(GamePlaySettings gps, CharacterStateHolder characterState)
         {
             _maxEnergy = gps.Energy;
@@ -54,10 +49,6 @@ namespace Dragoraptor
             characterState.OnStateChanged += OnStateChanged;
         }
 
-        #endregion
-
-
-        #region Methods
 
         public void On()
         {
@@ -113,7 +104,7 @@ namespace Dragoraptor
             }
         }
 
-        private void RegenerationLogick(float deltaTime)
+        private void RegenerationLogic(float deltaTime)
         {
             bool shouldRegen = false;
             float regen = 0.0f;
@@ -139,7 +130,7 @@ namespace Dragoraptor
             }
         }
 
-        private void ChangeRegenerationLogick(float deltaTime)
+        private void ChangeRegenerationLogic(float deltaTime)
         {
 
             _changeRegenerationTimer += deltaTime;
@@ -166,7 +157,7 @@ namespace Dragoraptor
             
         }
 
-        private void UpdateObserversLogick(float deltaTime)
+        private void UpdateObserversLogic(float deltaTime)
         {
             if (_updateObserversTimer < UPDATE_OBSERVERS_INTERVAL)
             {
@@ -184,8 +175,6 @@ namespace Dragoraptor
             _noEnergyMessage = message;
         }
 
-        #endregion
-
 
         #region IExecutable
 
@@ -196,14 +185,14 @@ namespace Dragoraptor
                 float deltaTime = Time.deltaTime;
                 if (_isRegeneration)
                 {
-                    RegenerationLogick(deltaTime);
+                    RegenerationLogic(deltaTime);
                 }
                 
-                UpdateObserversLogick(deltaTime);
+                UpdateObserversLogic(deltaTime);
 
                 if (_isChangeTimer)
                 {
-                    ChangeRegenerationLogick(deltaTime);
+                    ChangeRegenerationLogic(deltaTime);
                 }
             }
         }

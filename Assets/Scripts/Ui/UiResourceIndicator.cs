@@ -5,7 +5,6 @@ namespace Dragoraptor.Ui
 {
     public class UiResourceIndicator : MonoBehaviour
     {
-        #region Fields
 
         [SerializeField] private RectTransform _bar;
 
@@ -14,10 +13,6 @@ namespace Dragoraptor.Ui
         private int _maxValue;
         private int _value;
 
-        #endregion
-
-
-        #region Methods
 
         public void SetSource(IObservableResource source)
         {
@@ -48,6 +43,5 @@ namespace Dragoraptor.Ui
             UpdateValues();
         }
 
-        #endregion
     }
 }

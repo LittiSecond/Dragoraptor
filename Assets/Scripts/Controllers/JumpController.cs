@@ -5,7 +5,6 @@ namespace Dragoraptor
 {
     public sealed class JumpController : IBodyUser 
     {
-        #region Fields
 
         private Transform _bodyTransform;
         private Rigidbody2D _rigidbody;
@@ -18,10 +17,6 @@ namespace Dragoraptor
 
         private bool _haveBody;
 
-        #endregion
-
-
-        #region ClassLifeCycles
 
         public JumpController(CharacterStateHolder csh, JumpCalculator jc, IResouceStore energyStore)
         {
@@ -32,10 +27,6 @@ namespace Dragoraptor
             _energyStore = energyStore;
         }
 
-        #endregion
-
-
-        #region Methods
 
         public void TouchBegin()
         {
@@ -51,7 +42,7 @@ namespace Dragoraptor
             {
                 Vector2 jumpDirection =  (Vector2)_bodyTransform.position - worldPosition;
 
-                Vector2 impulse = _jumpCalculator.CalculateJampImpulse(jumpDirection);
+                Vector2 impulse = _jumpCalculator.CalculateJumpImpulse(jumpDirection);
 
                 if (impulse != Vector2.zero)
                 {
@@ -78,8 +69,6 @@ namespace Dragoraptor
         {
             _state = newState;
         }
-
-        #endregion
 
 
         #region IBodyUser

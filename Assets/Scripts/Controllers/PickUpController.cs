@@ -6,15 +6,10 @@ namespace Dragoraptor
 {
     public sealed class PickUpController
     {
-        #region Fields
-
+        
         private readonly PlayerSatiety _satiety;
         private readonly ScoreController _scoreController;
 
-        #endregion
-
-
-        #region ClassLifeCycles
 
         public PickUpController(PlayerSatiety satiety, ScoreController scoreController)
         {
@@ -22,10 +17,6 @@ namespace Dragoraptor
             _scoreController = scoreController;
         }
 
-        #endregion
-
-
-        #region Methods
 
         public bool PickUp(PickableResource[] content)
         {
@@ -55,6 +46,5 @@ namespace Dragoraptor
             return isPicked;
         }
 
-        #endregion
     }
 }

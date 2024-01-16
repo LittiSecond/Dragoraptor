@@ -6,23 +6,16 @@ namespace Dragoraptor
 {
     public sealed class NpcFlyingDamagCreator : IDamageObserver
     {
-        #region Fields
 
         private const string TYPE = "FlyingDamag";
 
         private readonly Transform _startPoint;
 
-        #endregion
-
-
-        #region ClassLifeCycles
 
         public NpcFlyingDamagCreator(Transform startPoint)
         {
             _startPoint = startPoint;
         }
-
-        #endregion
 
 
         #region IDamageObserver

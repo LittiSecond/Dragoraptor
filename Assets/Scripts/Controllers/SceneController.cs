@@ -5,7 +5,6 @@ namespace Dragoraptor
 {
     public sealed class SceneController
     {
-        #region Fields
 
         private GameObject _ground;
         private GameObject _backGround;
@@ -15,10 +14,6 @@ namespace Dragoraptor
         private bool _isLevelActive;
         private bool _isLevelCreated;
 
-        #endregion
-
-
-        #region Methods
 
         public void SetMainScreenScene()
         {
@@ -112,8 +107,6 @@ namespace Dragoraptor
             _isLevelCreated = true;
             _isLevelActive = true;
         }
-
-        #endregion
 
     }
 }

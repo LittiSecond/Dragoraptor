@@ -7,8 +7,6 @@ namespace Dragoraptor
     public sealed class TrainingTargetLogick : NpcBaseLogick
     {
 
-        #region Fields
-
         private const int REGUIRED_DATA_QUANTITY = 2;
 
         [SerializeField] private float _speed;
@@ -16,10 +14,6 @@ namespace Dragoraptor
         private NpcMoveToPosition _moveToPosition;
         private Vector2 _destination;
 
-        #endregion
-
-
-        #region UnityMethods
 
         protected override void Awake()
         {
@@ -28,10 +22,6 @@ namespace Dragoraptor
             AddCleanable(_moveToPosition);
         }
 
-        #endregion
-
-
-        #region Methods
 
         public override void SetAdditionalDataArray(float[] datas)
         {
@@ -52,6 +42,5 @@ namespace Dragoraptor
             _moveToPosition.MoveToPosition(_destination);
         }
 
-        #endregion
     }
 }

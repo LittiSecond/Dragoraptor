@@ -1,22 +1,14 @@
-﻿using UnityEngine;
-
-
-namespace Dragoraptor.Ui
+﻿namespace Dragoraptor.Ui
 {
     public sealed class UiManager
     {
-
-        #region Fields
 
         private IScreenBehaviour _currentScreen;
         private IScreenBehaviour _mainScreen;
         private IScreenBehaviour _huntScreen;
 
-        #endregion
 
-        #region Methods
-
-        public void SwichToMainScreen()
+        public void SwitchToMainScreen()
         {
             if (_mainScreen == null)
             {
@@ -31,7 +23,7 @@ namespace Dragoraptor.Ui
             }
         }
 
-        public void SwichToHuntScreen()
+        public void SwitchToHuntScreen()
         {
             if (_huntScreen == null)
             {
@@ -46,6 +38,5 @@ namespace Dragoraptor.Ui
             }
         }
 
-        #endregion
     }
 }

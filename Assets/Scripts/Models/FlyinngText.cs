@@ -6,7 +6,6 @@ namespace Dragoraptor
 {
     public sealed class FlyinngText : PooledObject, IExecutable
     {
-        #region Fields
 
         private const float X_TO_REVERS_X_DIRECTION = 2.0f;
 
@@ -21,10 +20,6 @@ namespace Dragoraptor
         private float _timeCounter;
         private float _fadingTimeCounter;
 
-        #endregion
-
-
-        #region UnityMethods
 
         private void Awake()
         {
@@ -33,10 +28,6 @@ namespace Dragoraptor
             _endColor.a = 0.0f;
         }
 
-        #endregion
-
-
-        #region Methods
 
         public void StartFlying(string text)
         {
@@ -71,9 +62,8 @@ namespace Dragoraptor
             _text.color = newColor;
         }
 
-        #endregion
 
-        #region IInterfaces
+        #region IExecutable
 
         public void Execute()
         {

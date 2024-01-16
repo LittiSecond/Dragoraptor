@@ -6,8 +6,6 @@ namespace Dragoraptor
 {
     sealed class Bird1Movement : IExecutable, IInitializable, ICleanable
     {
-        #region Fields
-
         public event Action OnWayFinished;
 
         private readonly Transform _transform;
@@ -24,15 +22,10 @@ namespace Dragoraptor
         private int _nexWayPointIndex;
 
         private bool _haveWay;
-        private bool _isRelativStartPosition;
+        private bool _isRelativeStartPosition;
         private bool _isCyclic;
         private bool _isEnabled;
 
-        #endregion
-
-
-
-        #region Methods
 
         public Bird1Movement(Transform transform, Rigidbody2D rigidbody, INpcDirection direction)
         {
@@ -80,7 +73,7 @@ namespace Dragoraptor
 
         private Vector2 CalculateDestination(Vector2 wayPoint)
         {
-            if (_isRelativStartPosition)
+            if (_isRelativeStartPosition)
             {
                 wayPoint += _startPosition;
             }
@@ -91,13 +84,13 @@ namespace Dragoraptor
         {
             _way = way.Way;
             _isCyclic = way.IsCyclic;
-            _isRelativStartPosition = way.IsRelaiveStartPosition;
+            _isRelativeStartPosition = way.IsRelaiveStartPosition;
             _haveWay = _way != null;
             _nexWayPointIndex = 0;
 
         }
 
-        public void StopMovementLogick()
+        public void StopMovementLogic()
         {
             _isEnabled = false;
         }
@@ -106,8 +99,6 @@ namespace Dragoraptor
         {
             _rigidbody.velocity = Vector2.zero;
         }
-
-        #endregion
 
 
         #region IExecutable
@@ -126,7 +117,7 @@ namespace Dragoraptor
                     else
                     {
                         StopMovement();
-                        StopMovementLogick();
+                        StopMovementLogic();
                         OnWayFinished?.Invoke();
                     }
                 }

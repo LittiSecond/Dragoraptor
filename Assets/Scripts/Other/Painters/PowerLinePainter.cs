@@ -5,24 +5,14 @@ namespace Dragoraptor
 {
     sealed class PowerLinePainter : BaseLinePainter
     {
-        #region Fields
 
         private float _maxLength;
-
-        #endregion
-
-
-        #region ClassLifeCycles
 
         public PowerLinePainter(GamePlaySettings gamePlaySettings)
         {
             _maxLength = gamePlaySettings.MaxJumpPowerIndicatorLength;
         }
 
-        #endregion
-
-
-        #region Methods
 
         public override void Execute()
         {
@@ -37,6 +27,5 @@ namespace Dragoraptor
             _lineRenderer.SetPosition(1, (Vector3)secondPoint);
         }
 
-        #endregion
     }
 }

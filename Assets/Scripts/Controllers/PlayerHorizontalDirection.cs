@@ -6,7 +6,6 @@ namespace Dragoraptor
 {
     public sealed class PlayerHorizontalDirection : IBodyUser
     {
-        #region Fields
 
         public event Action<Direction> OnDirectionChanged;
 
@@ -15,10 +14,6 @@ namespace Dragoraptor
 
         private Direction _direction;
 
-        #endregion
-
-
-        #region Methods
 
         public void SetTouchPosition(Vector2 position)
         {
@@ -26,7 +21,7 @@ namespace Dragoraptor
             SetBodyDirection(direction);
         }
 
-        public void SetDistination(Vector2 position)
+        public void SetDestination(Vector2 position)
         {
             Direction direction = (_transform.position.x < position.x)? Direction.Rigth : Direction.Left;
             SetBodyDirection(direction);
@@ -41,8 +36,6 @@ namespace Dragoraptor
                 OnDirectionChanged?.Invoke(_direction);
             }
         }
-
-        #endregion
 
 
         #region IBodyUser

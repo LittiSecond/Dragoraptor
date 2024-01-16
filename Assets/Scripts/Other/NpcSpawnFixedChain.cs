@@ -6,8 +6,7 @@ namespace Dragoraptor
 {
     public sealed class NpcSpawnFixedChain
     {
-        #region Fields
-
+        
         private readonly INpcSpawner _npcSpawner;
         private SpawnData[] _spawnDatas;
 
@@ -18,20 +17,12 @@ namespace Dragoraptor
         private bool _isSpawnRuleFinished;
         private bool _isSpawnDataReady;
 
-        #endregion
-
-
-        #region ClassLifeCycles
 
         public NpcSpawnFixedChain(INpcSpawner npcSpawner)
         {
             _npcSpawner = npcSpawner;
         }
 
-        #endregion
-
-
-        #region Methods
 
         public void SetSpawnData(SpawnData[] spawnDatas)
         {
@@ -83,8 +74,6 @@ namespace Dragoraptor
                 }
             }
         }
-
-        #endregion
 
     }
 }

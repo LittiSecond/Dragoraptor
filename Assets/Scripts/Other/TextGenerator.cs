@@ -7,8 +7,6 @@ namespace Dragoraptor
 {
     public sealed class TextGenerator
     {
-        #region Fields
-
 
         private const string DEFEAT_TEXT = "<color=#9C1B1B>Поражение</color>";
         private const string VICTORY_TEXT = "<color=#9C1B1B>Победа</color>";
@@ -17,7 +15,7 @@ namespace Dragoraptor
 
         private const string STRING_FORMAT = "F";
 
-        //-------------- fild names to insert values
+        //-------------- field names to insert values
         private const string SCORE = "score";
         private const string COLLECTED_SATIETY = "collectedSatiety";
         private const string MAX_SATIETY = "maxSatiety";
@@ -31,20 +29,11 @@ namespace Dragoraptor
 
         private string _huntResultsDescriptionPattern;
 
-        #endregion
 
-
-        #region ClassLifeCycles
-
-        #endregion
-
-
-        #region Methods
-
-        public string CreateVictoryText(bool isSucces)
+        public string CreateVictoryText(bool isSuccess)
         {
             string text = null;
-            if (isSucces)
+            if (isSuccess)
             {
                 text = VICTORY_TEXT;
             }
@@ -136,7 +125,5 @@ namespace Dragoraptor
             return RESULT_SCORE_TEXT + huntResults.TotalScore.ToString();
         }
 
-
-        #endregion
     }
 }

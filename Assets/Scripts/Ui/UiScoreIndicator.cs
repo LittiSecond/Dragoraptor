@@ -6,11 +6,8 @@ namespace Dragoraptor.Ui
 {
     public sealed class UiScoreIndicator : MonoBehaviour, IScoreView
     {
-        #region Fields
 
         [SerializeField] private Text _text;
-
-        #endregion
 
 
         #region IScoreView

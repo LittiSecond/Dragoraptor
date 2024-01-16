@@ -6,7 +6,6 @@ namespace Dragoraptor
 {
     public sealed class AttackController: IBodyUser 
     {
-        #region Fields
 
         private const string HIT_VISUAL_EFFECT = "EffectBoom";
 
@@ -27,10 +26,6 @@ namespace Dragoraptor
         private bool _isTiming;
         private bool _shouldAttack;
 
-        #endregion
-
-
-        #region ClassLifeCycles
 
         public AttackController(CharacterStateHolder csh, GamePlaySettings gps, PlayerHorizontalDirection phd, IResouceStore energyStore)
         {
@@ -44,10 +39,6 @@ namespace Dragoraptor
             _attackDelayTimer = new TimeRemaining(OnAttackTimer, _attackInterval, false);
         }
 
-        #endregion
-
-
-        #region Methods
 
         public void TouchBegin()
         {
@@ -85,7 +76,7 @@ namespace Dragoraptor
                 {
                     for (int i = 0; i < targets.Length; i++)
                     {
-                        MakeDamag(targets[i]);
+                        MakeDamage(targets[i]);
                     }
                     CreateVisualHitEffect(damagedArea);
                 }
@@ -150,9 +141,9 @@ namespace Dragoraptor
             return rect;
         }
 
-        private void MakeDamag(Collider2D targetCollider)
+        private void MakeDamage(Collider2D targetCollider)
         {
-            ITakeDamag target = targetCollider.GetComponent<ITakeDamag>();
+            ITakeDamage target = targetCollider.GetComponent<ITakeDamage>();
             if (target != null)
             {
                 target.TakeDamage(_attackPower);
@@ -185,8 +176,6 @@ namespace Dragoraptor
                 }
             }
         }
-
-        #endregion
 
 
         #region IBodyUser

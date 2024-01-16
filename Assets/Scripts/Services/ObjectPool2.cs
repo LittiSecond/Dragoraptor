@@ -5,8 +5,6 @@ namespace Dragoraptor
 {
     public class ObjectPool2 : ObjectPool
     {
-        #region Methods
-
         public void PrepareObjects(PooledObject[] prefabs)
         {
             if (prefabs != null)
@@ -44,7 +42,5 @@ namespace Dragoraptor
             }
         }
 
-
-        #endregion
     }
 }

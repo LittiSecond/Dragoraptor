@@ -6,16 +6,11 @@ namespace Dragoraptor.Ui
 {
     public sealed class MainScreenBehaviour : BaseScreenBehaviour
     {
-        #region Fields
 
         [SerializeField] private Button _settingsButton;
         [SerializeField] private Button _goHuntingButton;
         [SerializeField] private UiGameStatisticsPanel _gameStatisticPanel;
 
-        #endregion
-
-
-        #region UnityMethods
 
         private void Start()
         {
@@ -23,10 +18,6 @@ namespace Dragoraptor.Ui
             _goHuntingButton.onClick.AddListener(GoHuntButtonClick);
         }
 
-        #endregion
-
-
-        #region Methods
 
         private void SettingsButtonClick()
         {
@@ -43,8 +34,6 @@ namespace Dragoraptor.Ui
             base.Show();
             _gameStatisticPanel.SetProgressData(Services.Instance.GameProgress.GetProgressData());
         }
-
-        #endregion
 
     }
 }

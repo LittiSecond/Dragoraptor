@@ -1,6 +1,6 @@
 ﻿namespace Dragoraptor
 {
-    public interface ITakeDamag
+    public interface ITakeDamage
     {
         void TakeDamage(int amount);
     }

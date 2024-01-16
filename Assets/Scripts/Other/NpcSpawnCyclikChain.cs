@@ -12,13 +12,11 @@ namespace Dragoraptor
         // Класс NpcSpawnCyclikChain в качестве ИД принимает массив SpawnData (содержит мобов с ИД для каждого моба) 
         // и длительность цикла.
         // Класс должен распределить спавн мобов в отрезке времени начиная
-        // с момента старта слогики (с момента вызова функции StartSpawnLogick()) и длительностью цикла.
+        // с момента старта логики (с момента вызова функции StartSpawnLogic()) и длительностью цикла.
         // После окончания цикла, начать цикл заново.
         //
-        // Повторять цикл пока не получит команду на остановку работы - вызов функции StopSpawnLogick()
+        // Повторять цикл пока не получит команду на остановку работы - вызов функции StopSpawnLogic()
         //
-
-        #region Fields
 
         private readonly INpcSpawner _npcSpawner;
 
@@ -34,25 +32,15 @@ namespace Dragoraptor
         private bool _isSpawnDataReady;
 
 
-        #endregion
-
-
-        #region ClassLifeCycles
-
         public NpcSpawnCyclikChain(INpcSpawner npcSpawner)
         {
             _npcSpawner = npcSpawner;
         }
 
-        #endregion
-
-
-        #region Methods
-
 
         public void SetSpawnData(SpawnData[] spawnDatas, float cycleDuration)
         {
-            StopSpawnLogick();
+            StopSpawnLogic();
             _isSpawnDataReady = false;
             if (spawnDatas != null)
             {
@@ -75,7 +63,7 @@ namespace Dragoraptor
             }
         }
 
-        public void StartSpawnLogick()
+        public void StartSpawnLogic()
         {
             if (_isSpawnDataReady)
             {
@@ -86,7 +74,7 @@ namespace Dragoraptor
             }
         }
 
-        public void StopSpawnLogick()
+        public void StopSpawnLogic()
         {
             _isSpawnRuleFinished = true;
         }
@@ -104,7 +92,7 @@ namespace Dragoraptor
                     {
                         RandomizeSpawnDatas();
                         RandomizeSpawnTimes(_cycleDuration);
-                        StartSpawnLogick();
+                        StartSpawnLogic();
                     }
                     else
                     {
@@ -180,9 +168,6 @@ namespace Dragoraptor
 
             Debug.Log("NpcSpawnCyclikChain->ThrowDebugInfo: " + message);
         }
-
-        #endregion
-
 
     }
 }

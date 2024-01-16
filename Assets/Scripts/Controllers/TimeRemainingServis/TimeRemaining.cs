@@ -14,9 +14,7 @@ namespace Dragoraptor
 
         #endregion
 
-
-        #region ClassLifeCycles
-
+        
         public TimeRemaining(Action method, float duration, bool isRepeating = false)
         {
             Method = method;
@@ -25,6 +23,5 @@ namespace Dragoraptor
             IsRepeating = isRepeating;
         }
 
-        #endregion
     }
 }

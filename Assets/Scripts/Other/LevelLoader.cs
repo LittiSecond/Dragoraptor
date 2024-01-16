@@ -5,7 +5,6 @@ namespace Dragoraptor
 {
     public sealed class LevelLoader
     {
-        #region Fields
 
         private Campaign _campaign;
         
@@ -14,10 +13,6 @@ namespace Dragoraptor
         private bool _haveCampaign;
         private bool _haveLevel;
 
-        #endregion
-
-
-        #region Methods
 
         public void SetCampaign(Campaign campaign)
         {
@@ -79,6 +74,5 @@ namespace Dragoraptor
             return path;
         }
 
-        #endregion
     }
 }

@@ -4,16 +4,14 @@ using UnityEngine;
 
 namespace Dragoraptor
 {
-    public sealed class LevelProgressControler : IHuntResultsSource
+    public sealed class LevelProgressController : IHuntResultsSource
     {
-
-        #region Fields
 
         private readonly PlayerSatiety _playerSatiety;
         private readonly ScoreController _scoreController;
         private readonly TimeController _timeController;
 
-        private float _satietyToSucces;
+        private float _satietyToSuccess;
         private float _victoryScoreMultipler;
         private float _defeatScoreMultipler;
         private float _nullSatietyScoreMultipler;
@@ -25,12 +23,8 @@ namespace Dragoraptor
         private bool _isSatietyConditionMet;
         private bool _isTimeUp;
 
-        #endregion
 
-
-        #region ClassLifeCycles
-
-        public LevelProgressControler(GamePlaySettings gamePlaySettings, PlayerHealth ph, PlayerSatiety ps,  
+        public LevelProgressController(GamePlaySettings gamePlaySettings, PlayerHealth ph, PlayerSatiety ps,  
             ScoreController sc, TimeController tc)
         {
             _victoryScoreMultipler = gamePlaySettings.VictoryScoreMultipler;
@@ -46,10 +40,6 @@ namespace Dragoraptor
             _timeController.OnTimeUp += OnTimeUp;
         }
 
-        #endregion
-
-
-        #region Methods
 
         public void LevelStart()
         {
@@ -59,10 +49,10 @@ namespace Dragoraptor
             _isTimeUp = false;
 
             LevelDescriptor levelDescriptor = Services.Instance.GameProgress.GetCurrentLevel();
-            _satietyToSucces = levelDescriptor.SatietyToSucces;
-            _playerSatiety.SetVictorySatiety(_satietyToSucces);
+            _satietyToSuccess = levelDescriptor.SatietyToSucces;
+            _playerSatiety.SetVictorySatiety(_satietyToSuccess);
 
-            _scoreСoefficient = (_satietyConditionScoreMultipler - _nullSatietyScoreMultipler) / (_satietyToSucces * _playerSatiety.MaxValue);
+            _scoreСoefficient = (_satietyConditionScoreMultipler - _nullSatietyScoreMultipler) / (_satietyToSuccess * _playerSatiety.MaxValue);
 
             _timeController.SetLevelDuration(levelDescriptor.LevelDuration);
             _timeController.StartTimer();
@@ -113,9 +103,6 @@ namespace Dragoraptor
         }
 
 
-        #endregion
-
-
         #region IHuntResultsSource
 
         public IHuntResults GetHuntResults()
@@ -128,7 +115,7 @@ namespace Dragoraptor
             huntResults.BaseScore = _scoreController.GetScore();
             huntResults.CollectedSatiety = _playerSatiety.Value;
             huntResults.MaxSatiety = _playerSatiety.MaxValue;
-            huntResults.SatietyCondition = (int)(_satietyToSucces * _playerSatiety.MaxValue);
+            huntResults.SatietyCondition = (int)(_satietyToSuccess * _playerSatiety.MaxValue);
             huntResults.SatietyScoreMultipler = CalculateSatietyScoreMultipler();
             huntResults.TotalScore = CalculateTotalScore();
             huntResults.VictoryScoreMultipler = isVictory ? _victoryScoreMultipler : _defeatScoreMultipler;

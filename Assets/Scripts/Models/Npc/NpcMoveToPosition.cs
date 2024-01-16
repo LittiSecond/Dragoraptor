@@ -6,7 +6,6 @@ namespace Dragoraptor
 {
     public sealed class NpcMoveToPosition : ICleanable
     {
-        #region Fields
 
         private Rigidbody2D _rigidbody;
         private Transform _transform;
@@ -14,10 +13,6 @@ namespace Dragoraptor
 
         private ITimeRemaining _timer;
 
-        #endregion
-
-
-        #region ClassLifeCycles
 
         public NpcMoveToPosition(Rigidbody2D rb2d, Transform tr, float speed)
         {
@@ -26,10 +21,6 @@ namespace Dragoraptor
             _speed = speed;
         }
 
-        #endregion
-
-
-        #region Methods
 
         public void MoveToPosition(Vector2 destination)
         {
@@ -56,8 +47,6 @@ namespace Dragoraptor
             _timer = null;
             _rigidbody.velocity = Vector2.zero;
         }
-
-        #endregion
 
 
         #region ICleanable
