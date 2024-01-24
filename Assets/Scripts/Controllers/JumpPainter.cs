@@ -5,8 +5,7 @@ namespace Dragoraptor
 {
     public sealed class JumpPainter : IExecutable, IBodyUser
     {
-        #region Fields
-
+        
         private PowerLinePainter _powerLinePainter;
         private TrajectoryPainter _trajectoryPainter;
 
@@ -15,10 +14,6 @@ namespace Dragoraptor
         private bool _isEnabled;
         private bool _haveBody;
 
-        #endregion
-
-
-        #region ClassLifeCycles
 
         public JumpPainter(CharacterStateHolder csh, GamePlaySettings gamePlaySettings, JumpCalculator jc)
         {
@@ -27,10 +22,6 @@ namespace Dragoraptor
             _trajectoryPainter = new TrajectoryPainter(jc);
         }
 
-        #endregion
-
-
-        #region Methods
 
         public void SetTouchPosition(Vector2 position)
         {
@@ -75,7 +66,6 @@ namespace Dragoraptor
             }
             _isEnabled = false;
         }
-        #endregion
 
 
         #region IBodyUser

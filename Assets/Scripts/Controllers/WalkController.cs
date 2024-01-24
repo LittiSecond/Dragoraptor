@@ -5,7 +5,6 @@ namespace Dragoraptor
 {
     public sealed class WalkController : IExecutable, IBodyUser
     {
-        #region Fields
 
         private PlayerBody _playerBody;
         private Transform _transform;
@@ -21,12 +20,8 @@ namespace Dragoraptor
 
         private bool _isEnabled;
         private bool _shouldMove;
-        private bool _isDirectionRigth;
+        private bool _isDirectionRight;
 
-        #endregion
-
-
-        #region ClassLifeCycles
 
         public WalkController(CharacterStateHolder csh, GamePlaySettings gps)
         {
@@ -35,10 +30,6 @@ namespace Dragoraptor
             _speed = gps.WalkSpeed;
         }
 
-        #endregion
-
-
-        #region Methods
 
         public void SetDestination(float x)
         {
@@ -66,9 +57,9 @@ namespace Dragoraptor
         private void StartMovement()
         {
             float x = _transform.position.x;
-            _isDirectionRigth = _xDestination > x;
+            _isDirectionRight = _xDestination > x;
 
-            float direction = _isDirectionRigth ? 1.0f : -1.0f;
+            float direction = _isDirectionRight ? 1.0f : -1.0f;
             _velocity = new Vector2(_speed * direction, 0);
             _rigidbody.velocity = _velocity;
 
@@ -87,8 +78,6 @@ namespace Dragoraptor
                 _state = newState;
             }
         }
-
-        #endregion
 
 
         #region IBodyUser
@@ -123,12 +112,12 @@ namespace Dragoraptor
             if (_isEnabled && _shouldMove)
             {
                 float x = _transform.position.x;
-                if (_isDirectionRigth && (x >= _xDestination))
+                if (_isDirectionRight && (x >= _xDestination))
                 {
                     StopMovement();
                     _stateHolder.SetState(CharacterState.Idle);
                 }
-                else if ( !_isDirectionRigth && (x <= _xDestination))
+                else if ( !_isDirectionRight && (x <= _xDestination))
                 {
                     StopMovement();
                     _stateHolder.SetState(CharacterState.Idle);

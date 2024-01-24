@@ -5,12 +5,16 @@ namespace Dragoraptor
 {
     public sealed class PlayerCharacterController
     {
-        #region Fields
 
         private const string CHARACTER_PREFAB_ID = "PlayerCharacter";
 
+        private const float CHARACTER_DEATH_DELAY = 5.0f;
+
         private readonly CharacterStateHolder _stateHolder;
         private readonly TouchInputController _touchInputController;
+        private readonly PlayerHealth _playerHealth;
+        private readonly PlayerSatiety _playerSatiety;
+        private readonly EnergyController _energyController;
         private GameObject _playerGO;
         private PlayerBody _playerBody;
 
@@ -18,26 +22,26 @@ namespace Dragoraptor
 
         private Vector2 _spawnPosition;
 
+        private ITimeRemaining _timer;
+
         private bool _haveCharacterBody;
         private bool _isCharacterControllEnabled;
+        private bool _isTiming;
 
-        #endregion
 
-
-        #region ClassLifeCycles
-
-        public PlayerCharacterController( CharacterStateHolder csh, GamePlaySettings gps, TouchInputController tic, IBodyUser[] bu)
+        public PlayerCharacterController( CharacterStateHolder csh, GamePlaySettings gps, TouchInputController tic, 
+            PlayerHealth ph, PlayerSatiety ps, EnergyController ec, IBodyUser[] bu)
         {
             _stateHolder = csh;
             _spawnPosition = gps.CharacterSpawnPosition;
             _touchInputController = tic;
+            _playerHealth = ph;
+            _playerHealth.OnHealthEnd += OnHealthEnd;
+            _playerSatiety = ps;
+            _energyController = ec;
             _bodyUsers = bu;
         }
 
-        #endregion
-
-
-        #region Methods
 
         public void CreateCharacter()
         {
@@ -54,7 +58,12 @@ namespace Dragoraptor
 
             _playerGO.transform.position = _spawnPosition;
             _playerGO.SetActive(true);
+            _playerHealth.ResetHealth();
+            _playerSatiety.ResetSatiety();
+            _energyController.ResetEnergy();
+            _energyController.On();
             _stateHolder.SetState(CharacterState.Idle);
+            Services.Instance.CharacterIntermediary.SetPlayerCharacterTransform(_playerGO.transform);
         }
 
         public void CharacterControllOn()
@@ -75,7 +84,28 @@ namespace Dragoraptor
             {
                 CharacterControllOff();
             }
+            _energyController.Off();
+            Services.Instance.CharacterIntermediary.SetPlayerCharacterTransform(null);
             _playerGO.SetActive(false);
+
+            if (_isTiming)
+            {
+                _timer.RemoveTimeRemaining();
+                _isTiming = false;
+            }
+        }
+
+        public void OnHealthEnd()
+        {
+            CharacterControllOff();
+            _stateHolder.SetState(CharacterState.Death);
+            if (!_isTiming)
+            {
+                _timer = new TimeRemaining(OnDeathTimer, CHARACTER_DEATH_DELAY);
+                _timer.AddTimeRemaining();
+                _isTiming = true;
+            }
+            Services.Instance.CharacterIntermediary.SetPlayerCharacterTransform(null);
         }
 
         private void InstantiateCharacter()
@@ -85,8 +115,11 @@ namespace Dragoraptor
             _playerBody = _playerGO.GetComponent<PlayerBody>();
         }
 
-
-        #endregion
+        private void OnDeathTimer()
+        {
+            _isTiming = false;
+            Services.Instance.GameStateManager.CharacterKilled();
+        }
 
     }
 }

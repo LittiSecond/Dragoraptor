@@ -5,35 +5,28 @@ namespace Dragoraptor
 {
     public sealed class JumpController : IBodyUser 
     {
-        #region Fields
 
         private Transform _bodyTransform;
         private Rigidbody2D _rigidbody;
 
         private readonly CharacterStateHolder _stateHolder;
         private readonly JumpCalculator _jumpCalculator;
+        private readonly IResouceStore _energyStore;
 
         private CharacterState _state;
 
         private bool _haveBody;
 
-        #endregion
 
-
-        #region ClassLifeCycles
-
-        public JumpController(CharacterStateHolder csh, JumpCalculator jc)
+        public JumpController(CharacterStateHolder csh, JumpCalculator jc, IResouceStore energyStore)
         {
             _stateHolder = csh;
             _stateHolder.OnStateChanged += OnStateChanged;
 
             _jumpCalculator = jc;
+            _energyStore = energyStore;
         }
 
-        #endregion
-
-
-        #region Methods
 
         public void TouchBegin()
         {
@@ -49,12 +42,20 @@ namespace Dragoraptor
             {
                 Vector2 jumpDirection =  (Vector2)_bodyTransform.position - worldPosition;
 
-                Vector2 impulse = _jumpCalculator.CalculateJampImpulse(jumpDirection);
+                Vector2 impulse = _jumpCalculator.CalculateJumpImpulse(jumpDirection);
 
                 if (impulse != Vector2.zero)
                 {
-                    _rigidbody.AddForce(impulse, ForceMode2D.Impulse);
-                    _stateHolder.SetState(CharacterState.FliesUp);
+                    int jumpCost = (int)_jumpCalculator.CalculateJumpCost();
+                    if (_energyStore.SpendResource(jumpCost))
+                    {
+                        _rigidbody.AddForce(impulse, ForceMode2D.Impulse);
+                        _stateHolder.SetState(CharacterState.FliesUp);
+                    }
+                    else
+                    {
+                        _stateHolder.SetState(CharacterState.Idle);
+                    }
                 }
                 else
                 {
@@ -68,8 +69,6 @@ namespace Dragoraptor
         {
             _state = newState;
         }
-
-        #endregion
 
 
         #region IBodyUser

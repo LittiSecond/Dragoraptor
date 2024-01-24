@@ -5,29 +5,27 @@ namespace Dragoraptor
 {
     public sealed class JumpCalculator
     {
-        #region Fields
 
         private float _minJumpForce;
         private float _maxJumpForce;
+        private float _energyCost;
         //      distances betwin _bodyTransform and touch point
         private float _cancelJumpDistance;
         private float _cancelJumpSqrDistance;
         private float _maxJumpForceDistance;
+
+        private float _jumpForce;
 
         // force calculation data: Force = k*distance + b
         private float _k;
         private float _b;
 
 
-        #endregion
-
-
-        #region ClassLifeCycles
-
         public JumpCalculator(GamePlaySettings gps)
         {
             _minJumpForce = gps.MinJumpForce;
             _maxJumpForce = gps.MaxJumpForce;
+            _energyCost = gps.JumpEnergyCost;
             _cancelJumpDistance = gps.NoJumpPowerIndicatorLength;
             _cancelJumpSqrDistance = _cancelJumpDistance * _cancelJumpDistance;
             _maxJumpForceDistance = gps.MaxJumpPowerIndicatorLength;
@@ -35,10 +33,6 @@ namespace Dragoraptor
             CalculateJumpForceCalcData();
         }
 
-        #endregion
-
-
-        #region Methods
 
         private void CalculateJumpForceCalcData()
         {
@@ -46,7 +40,7 @@ namespace Dragoraptor
             _b = _maxJumpForce - _k * _maxJumpForceDistance;
         }
 
-        public Vector2 CalculateJampImpulse(Vector2 jumpDirection)
+        public Vector2 CalculateJumpImpulse(Vector2 jumpDirection)
         {
             Vector2 impulse = Vector2.zero;
 
@@ -63,8 +57,8 @@ namespace Dragoraptor
                     {
                         distance = _maxJumpForceDistance;
                     }
-                    float jumpForce = CalculateJumpForce(distance);
-                    impulse = jumpDirection * jumpForce;
+                    _jumpForce = CalculateJumpForce(distance);
+                    impulse = jumpDirection * _jumpForce;
                 }
             }
 
@@ -81,7 +75,10 @@ namespace Dragoraptor
             return _k * distance + _b;
         }
 
-        #endregion
+        public float CalculateJumpCost()
+        {
+            return _jumpForce * _energyCost;
+        }
 
     }
 }

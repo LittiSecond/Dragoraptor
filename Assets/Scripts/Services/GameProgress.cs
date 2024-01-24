@@ -2,33 +2,36 @@
 {
     public sealed class GameProgress
     {
-        #region Fields
-
+        
         private const int FIRST_LEVEL_NUMBER = 1;
-        private const int LAST_LEVEL_NUMBER = 2;
 
+        private LevelLoader _levelLoader;
+        private ProgressData _progressData;
         private LevelDescriptor _currentLevel;
 
-        #endregion
 
+        public GameProgress()
+        {
+            _progressData = new ProgressData();
+        }
 
-        #region Methods
 
         public void ChooseNextLevel()
         {
-            if (_currentLevel == null)
+            if (_progressData.CurrentLevelNumber == 0)
             {
-                _currentLevel = PrefabLoader.GetLevelDescriptor(FIRST_LEVEL_NUMBER);
+                _progressData.CurrentLevelNumber = FIRST_LEVEL_NUMBER;
             }
             else
             {
-                int levelNumber = _currentLevel.LevelNumber + 1;
-                if (levelNumber > LAST_LEVEL_NUMBER)
+                _progressData.CurrentLevelNumber++;
+                if (_progressData.CurrentLevelNumber > _progressData.Levels.Count)
                 {
-                    levelNumber = FIRST_LEVEL_NUMBER;
+                    _progressData.CurrentLevelNumber = FIRST_LEVEL_NUMBER;
                 }
-                _currentLevel = PrefabLoader.GetLevelDescriptor(levelNumber);
             }
+
+            _currentLevel = _levelLoader.GetLevelDescriptor(_progressData.CurrentLevelNumber);
         }
 
         public LevelDescriptor GetCurrentLevel()
@@ -36,7 +39,32 @@
             return _currentLevel;
         }
 
-        #endregion
+        public void SetCampaign(Campaign campaign)
+        {
+            if (_levelLoader == null)
+            {
+                _levelLoader = new LevelLoader();
+            }
+            _levelLoader.SetCampaign(campaign);
+            _progressData.Clear();
+            PrepareProgressData(campaign);
+        }
+
+        private void PrepareProgressData(Campaign campaign)
+        {
+            for (int i = 0; i < campaign.LevelPaths.Length; i++)
+            {
+                _progressData.Levels.Add(new LevelProgressInfo(i + 1));
+            }
+
+            _progressData.Levels[0].Status = LevelStatus.Available;
+            _progressData.Levels[1].Status = LevelStatus.Available;
+        }
+
+        public ProgressData GetProgressData()
+        {
+            return _progressData;
+        }
 
     }
 }

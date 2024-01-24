@@ -6,8 +6,6 @@ namespace Dragoraptor.Ui
     public sealed class UiFactory
     {
 
-        #region Fields
-
         private const string HUNT_SCREEN_PREFAB_ID = "HuntScreen";
         private const string MAIN_SCREEN_PREFAB_ID = "MainScreen";
 
@@ -16,21 +14,12 @@ namespace Dragoraptor.Ui
         private HuntScreenBehaviour _huntScreen;
 
 
-        #endregion
-
-
-        #region ClassLifeCycles
-
         public UiFactory()
         {
             Canvas canvas = GameObject.FindObjectOfType<Canvas>();
             _canvas = canvas.transform;
         }
 
-        #endregion
-
-
-        #region Methods
 
         public MainScreenBehaviour GetMainScreen()
         {
@@ -55,12 +44,11 @@ namespace Dragoraptor.Ui
                 {
                     var go = UnityEngine.Object.Instantiate(prefab, _canvas);
                     _huntScreen = go.GetComponent<HuntScreenBehaviour>();
+                    _huntScreen.Hide();
                 }
             }
             return _huntScreen;
         }
-
-        #endregion
 
     }
 }

@@ -1,0 +1,48 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 578db52d4ea204a4ea1bac677a7f6135, type: 3}
+  m_Name: RuleLevel1
+  m_EditorClassIdentifier: 
+  Prefabs:
+  - {fileID: 4124025395643009865, guid: f810b8292ae3b4645b10401e272f9d47, type: 3}
+  - {fileID: 7507418633683498011, guid: 6075bdfb8b27ca84ebf88a66dc32b6c3, type: 3}
+  - {fileID: 4697923298728460260, guid: 0e5f8f4019ad05f4cb1d346a2ef2b5dc, type: 3}
+  SpawnDatas:
+  - PrefabIndex: 2
+    Time: 1
+    SpawnPosition: {x: -4, y: 0}
+    FloatDatas:
+    - 0
+    - -3
+    Data: {fileID: 0}
+  - PrefabIndex: 0
+    Time: 5
+    SpawnPosition: {x: -4, y: 1}
+    FloatDatas: []
+    Data: {fileID: 11400000, guid: 4a521d6b7ad92c546b3a17d99d3a3572, type: 2}
+  - PrefabIndex: 1
+    Time: 7
+    SpawnPosition: {x: -5, y: 5}
+    FloatDatas: []
+    Data: {fileID: 0}
+  - PrefabIndex: 0
+    Time: 10
+    SpawnPosition: {x: 4, y: -1}
+    FloatDatas: []
+    Data: {fileID: 11400000, guid: 339b6fff803f75e4082b66c1540be9d3, type: 2}
+  - PrefabIndex: 1
+    Time: 14
+    SpawnPosition: {x: 5, y: 3}
+    FloatDatas: []
+    Data: {fileID: 0}
+  CyclicSpawnDatas: []
+  CycleDuration: 10

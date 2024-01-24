@@ -1,38 +1,18 @@
-﻿using UnityEngine;
-
-
-namespace Dragoraptor.Ui
+﻿namespace Dragoraptor.Ui
 {
     public sealed class UiManager
     {
 
-        #region Fields
-
-        private UiFactory _uiFactory;
         private IScreenBehaviour _currentScreen;
         private IScreenBehaviour _mainScreen;
         private IScreenBehaviour _huntScreen;
 
-        #endregion
 
-
-        #region ClassLifeCycles
-
-        public UiManager()
-        {
-            _uiFactory = new UiFactory();
-        }
-
-        #endregion
-
-
-        #region Methods
-
-        public void SwichToMainScreen()
+        public void SwitchToMainScreen()
         {
             if (_mainScreen == null)
             {
-                _mainScreen = _uiFactory.GetMainScreen();
+                _mainScreen = Services.Instance.UiFactory.GetMainScreen();
             }
 
             if (_currentScreen != _mainScreen)
@@ -43,11 +23,11 @@ namespace Dragoraptor.Ui
             }
         }
 
-        public void SwichToHuntScreen()
+        public void SwitchToHuntScreen()
         {
             if (_huntScreen == null)
             {
-                _huntScreen = _uiFactory.GetHuntScreen();
+                _huntScreen = Services.Instance.UiFactory.GetHuntScreen();
             }
 
             if (_currentScreen != _huntScreen)
@@ -58,7 +38,5 @@ namespace Dragoraptor.Ui
             }
         }
 
-
-        #endregion
     }
 }

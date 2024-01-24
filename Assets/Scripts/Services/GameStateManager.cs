@@ -1,11 +1,12 @@
-﻿using Dragoraptor.Ui;
+﻿using UnityEngine;
+using Dragoraptor.Ui;
+
 
 namespace Dragoraptor
 {
     public sealed class GameStateManager
     {
-        #region PrivateData
-
+        
         private enum GameState
         {
             None        = 0,
@@ -13,33 +14,31 @@ namespace Dragoraptor
             Hunt        = 2
         }
 
-        #endregion
-
-
-        #region Fields
-
         private UiManager _uiManager;
         private PlayerCharacterController _characterController;
         private SceneController _sceneController;
+        private NpcManager _npcManager;
+        private LevelProgressController _levelProgressControler;
 
         private GameState _state;
 
-        #endregion
+        private bool _isPause;
 
 
-        #region Methods
-
-        public void SetControllers(PlayerCharacterController pcc, SceneController sc)
+        public void SetControllers(PlayerCharacterController pcc, SceneController sc, NpcManager nm, 
+            LevelProgressController lpc)
         {
             _characterController = pcc;
             _sceneController = sc;
+            _npcManager = nm;
+            _levelProgressControler = lpc;
         }
 
         public void SetMainScreenAtStartGame()
         {
             if (_state == GameState.None)
             {
-                _uiManager.SwichToMainScreen();
+                _uiManager.SwitchToMainScreen();
                 _state = GameState.MainScreen;
                 _sceneController.SetMainScreenScene();
             }
@@ -54,12 +53,17 @@ namespace Dragoraptor
         {
             if (_state == GameState.Hunt)
             {
-                _uiManager.SwichToMainScreen();
                 _state = GameState.MainScreen;
+                SwitchPause(false);
+                
+                _levelProgressControler.LevelEnd();
 
-                DeactivateCharacterControll();
+                _npcManager.StopNpcSpawn();
+                _npcManager.ClearNpc();
+                DeactivateCharacterControl();
                 _characterController.RemoveCharacter();
                 _sceneController.SetMainScreenScene();
+                _uiManager.SwitchToMainScreen();
             }
         }
 
@@ -67,28 +71,91 @@ namespace Dragoraptor
         {
             if (_state == GameState.MainScreen)
             {
+                _state = GameState.Hunt;
                 Services.Instance.GameProgress.ChooseNextLevel();
 
-                _uiManager.SwichToHuntScreen();
-                _state = GameState.Hunt;
+                _uiManager.SwitchToHuntScreen();
 
                 _sceneController.BuildLevel();
                 _characterController.CreateCharacter();
-                ActivateCharacterControll();
+                ActivateCharacterControl();
+                _npcManager.PrepareNpcSpawn();
+                _npcManager.RestartNpcSpawn();
+                _levelProgressControler.LevelStart();
             }
         }
 
-        private void ActivateCharacterControll()
+        private void ActivateCharacterControl()
         {
             _characterController.CharacterControllOn();
         }
 
-        private void DeactivateCharacterControll()
+        private void DeactivateCharacterControl()
         {
             _characterController.CharacterControllOff();
         }
 
-        #endregion
+        public void OnMenuOpened()
+        {
+            if (_state == GameState.Hunt)
+            {
+                SwitchPause(true);
+            }
+        }
+
+        public void OnMenuClosed()
+        {
+            if (_state == GameState.Hunt)
+            {
+                SwitchPause(false);
+            }
+        }
+
+        private void SwitchPause(bool isPauseOn)
+        {
+            if ((_isPause == true) && (isPauseOn == false))
+            {
+                _isPause = false;
+                Time.timeScale = 1.0f;
+            }
+            else if ((_isPause == false) && (isPauseOn == true))
+            {
+                _isPause = true;
+                Time.timeScale = 0.0f;
+            }
+        }
+
+        public void RestartHunt()
+        {
+            if (_state == GameState.Hunt)
+            {
+                _levelProgressControler.LevelEnd();
+                _npcManager.StopNpcSpawn();
+                _npcManager.ClearNpc();
+                DeactivateCharacterControl();
+                _characterController.RemoveCharacter();
+                _sceneController.ClearTemporaryObjects();
+
+                _characterController.CreateCharacter();
+                ActivateCharacterControl();
+                _npcManager.RestartNpcSpawn();
+                _levelProgressControler.LevelStart();
+                SwitchPause(false);
+            }
+        }
+
+        public void CharacterKilled()
+        {
+            _levelProgressControler.LevelEnd();
+            Services.Instance.UiFactory.GetHuntScreen().ShowEndHuntScreen();
+        }
+
+        public void BreakHunt()
+        {
+            _levelProgressControler.LevelEnd();
+            Services.Instance.UiFactory.GetHuntScreen().ShowEndHuntScreen();
+            SwitchPause(true);
+        }
 
     }
 }

@@ -5,7 +5,6 @@ namespace Dragoraptor
 {
     public sealed class SceneController
     {
-        #region Fields
 
         private GameObject _ground;
         private GameObject _backGround;
@@ -15,10 +14,6 @@ namespace Dragoraptor
         private bool _isLevelActive;
         private bool _isLevelCreated;
 
-        #endregion
-
-
-        #region Methods
 
         public void SetMainScreenScene()
         {
@@ -57,6 +52,14 @@ namespace Dragoraptor
 
         }
 
+        public void ClearTemporaryObjects()
+        {
+            if (_isLevelActive)
+            {
+                Services.Instance.ObjectPool.ReturnAllToPool();
+            }
+        }
+
         private void ActivateLevel()
         {
             if (!_isLevelActive)
@@ -71,6 +74,7 @@ namespace Dragoraptor
         {
             if (_isLevelActive)
             {
+                Services.Instance.ObjectPool.ReturnAllToPool();
                 _ground.SetActive(false);
                 _backGround.SetActive(false);
                 _isLevelActive = false;
@@ -103,8 +107,6 @@ namespace Dragoraptor
             _isLevelCreated = true;
             _isLevelActive = true;
         }
-
-        #endregion
 
     }
 }

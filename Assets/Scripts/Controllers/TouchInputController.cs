@@ -6,35 +6,29 @@ namespace Dragoraptor
 {
     public sealed class TouchInputController : IExecutable
     {
-        #region Fields
 
         private readonly WalkController _walkController;
         private readonly JumpController _jumpController;
         private readonly JumpPainter _jumpPainter;
-        private readonly HorizontalDirection _horizontalDirection;
+        private readonly PlayerHorizontalDirection _horizontalDirection;
+        private readonly AttackController _attackController;
 
         private CharacterState _state;
 
         private bool _isEnabled;
 
-        #endregion
 
-
-        #region ClassLifeCycles
-
-        public TouchInputController(CharacterStateHolder csh, WalkController wc, JumpController jk, JumpPainter jp, HorizontalDirection hd )
+        public TouchInputController(CharacterStateHolder csh, WalkController wc, JumpController jk, JumpPainter jp,
+            PlayerHorizontalDirection hd, AttackController ac )
         {
             csh.OnStateChanged += OnStateChanged;
             _walkController = wc;
             _jumpController = jk;
             _jumpPainter = jp;
             _horizontalDirection = hd;
+            _attackController = ac;
         }
 
-        #endregion
-
-
-        #region Methods
 
         public void On()
         {
@@ -57,13 +51,18 @@ namespace Dragoraptor
                     if (type == ObjctType.Ground)
                     {
                         _walkController.SetDestination(position.x);
-                        _horizontalDirection.SetDistination(position);
+                        _horizontalDirection.SetDestination(position);
                     }
                     else if (type == ObjctType.Player)
                     {
                         _jumpController.TouchBegin();
                         _jumpPainter.SetTouchPosition(position);
                     }
+                    else
+                    {
+                        _attackController.TouchBegin();
+                    }
+
                 }
 
             }
@@ -80,14 +79,19 @@ namespace Dragoraptor
                     _horizontalDirection.SetTouchPosition(position);
                 }
             }
+            else if (_state == CharacterState.FliesUp || _state == CharacterState.FliesDown)
+            {
+                if (touch.phase == TouchPhase.Began)
+                {
+                    _attackController.TouchBegin();
+                }
+            }
         }
 
         private void OnStateChanged(CharacterState newState)
         {
             _state = newState;
         }
-
-        #endregion
 
 
         #region IExecutable

@@ -4,9 +4,8 @@ using System;
 
 namespace Dragoraptor
 {
-    public sealed class PlayerBody : MonoBehaviour
+    public sealed class PlayerBody : MonoBehaviour, ITakeDamage
     {
-        #region Fields
 
         [SerializeField] private Rigidbody2D _rigedbody;
         [SerializeField] private LineRenderer _trajectoryRenderer;
@@ -16,12 +15,9 @@ namespace Dragoraptor
 
         public event Action OnGroundContact;
 
-        private bool _isDirectionRight;
+        private Direction _direction;
+        private ITakeDamage _damageReceiver;
 
-        #endregion
-
-
-        #region UnityMethods
 
         private void OnCollisionEnter2D(Collision2D collision)
         {
@@ -32,17 +28,17 @@ namespace Dragoraptor
                     OnGroundContact();
                 }
             }
+            if (collision.gameObject.layer == (int)SceneLayer.Items)
+            {
+                Debug.Log("PlayerBody->OnCollisionEnter2D: ");
+            }
         }
 
         private void OnEnable()
         {
-            _isDirectionRight = _bodySpriteRenderer.flipX;
+            _direction = (_bodySpriteRenderer.flipX)? Direction.Rigth : Direction.Left;
         }
 
-        #endregion
-
-
-        #region Methods
 
         public Rigidbody2D GetRigidbody()
         {
@@ -59,13 +55,26 @@ namespace Dragoraptor
             return _bodyAnimator;
         }
 
-        public void SetDirectionIsRight(bool isRight)
+        public void SetDirection(Direction direction)
         {
-            if (_isDirectionRight != isRight)
+            if (_direction != direction)
             {
-                _isDirectionRight = isRight;
-                _bodySpriteRenderer.flipX = _isDirectionRight;
+                _direction = direction;
+                _bodySpriteRenderer.flipX = _direction == Direction.Rigth;
             }
+        }
+
+        public void SetDamageReceiver(ITakeDamage takeDamage)
+        {
+            _damageReceiver = takeDamage;
+        }
+
+
+        #region ITakeDamag
+
+        public void TakeDamage(int amount)
+        {
+            _damageReceiver?.TakeDamage(amount);
         }
 
         #endregion

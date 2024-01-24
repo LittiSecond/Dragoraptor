@@ -5,7 +5,6 @@ namespace Dragoraptor
 {
     public sealed class SceneGeometry
     {
-        #region Fields
 
         private Rect _worldWisibleArea;
 
@@ -13,10 +12,6 @@ namespace Dragoraptor
 
         private bool _isInitialized;
 
-        #endregion
-
-
-        #region Methods
 
         public Vector2 ConvertScreenPositionToWorld(Vector2 screenPositionInPx )
         {
@@ -59,6 +54,5 @@ namespace Dragoraptor
             return _worldWisibleArea;
         }
 
-        #endregion
     }
 }

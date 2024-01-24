@@ -7,24 +7,15 @@ namespace Dragoraptor
 {
     public sealed class Services
     {
-        #region Fields
 
         private static readonly Lazy<Services> _instance = new Lazy<Services>();
 
-        #endregion
-
-
-        #region ClassLifeCycles
 
         public Services()
         {
             Initialize();
         }
 
-        #endregion
-
-
-        #region Properties
 
         public static Services Instance => _instance.Value;
 
@@ -32,11 +23,11 @@ namespace Dragoraptor
         public GameStateManager GameStateManager { get; private set; }
         public UiManager UiManager { get; private set; }
         public GameProgress GameProgress { get; private set; }
+        public ObjectPool2 ObjectPool { get; private set; }
+        public CharacterIntermediary CharacterIntermediary { get; private set; }
+        public UiFactory UiFactory { get; private set; }
+        public UpdateService UpdateService { get; private set; }
 
-        #endregion
-
-
-        #region Methods
 
         private void Initialize()
         {
@@ -44,10 +35,13 @@ namespace Dragoraptor
             GameStateManager = new GameStateManager();
             UiManager = new UiManager();
             GameProgress = new GameProgress();
+            ObjectPool = new ObjectPool2();
+            CharacterIntermediary = new CharacterIntermediary();
+            UiFactory = new UiFactory();
+            UpdateService = new UpdateService();
 
             GameStateManager.SetUiManager(UiManager);
         }
 
-        #endregion
     }
 }

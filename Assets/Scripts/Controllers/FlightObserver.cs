@@ -5,7 +5,6 @@ namespace Dragoraptor
 {
     public sealed class FlightObserver : IExecutable, IBodyUser
     {
-        #region Fields
 
         private PlayerBody _playerBody;
         private Transform _bodyTransform;
@@ -21,10 +20,6 @@ namespace Dragoraptor
         private bool _isEnabled;
         private bool _isFirstFrame;
 
-        #endregion
-
-
-        #region ClassLifeCycles
 
         public FlightObserver(CharacterStateHolder csh)
         {
@@ -32,10 +27,6 @@ namespace Dragoraptor
             _stateHolder.OnStateChanged += OnStateChanged;
         }
 
-        #endregion
-
-
-        #region Methods
 
         private void OnStateChanged(CharacterState newState)
         {
@@ -44,19 +35,22 @@ namespace Dragoraptor
 
             if (_state == CharacterState.FliesUp)
             {
-                _playerBody.OnGroundContact += OnGroundContact;
                 _isFirstFrame = true;
             }
         }
 
         private void OnGroundContact()
         {
-            _playerBody.OnGroundContact -= OnGroundContact;
-            _rigidbody.velocity = Vector2.zero;
-            _stateHolder.SetState(CharacterState.Idle);
+            if (_state == CharacterState.Death)
+            {
+                _rigidbody.velocity = Vector2.zero;
+            }
+            if (_isEnabled)
+            {
+                _rigidbody.velocity = Vector2.zero;
+                _stateHolder.SetState(CharacterState.Idle);
+            }
         }
-
-        #endregion
 
 
         #region IBodyUser
@@ -66,11 +60,13 @@ namespace Dragoraptor
             _playerBody = pb;
             _bodyTransform = _playerBody.transform;
             _rigidbody = _playerBody.GetRigidbody();
+            _playerBody.OnGroundContact += OnGroundContact;
             _haveBody = true;
         }
 
         public void ClearBody()
         {
+            _playerBody.OnGroundContact -= OnGroundContact;
             _playerBody = null;
             _bodyTransform = null;
             _rigidbody = null;
