@@ -70,10 +70,11 @@ MonoBehaviour:
       y: -0.3
       width: 0.7
       height: 1
+  AttackInterval: 0.25
   MaxSatiety: 100
   Energy: 100
-  EnergyRegeneration: 10
-  WalkEnergyRegeneration: 2.5
+  EnergyRegeneration: 12
+  WalkEnergyRegeneration: 6
   RegenerationDelay: 0.5
   AttackEnergyCost: 5
   JumpEnergyCost: 2
