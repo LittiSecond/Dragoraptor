@@ -7,7 +7,7 @@ namespace Dragoraptor
     public sealed class NpcDataWay : NpcData
     {
         public bool IsCyclic;
-        public bool IsRelaiveStartPosition;
+        public bool IsRelativeStartPosition;
         public Vector2[] Way;
     }
 }

@@ -10,9 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6d46591cdecf2ae4dab7c5dcd4c8796c, type: 3}
-  m_Name: DefoultCampaign
+  m_Name: TestOneLevelCampaign
   m_EditorClassIdentifier: 
   LevelPaths:
   - Levels/Level3/Level3
-  - Levels/Level2/Level2
-  - Levels/Level1/Level1

@@ -84,7 +84,7 @@ namespace Dragoraptor
         {
             _way = way.Way;
             _isCyclic = way.IsCyclic;
-            _isRelativeStartPosition = way.IsRelaiveStartPosition;
+            _isRelativeStartPosition = way.IsRelativeStartPosition;
             _haveWay = _way != null;
             _nexWayPointIndex = 0;
 

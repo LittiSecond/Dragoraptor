@@ -4,12 +4,12 @@ using UnityEngine;
 
 namespace Dragoraptor
 {
-    public sealed class NpcSpawnCyclikChain
+    public sealed class NpcSpawnCyclicChain
     {
         //
         // Все классы NpcSpawn принимают решения: когда порождать какого моба и отдаёт команду на его порождение
         //
-        // Класс NpcSpawnCyclikChain в качестве ИД принимает массив SpawnData (содержит мобов с ИД для каждого моба) 
+        // Класс NpcSpawnCyclicChain в качестве ИД принимает массив SpawnData (содержит мобов с ИД для каждого моба) 
         // и длительность цикла.
         // Класс должен распределить спавн мобов в отрезке времени начиная
         // с момента старта логики (с момента вызова функции StartSpawnLogic()) и длительностью цикла.
@@ -23,7 +23,8 @@ namespace Dragoraptor
         private SpawnData[] _spawnDatas;
 
 
-        private float _timeCounter;
+        private float _spawnTimeCounter;
+        private float _cycleTimeCounter;
         private float _nextSpawnTime;
         private float _cycleDuration;
         private int _nextSpawnDataIndex;
@@ -32,7 +33,7 @@ namespace Dragoraptor
         private bool _isSpawnDataReady;
 
 
-        public NpcSpawnCyclikChain(INpcSpawner npcSpawner)
+        public NpcSpawnCyclicChain(INpcSpawner npcSpawner)
         {
             _npcSpawner = npcSpawner;
         }
@@ -67,10 +68,11 @@ namespace Dragoraptor
         {
             if (_isSpawnDataReady)
             {
-                _timeCounter = 0.0f;
+                _spawnTimeCounter = 0.0f;
                 _nextSpawnTime = _spawnDatas[0].Time;
                 _nextSpawnDataIndex = 0;
                 _isSpawnRuleFinished = false;
+                _cycleTimeCounter = 0.0f;
             }
         }
 
@@ -83,22 +85,31 @@ namespace Dragoraptor
         {
             if (!_isSpawnRuleFinished)
             {
-                _timeCounter += Time.deltaTime;
-                if (_timeCounter >= _nextSpawnTime)
+                float deltaTime = Time.deltaTime;
+                _spawnTimeCounter += deltaTime;
+                if (_spawnTimeCounter >= _nextSpawnTime)
                 {
                     _npcSpawner.SpawnNpc(_spawnDatas[_nextSpawnDataIndex]);
+                    //Debug.Log($"NpcSpawnCyclicChain->Execute: _nextSpawnDataIndex = {_nextSpawnDataIndex} ");
                     _nextSpawnDataIndex++;
                     if (_nextSpawnDataIndex >= _spawnDatas.Length)
                     {
-                        RandomizeSpawnDatas();
-                        RandomizeSpawnTimes(_cycleDuration);
-                        StartSpawnLogic();
+                        _nextSpawnTime = float.MaxValue;
                     }
                     else
                     {
                         _nextSpawnTime = _spawnDatas[_nextSpawnDataIndex].Time;
                     }
                 }
+                
+                _cycleTimeCounter += deltaTime;
+                if (_cycleTimeCounter >= _cycleDuration)
+                {
+                    RandomizeSpawnDatas();
+                    RandomizeSpawnTimes(_cycleDuration);
+                    StartSpawnLogic();
+                }
+                
             }
         }
 
@@ -166,7 +177,7 @@ namespace Dragoraptor
                 message += ";    " + _spawnDatas[i].Time.ToString();
             }
 
-            Debug.Log("NpcSpawnCyclikChain->ThrowDebugInfo: " + message);
+            Debug.Log("NpcSpawnCyclicChain->ThrowDebugInfo: " + message);
         }
 
     }

@@ -13,8 +13,8 @@ namespace Dragoraptor
         private readonly List<string> _npcTypes;
         private NpcSpawnRule _spawnRule;
         private Action<NpcBaseLogick> _onDestroyListener;
-        private NpcSpawnFixedChain _fixedChainLogick;
-        private NpcSpawnCyclikChain _cyclikChainLogick;
+        private NpcSpawnFixedChain _fixedChainLogic;
+        private NpcSpawnCyclicChain _cyclicChainLogic;
 
         private bool _isEnabled;
 
@@ -28,8 +28,8 @@ namespace Dragoraptor
             _npcList = list;
             _npcTypes = new List<string>();
             _onDestroyListener = onDestroyListener;
-            _fixedChainLogick = new NpcSpawnFixedChain(this);
-            _cyclikChainLogick = new NpcSpawnCyclikChain(this);
+            _fixedChainLogic = new NpcSpawnFixedChain(this);
+            _cyclicChainLogic = new NpcSpawnCyclicChain(this);
         }
 
         #endregion
@@ -54,8 +54,8 @@ namespace Dragoraptor
                 _npcTypes.Add(prefabs[i].Type);
             }
 
-            _fixedChainLogick.SetSpawnData(_spawnRule.SpawnDatas);
-            _cyclikChainLogick.SetSpawnData(_spawnRule.CyclicSpawnDatas, _spawnRule.CycleDuration);
+            _fixedChainLogic.SetSpawnData(_spawnRule.SpawnDatas);
+            _cyclicChainLogic.SetSpawnData(_spawnRule.CyclicSpawnDatas, _spawnRule.CycleDuration);
         }
 
         public void RestartNpcSpawn()
@@ -67,14 +67,14 @@ namespace Dragoraptor
         private void StopSpawnLogick()
         {
             _isEnabled = false;
-            _fixedChainLogick.StopSpawnLogick();
-            _cyclikChainLogick.StopSpawnLogic();
+            _fixedChainLogic.StopSpawnLogic();
+            _cyclicChainLogic.StopSpawnLogic();
         }
 
         private void StartSpawnLogick()
         {
-            _fixedChainLogick.StartSpawnLogick();
-            _cyclikChainLogick.StartSpawnLogic();
+            _fixedChainLogic.StartSpawnLogic();
+            _cyclicChainLogic.StartSpawnLogic();
             _isEnabled = true;
         }
 
@@ -112,8 +112,8 @@ namespace Dragoraptor
         {
             if (_isEnabled)
             {
-                _fixedChainLogick.Execute();
-                _cyclikChainLogick.Execute();
+                _fixedChainLogic.Execute();
+                _cyclicChainLogic.Execute();
             }
         }
 
