@@ -11,6 +11,9 @@ namespace Dragoraptor
                 "BigTextPattern", "Text/BigTextPatternRU"
             },
             {
+                "BubbleYellow", "Prefabs/Items/BubbleYellow"
+            },
+            {
                 "BubblesBlue", "Prefabs/Items/BubblesBlue"
             },
             {

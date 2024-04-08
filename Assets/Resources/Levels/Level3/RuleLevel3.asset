@@ -16,12 +16,20 @@ MonoBehaviour:
   - {fileID: 4124025395643009865, guid: f810b8292ae3b4645b10401e272f9d47, type: 3}
   - {fileID: 4678621681868905676, guid: 2fead5c1668e63f48b4bbd3145293667, type: 3}
   - {fileID: 1320265219322353415, guid: 6cc94854fd109804c8b450b7b173b827, type: 3}
+  - {fileID: 4697923298728460260, guid: cb95939fa5ccddb49869f7648d2ec082, type: 3}
   SpawnDatas:
   - PrefabIndex: 0
     Time: 1
     SpawnPosition: {x: 4, y: -1}
     FloatDatas: []
     Data: {fileID: 11400000, guid: 3596a029be00b3c40815ab3535dc5555, type: 2}
+  - PrefabIndex: 3
+    Time: 1.5
+    SpawnPosition: {x: 4, y: -1}
+    FloatDatas:
+    - 0
+    - -3
+    Data: {fileID: 0}
   CyclicSpawnDatas:
   - PrefabIndex: 0
     Time: 2

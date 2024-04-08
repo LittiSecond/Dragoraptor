@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: TestOneLevelCampaign
   m_EditorClassIdentifier: 
   LevelPaths:
-  - Levels/Level3/Level3
+  - Levels/Level1/Level1
