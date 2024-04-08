@@ -9,12 +9,14 @@ namespace Dragoraptor
         
         private readonly PlayerSatiety _satiety;
         private readonly ScoreController _scoreController;
+        private readonly EnergyController _energyController;
 
 
-        public PickUpController(PlayerSatiety satiety, ScoreController scoreController)
+        public PickUpController(PlayerSatiety satiety, ScoreController scoreController, EnergyController energyController)
         {
             _satiety = satiety;
             _scoreController = scoreController;
+            _energyController = energyController;
         }
 
 
@@ -36,6 +38,10 @@ namespace Dragoraptor
                             break;
                         case ResourceType.Score:
                             _scoreController.AddScore(item.Amount);
+                            isPicked = true;
+                            break;
+                        case ResourceType.Energy:
+                            _energyController.AddEnergy(item.Amount);
                             isPicked = true;
                             break;
                     }
