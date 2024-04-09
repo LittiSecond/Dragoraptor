@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: L2RWay_4
   m_EditorClassIdentifier: 
   IsCyclic: 0
-  IsRelaiveStartPosition: 1
+  IsRelativeStartPosition: 1
   Way:
   - {x: 2, y: 0}
   - {x: 5.5, y: 0}

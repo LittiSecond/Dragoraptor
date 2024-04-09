@@ -24,11 +24,18 @@ MonoBehaviour:
     FloatDatas: []
     Data: {fileID: 11400000, guid: 3596a029be00b3c40815ab3535dc5555, type: 2}
   - PrefabIndex: 3
-    Time: 1.5
+    Time: 30
     SpawnPosition: {x: 4, y: -1}
     FloatDatas:
-    - 0
-    - -3
+    - -5
+    - 0.2
+    Data: {fileID: 0}
+  - PrefabIndex: 3
+    Time: 60
+    SpawnPosition: {x: -4, y: -1}
+    FloatDatas:
+    - 5
+    - 0.2
     Data: {fileID: 0}
   CyclicSpawnDatas:
   - PrefabIndex: 0
@@ -41,4 +48,14 @@ MonoBehaviour:
     SpawnPosition: {x: -4, y: -0.5}
     FloatDatas: []
     Data: {fileID: 11400000, guid: c2cfd5589af7e594390f383327951fb9, type: 2}
-  CycleDuration: 8
+  - PrefabIndex: 1
+    Time: 2
+    SpawnPosition: {x: -4, y: -1}
+    FloatDatas: []
+    Data: {fileID: 11400000, guid: b754d1b73b6ca7e499541425e43960f2, type: 2}
+  - PrefabIndex: 2
+    Time: 2
+    SpawnPosition: {x: 4, y: 1}
+    FloatDatas: []
+    Data: {fileID: 11400000, guid: a0bedaf13defdea4a94794efb53236cd, type: 2}
+  CycleDuration: 16
