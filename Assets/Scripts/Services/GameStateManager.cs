@@ -72,7 +72,7 @@ namespace Dragoraptor
             if (_state == GameState.MainScreen)
             {
                 _state = GameState.Hunt;
-                Services.Instance.GameProgress.ChooseNextLevel();
+                //Services.Instance.GameProgress.ChooseNextLevel();
 
                 _uiManager.SwitchToHuntScreen();
 

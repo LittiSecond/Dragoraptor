@@ -6,7 +6,7 @@ namespace Dragoraptor.Ui
     public abstract class BaseScreenBehaviour : MonoBehaviour, IScreenBehaviour
     {
 
-        private bool _isActive = true;
+        protected bool _isActive = true;
 
 
         public virtual void Show()
@@ -18,7 +18,7 @@ namespace Dragoraptor.Ui
             }
         }
 
-        public void Hide()
+        public virtual void Hide()
         {
             if (_isActive)
             {

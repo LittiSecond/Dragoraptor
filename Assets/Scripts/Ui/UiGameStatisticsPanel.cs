@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 namespace Dragoraptor.Ui
 {
-    public sealed class UiGameStatisticsPanel : MonoBehaviour
+    public sealed class UiGameStatisticsPanel : BaseScreenBehaviour
     {
 
         [SerializeField] private Dropdown _levelSelectDropdown;
@@ -14,6 +14,9 @@ namespace Dragoraptor.Ui
         [SerializeField] private Text _totalHunts;
         [SerializeField] private Text _lastHuntScore;
         [SerializeField] private Text _bestScore;
+        [SerializeField] private Button _closeButton;
+
+        public event Action OnCloseButtonClick; 
 
         private LevelProgressInfo[] _progresses;
 
@@ -21,6 +24,7 @@ namespace Dragoraptor.Ui
         private void Awake()
         {
             _levelSelectDropdown.onValueChanged.AddListener(OnLevelSelectChanged);
+            _closeButton.onClick.AddListener(() => { OnCloseButtonClick?.Invoke();});
         }
         
 

@@ -2,7 +2,7 @@
 {
     public enum LevelStatus
     {
-        None         = 0,
+        Hidden       = 0,
         NotAvailable = 1,
         Available    = 2,
         Finished     = 3

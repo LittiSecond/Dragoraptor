@@ -35,6 +35,9 @@ namespace Dragoraptor
                 "PlayerCharacter", "Prefabs/PlayerCharacter"
             },
             {
+                "SettingsPanel", "Prefabs/Ui/SettingsPanel"
+            },
+            {
                 "ShipType3Crash", "Prefabs/Npc/ShipType3Crash"
             },
             {
