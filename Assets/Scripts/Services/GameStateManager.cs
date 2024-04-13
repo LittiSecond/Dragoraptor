@@ -57,6 +57,7 @@ namespace Dragoraptor
                 SwitchPause(false);
                 
                 _levelProgressControler.LevelEnd();
+                _levelProgressControler.RegistrateHuntResults();
 
                 _npcManager.StopNpcSpawn();
                 _npcManager.ClearNpc();

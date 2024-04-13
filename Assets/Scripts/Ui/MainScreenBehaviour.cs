@@ -77,6 +77,7 @@ namespace Dragoraptor.Ui
         private void ClosePanelButtonClick()
         {
             _currentPanel?.Hide();
+            _currentPanel = null;
         }
 
     }

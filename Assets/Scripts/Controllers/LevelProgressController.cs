@@ -10,6 +10,7 @@ namespace Dragoraptor
         private readonly PlayerSatiety _playerSatiety;
         private readonly ScoreController _scoreController;
         private readonly TimeController _timeController;
+        private HuntResults _lastHuntResults;
 
         private float _satietyToSuccess;
         private float _victoryScoreMultipler;
@@ -38,6 +39,7 @@ namespace Dragoraptor
             _scoreController = sc;
             _timeController = tc;
             _timeController.OnTimeUp += OnTimeUp;
+            _lastHuntResults = new HuntResults();
         }
 
 
@@ -64,6 +66,12 @@ namespace Dragoraptor
             {
                 _timeController.StopTimer();
             }
+            Debug.Log("LevelProgressController->LevelEnd: ");
+        }
+
+        public void RegistrateHuntResults()
+        {
+            Services.Instance.GameProgress.RegistrateHuntResults(GetHuntResults());
         }
 
         public void OnCharacterKilled()
@@ -107,20 +115,19 @@ namespace Dragoraptor
 
         public IHuntResults GetHuntResults()
         {
-            HuntResults huntResults = new HuntResults();
-            huntResults.IsAlive = _isCharacterAlive && _isTimeUp;
-            huntResults.IsSatietyCompleted = _isSatietyConditionMet;
+            _lastHuntResults.IsAlive = _isCharacterAlive && _isTimeUp;
+            _lastHuntResults.IsSatietyCompleted = _isSatietyConditionMet;
             bool isVictory = CheckIsVictory();
-            huntResults.IsSucces = isVictory;
-            huntResults.BaseScore = _scoreController.GetScore();
-            huntResults.CollectedSatiety = _playerSatiety.Value;
-            huntResults.MaxSatiety = _playerSatiety.MaxValue;
-            huntResults.SatietyCondition = (int)(_satietyToSuccess * _playerSatiety.MaxValue);
-            huntResults.SatietyScoreMultipler = CalculateSatietyScoreMultipler();
-            huntResults.TotalScore = CalculateTotalScore();
-            huntResults.VictoryScoreMultipler = isVictory ? _victoryScoreMultipler : _defeatScoreMultipler;
+            _lastHuntResults.IsSucces = isVictory;
+            _lastHuntResults.BaseScore = _scoreController.GetScore();
+            _lastHuntResults.CollectedSatiety = _playerSatiety.Value;
+            _lastHuntResults.MaxSatiety = _playerSatiety.MaxValue;
+            _lastHuntResults.SatietyCondition = (int)(_satietyToSuccess * _playerSatiety.MaxValue);
+            _lastHuntResults.SatietyScoreMultipler = CalculateSatietyScoreMultipler();
+            _lastHuntResults.TotalScore = CalculateTotalScore();
+            _lastHuntResults.VictoryScoreMultipler = isVictory ? _victoryScoreMultipler : _defeatScoreMultipler;
 
-            return huntResults;
+            return _lastHuntResults;
         }
 
         #endregion
