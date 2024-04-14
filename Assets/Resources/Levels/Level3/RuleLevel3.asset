@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: RuleLevel3
   m_EditorClassIdentifier: 
   Prefabs:
-  - {fileID: 4124025395643009865, guid: f810b8292ae3b4645b10401e272f9d47, type: 3}
+  - {fileID: 4124025395643009865, guid: 8de146d7dbb4aae4bbe2a872d5c86ec9, type: 3}
   - {fileID: 4678621681868905676, guid: 2fead5c1668e63f48b4bbd3145293667, type: 3}
   - {fileID: 1320265219322353415, guid: 6cc94854fd109804c8b450b7b173b827, type: 3}
   - {fileID: 4697923298728460260, guid: cb95939fa5ccddb49869f7648d2ec082, type: 3}
