@@ -53,7 +53,7 @@ namespace Dragoraptor.Ui
 
         public void SetLevelStatus(int levelNumber, LevelStatus newStatus)
         {
-            Debug.Log($"UiLevelsMap->SetLevelStatus: levelNumber = {levelNumber}; newStatus = {newStatus} ");
+            //Debug.Log($"UiLevelsMap->SetLevelStatus: levelNumber = {levelNumber}; newStatus = {newStatus} ");
             if (_levelIndicators == null)
             {
                 _tempLevelStatuses ??= new();

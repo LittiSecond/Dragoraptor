@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 050f58ce539a0b84b8485329b75276ab
+guid: 3fc689b9a1ca12e4cbca5a48eabef85e
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -43,13 +43,13 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
-  spriteMeshType: 1
+  spriteMeshType: 0
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 100
-  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteBorder: {x: 80, y: 140, z: 80, w: 104}
   spriteGenerateFallbackPhysicsShape: 0
   alphaUsage: 1
   alphaIsTransparency: 1
@@ -117,89 +117,18 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites:
-    - serializedVersion: 2
-      name: square_rounded_frames_1
-      rect:
-        serializedVersion: 2
-        x: 3
-        y: 292
-        width: 270
-        height: 270
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 80, y: 80, z: 80, w: 80}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 014cfc84b1e8f6b4c954ebc3d545e04b
-      internalID: -2096690710
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: square_rounded_frames_3
-      rect:
-        serializedVersion: 2
-        x: 292
-        y: 293
-        width: 272
-        height: 271
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 80, y: 90, z: 80, w: 90}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: ab9f5ba0920c1d24f8f97b86aec557f9
-      internalID: 1250107578
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: square_rounded_frames_5
-      rect:
-        serializedVersion: 2
-        x: 3
-        y: 4
-        width: 270
-        height: 272
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 80, y: 90, z: 80, w: 90}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 00bc41af8a10d4c4fac0309fb79f21f9
-      internalID: -1188445440
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
+    sprites: []
     outline: []
     physicsShape: []
     bones: []
     spriteID: 5e97eb03825dee720800000000000000
-    internalID: 0
+    internalID: 1537655665
     vertices: []
     indices: 
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable:
-      square_rounded_frames_1: -2096690710
-      square_rounded_frames_7: -147840817
-      square_rounded_frames_5: -1188445440
-      square_rounded_frames_6: -129672494
-      square_rounded_frames_3: 1250107578
-      square_rounded_frames_0: 2145463585
-      square_rounded_frames_2: -1960882357
-      square_rounded_frames_4: -2054439898
+    nameFileIdTable: {}
   spritePackingTag: 
   pSDRemoveMatte: 0
   userData: 

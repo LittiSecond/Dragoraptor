@@ -136,6 +136,8 @@ namespace Dragoraptor
                 DeactivateCharacterControl();
                 _characterController.RemoveCharacter();
                 _sceneController.ClearTemporaryObjects();
+                
+                _levelProgressControler.RegistrateHuntResults();
 
                 _characterController.CreateCharacter();
                 ActivateCharacterControl();
