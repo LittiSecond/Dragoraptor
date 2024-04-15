@@ -396,7 +396,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DefaultGamePlaySettings: {fileID: 11400000, guid: 74cde0301d1a3fa41ae2b1cdca1ba22b, type: 2}
-  DefoultCampaign: {fileID: 11400000, guid: a9b5c14df2cc05a49a86a1498c38e6db, type: 2}
+  DefoultCampaign: {fileID: 11400000, guid: 2bdc2f081e33c814e98cc90446bc24c9, type: 2}
 --- !u!4 &1409389100
 Transform:
   m_ObjectHideFlags: 0

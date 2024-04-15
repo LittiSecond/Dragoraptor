@@ -122,7 +122,7 @@ namespace Dragoraptor.Ui
 
         private void HuntButtonClick()
         {
-            Debug.Log("UiLevelsMap->HuntButtonClick:");
+            //Debug.Log("UiLevelsMap->HuntButtonClick:");
             Services.Instance.GameStateManager.SwitchToHunt();
         }
         

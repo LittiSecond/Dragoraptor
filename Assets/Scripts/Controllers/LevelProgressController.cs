@@ -66,7 +66,7 @@ namespace Dragoraptor
             {
                 _timeController.StopTimer();
             }
-            Debug.Log("LevelProgressController->LevelEnd: ");
+            //Debug.Log("LevelProgressController->LevelEnd: ");
         }
 
         public void RegistrateHuntResults()

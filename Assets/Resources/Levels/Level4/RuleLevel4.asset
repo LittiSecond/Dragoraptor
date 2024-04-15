@@ -9,11 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6d46591cdecf2ae4dab7c5dcd4c8796c, type: 3}
-  m_Name: DefoultCampaign
+  m_Script: {fileID: 11500000, guid: 578db52d4ea204a4ea1bac677a7f6135, type: 3}
+  m_Name: RuleLevel4
   m_EditorClassIdentifier: 
-  LevelPaths:
-  - Levels/Level3/Level3
-  - Levels/Level2/Level2
-  - Levels/Level1/Level1
-  - Levels/Level4/Level4
+  Prefabs: []
+  SpawnDatas: []
+  CyclicSpawnDatas: []
+  CycleDuration: 10
