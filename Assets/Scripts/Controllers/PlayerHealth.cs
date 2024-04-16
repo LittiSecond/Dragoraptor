@@ -4,11 +4,16 @@ using UnityEngine;
 
 namespace Dragoraptor
 {
-    public sealed class PlayerHealth : ITakeDamage, IBodyUser, IObservableResource
+    public sealed class PlayerHealth : ITakeDamage, IBodyUser, IObservableResource, IHealthEndHolder
     {
+
+        #region IHealthEndHolder
 
         public event Action OnHealthEnd;
 
+        #endregion
+
+        
         private int _maxHealth;
         private int _health;
         private int _armor;

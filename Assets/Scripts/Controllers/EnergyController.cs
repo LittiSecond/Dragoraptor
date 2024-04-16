@@ -232,7 +232,7 @@ namespace Dragoraptor
                 }
                 else
                 {
-                    _noEnergyMessage?.ShowMessage();
+                    _noEnergyMessage?.Show();
                 }
             }
             return isSpended;

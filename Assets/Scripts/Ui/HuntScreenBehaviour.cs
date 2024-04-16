@@ -18,6 +18,7 @@ namespace Dragoraptor.Ui
         [SerializeField] private UiTimeLeftIndicator _timeLeftIndicator;
         [SerializeField] private UiHuntResultsScreen _huntResultsScreen;
         [SerializeField] private UiNoEnegyMessage _noEnergyMessage;
+        [SerializeField] private UiStaticMessage _endHuntMessage;
 
         private bool _isHuntMenuOpen;
         private bool _isEndHuntScreenOpen;
@@ -32,6 +33,7 @@ namespace Dragoraptor.Ui
             HideHuntMenu();
             HideEndHuntScreen();
             _noEnergyMessage.Hide();
+            _endHuntMessage.Hide();
         }
 
 
