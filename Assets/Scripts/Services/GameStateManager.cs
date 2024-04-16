@@ -19,6 +19,8 @@ namespace Dragoraptor
         private SceneController _sceneController;
         private NpcManager _npcManager;
         private LevelProgressController _levelProgressControler;
+        private TimeController _timeController;
+        private VictoryController _victoryController;
 
         private GameState _state;
 
@@ -26,12 +28,14 @@ namespace Dragoraptor
 
 
         public void SetControllers(PlayerCharacterController pcc, SceneController sc, NpcManager nm, 
-            LevelProgressController lpc)
+            LevelProgressController lpc, TimeController tc, VictoryController vc)
         {
             _characterController = pcc;
             _sceneController = sc;
             _npcManager = nm;
             _levelProgressControler = lpc;
+            _timeController = tc;
+            _victoryController = vc;
         }
 
         public void SetMainScreenAtStartGame()
@@ -57,6 +61,7 @@ namespace Dragoraptor
                 SwitchPause(false);
                 
                 _levelProgressControler.LevelEnd();
+                _timeController.StopTimer();
                 _levelProgressControler.RegistrateHuntResults();
 
                 _npcManager.StopNpcSpawn();
@@ -82,7 +87,9 @@ namespace Dragoraptor
                 ActivateCharacterControl();
                 _npcManager.PrepareNpcSpawn();
                 _npcManager.RestartNpcSpawn();
+                _victoryController.LevelStart();
                 _levelProgressControler.LevelStart();
+                _timeController.StartTimer();
             }
         }
 
@@ -131,6 +138,7 @@ namespace Dragoraptor
             if (_state == GameState.Hunt)
             {
                 _levelProgressControler.LevelEnd();
+                _timeController.StopTimer();
                 _npcManager.StopNpcSpawn();
                 _npcManager.ClearNpc();
                 DeactivateCharacterControl();
@@ -142,7 +150,9 @@ namespace Dragoraptor
                 _characterController.CreateCharacter();
                 ActivateCharacterControl();
                 _npcManager.RestartNpcSpawn();
+                _victoryController.LevelStart();
                 _levelProgressControler.LevelStart();
+                _timeController.StartTimer();
                 SwitchPause(false);
             }
         }
@@ -150,12 +160,14 @@ namespace Dragoraptor
         public void CharacterKilled()
         {
             _levelProgressControler.LevelEnd();
+            _timeController.StopTimer();
             Services.Instance.UiFactory.GetHuntScreen().ShowEndHuntScreen();
         }
 
         public void BreakHunt()
         {
             _levelProgressControler.LevelEnd();
+            _timeController.StopTimer();
             Services.Instance.UiFactory.GetHuntScreen().ShowEndHuntScreen();
             SwitchPause(true);
         }

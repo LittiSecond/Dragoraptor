@@ -137,7 +137,7 @@ namespace Dragoraptor
             
             if (results.IsSucces)
             {
-                if (_progressData.CurrentLevelNumber <= _progressData.Levels.Count)
+                if (_progressData.CurrentLevelNumber < _progressData.Levels.Count)
                 {
                     int nextLevelNumber = _progressData.CurrentLevelNumber + 1;
                     LevelProgressInfo nextLevel = _progressData.Levels[nextLevelNumber - 1];

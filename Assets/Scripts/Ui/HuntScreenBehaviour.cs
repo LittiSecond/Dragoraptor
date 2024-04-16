@@ -96,7 +96,10 @@ namespace Dragoraptor.Ui
 
         public void SetControllers(IObservableResource playerHealth, EnergyController energyController,
             PlayerSatiety playerSatiety, 
-            TimeController timeController, IScoreSource scoreSource, IHuntResultsSource huntResultsSource )
+            TimeController timeController, 
+            IScoreSource scoreSource, 
+            IHuntResultsSource huntResultsSource, 
+            IVictoryChecker victoryChecker)
         {
             _hpIndicator.SetSource(playerHealth);
             _energyIndicator.SetSource(energyController);
@@ -105,6 +108,7 @@ namespace Dragoraptor.Ui
             timeController.SetTimeView(_timeLeftIndicator);
             scoreSource.OnScoreChanged += _scoreIndicator.SetScore;
             _huntResultsScreen.SetHuntResultsSource(huntResultsSource);
+            victoryChecker.OnCanVictoryStateChanged += VictoryStateChanged;
         }
 
         public void ShowEndHuntScreen()
@@ -117,6 +121,19 @@ namespace Dragoraptor.Ui
         {
             _huntResultsScreen.Hide();
             _isEndHuntScreenOpen = false;
+        }
+
+        private void VictoryStateChanged(bool newState)
+        {
+            Debug.Log($"HuntScreenBehaviour->VictoryStateChanged: newState = {newState}");
+            if (newState)
+            {
+                _endHuntMessage.Show();
+            }
+            else
+            {
+                _endHuntMessage.Hide();
+            }
         }
 
     }

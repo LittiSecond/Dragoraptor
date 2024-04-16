@@ -36,7 +36,10 @@ namespace Dragoraptor
             // {
             //     _timer = new TimeRemaining(OnTimeTact, TIME_TACT, true);
             // }
-
+            
+            LevelDescriptor levelDescriptor = Services.Instance.GameProgress.GetCurrentLevel();
+            _levelDuration = levelDescriptor.LevelDuration;
+            
             _startTime = Time.time;
             _timer.AddTimeRemaining();
             _isTiming = true;
@@ -70,6 +73,7 @@ namespace Dragoraptor
             {
                 StopTimer();
                 OnTimeUp?.Invoke();
+                Services.Instance.GameStateManager.BreakHunt();
             }
         }
 

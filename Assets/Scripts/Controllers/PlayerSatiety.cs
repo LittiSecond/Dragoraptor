@@ -44,7 +44,7 @@ namespace Dragoraptor
             if (additionalSatiety > 0 && _satiety < _maxSatiety)
             {
                 _satiety += additionalSatiety;
-                if (_satiety > _maxSatiety)
+                if (_satiety >= _maxSatiety)
                 {
                     _satiety = _maxSatiety;
                     OnMaxSatietyReached?.Invoke();

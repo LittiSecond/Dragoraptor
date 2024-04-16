@@ -216,7 +216,7 @@ MonoBehaviour:
   _dropItemID: Meat
   _dropContent:
     Type: 1
-    Amount: 11
+    Amount: 50
   _animator: {fileID: 1685298128440692020}
   _fading: {fileID: 8772926449474844031}
   _destroyDelay: 5
