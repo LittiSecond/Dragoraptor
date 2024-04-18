@@ -10,6 +10,7 @@ namespace Dragoraptor.Ui
         [SerializeField] private Button _settingsButton;
         [SerializeField] private Button _continueButton;
         [SerializeField] private Button _breakHuntButton;
+        [SerializeField] private Button _finishHuntButton;
         [SerializeField] private GameObject _huntMenu;
         [SerializeField] private UiResourceIndicator _hpIndicator;
         [SerializeField] private UiResourceIndicator _energyIndicator;
@@ -30,6 +31,7 @@ namespace Dragoraptor.Ui
             _continueButton.onClick.AddListener(ContinueButtonClick);
             _huntResultsScreen.AddListeners(GetOutOfTheHuntButtonClick, RestartButtonClick);
             _breakHuntButton.onClick.AddListener(BreakButtonClick);
+            _finishHuntButton.onClick.AddListener(BreakButtonClick);
             HideHuntMenu();
             HideEndHuntScreen();
             _noEnergyMessage.Hide();
@@ -125,13 +127,17 @@ namespace Dragoraptor.Ui
 
         private void VictoryStateChanged(bool newState)
         {
-            Debug.Log($"HuntScreenBehaviour->VictoryStateChanged: newState = {newState}");
+            //Debug.Log($"HuntScreenBehaviour->VictoryStateChanged: newState = {newState}");
             if (newState)
             {
+                _breakHuntButton.gameObject.SetActive(false);
+                _finishHuntButton.gameObject.SetActive(true);
                 _endHuntMessage.Show();
             }
             else
             {
+                _breakHuntButton.gameObject.SetActive(true);
+                _finishHuntButton.gameObject.SetActive(false);
                 _endHuntMessage.Hide();
             }
         }

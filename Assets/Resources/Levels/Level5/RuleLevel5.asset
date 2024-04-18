@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 578db52d4ea204a4ea1bac677a7f6135, type: 3}
+  m_Name: RuleLevel5
+  m_EditorClassIdentifier: 
+  Prefabs:
+  - {fileID: 4124025395643009865, guid: 8de146d7dbb4aae4bbe2a872d5c86ec9, type: 3}
+  - {fileID: 4124025395643009865, guid: f810b8292ae3b4645b10401e272f9d47, type: 3}
+  SpawnDatas:
+  - PrefabIndex: 0
+    Time: 1
+    SpawnPosition: {x: 4, y: 0}
+    FloatDatas: []
+    Data: {fileID: 11400000, guid: 49ab91edb55fe844e9281c86a056dc73, type: 2}
+  - PrefabIndex: 0
+    Time: 2
+    SpawnPosition: {x: -4, y: 0}
+    FloatDatas: []
+    Data: {fileID: 11400000, guid: 207349670d4cf9546bebd4e3913f556e, type: 2}
+  CyclicSpawnDatas: []
+  CycleDuration: 10
