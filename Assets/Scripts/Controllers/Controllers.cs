@@ -26,6 +26,7 @@ namespace Dragoraptor
                 horizontalDirection, energyController);
             PlayerHealth playerHealth = new PlayerHealth(gamePlaySettings);
             PlayerSatiety playerSatiety = new PlayerSatiety(gamePlaySettings);
+            CharOnGroundChecker onGroundChecker = new CharOnGroundChecker(characterStateHolder);
             ScoreController scoreController = new ScoreController();
             PickUpController pickUpController = new PickUpController(playerSatiety, scoreController, energyController);
             TimeController timeController = new TimeController();
@@ -71,7 +72,7 @@ namespace Dragoraptor
 
             Services.Instance.GameStateManager.SetControllers(playerCharacterController, sceneController, npcManager,
                 levelProgressControler, timeController, victoryController);
-            Services.Instance.CharacterIntermediary.SetControllers(pickUpController, scoreController);
+            Services.Instance.CharacterIntermediary.SetControllers(pickUpController, scoreController, onGroundChecker);
             Ui.HuntScreenBehaviour huntScreenBehaviour = Services.Instance.UiFactory.GetHuntScreen();
             huntScreenBehaviour.SetControllers(playerHealth, energyController, playerSatiety, timeController, 
                 scoreController, levelProgressControler, victoryController);
