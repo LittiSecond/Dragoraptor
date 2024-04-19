@@ -8,6 +8,7 @@ namespace Dragoraptor
     {
 
         private const string HIT_VISUAL_EFFECT = "EffectBoom";
+        private const string ATTACK_VISUAL_EFFECT = "ClawScratch";
 
         private readonly IResouceStore _energyStore;
         private Transform _bodyTransform;
@@ -70,6 +71,9 @@ namespace Dragoraptor
             if (_energyStore.SpendResource((int)_energyCost))
             {
                 Rect damagedArea = CalculateDamagedArea();
+                
+                CreateVisualAttackEffect(damagedArea);
+                
                 Collider2D[] targets = Physics2D.OverlapAreaAll(damagedArea.min, damagedArea.max, _layerMaskToAttack);
 
                 if (targets.Length > 0)
@@ -78,7 +82,7 @@ namespace Dragoraptor
                     {
                         MakeDamage(targets[i]);
                     }
-                    CreateVisualHitEffect(damagedArea);
+                    //CreateVisualHitEffect(damagedArea);
                 }
                 _attackDelayTimer.AddTimeRemaining();
                 _isTiming = true;
@@ -152,7 +156,17 @@ namespace Dragoraptor
 
         private void CreateVisualHitEffect(Rect area)
         {
-            PooledObject effect = Services.Instance.ObjectPool.GetObjectOfType(HIT_VISUAL_EFFECT);
+            CreateEffect(area, HIT_VISUAL_EFFECT);
+        }
+
+        private void CreateVisualAttackEffect(Rect area)
+        {
+            CreateEffect(area, ATTACK_VISUAL_EFFECT);
+        }
+
+        private void CreateEffect(Rect area, string prefabID)
+        {
+            PooledObject effect = Services.Instance.ObjectPool.GetObjectOfType(prefabID);
             if (effect)
             {
                 effect.transform.position = (Vector3)area.center;

@@ -17,6 +17,9 @@ namespace Dragoraptor
                 "BubblesBlue", "Prefabs/Items/BubblesBlue"
             },
             {
+                "ClawScratch", "Prefabs/Effects/ClawScratch"
+            },
+            {
                 "EffectBoom", "Prefabs/Effects/EffectBoom"
             },
             {
