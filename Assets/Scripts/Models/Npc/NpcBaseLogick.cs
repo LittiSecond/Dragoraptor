@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Dragoraptor
 {
-    public class NpcBaseLogick : PooledObject, IExecutable, ITakeDamage, ILiveCycleHolder
+    public class NpcBaseLogick : PooledObject, IExecutable, ITakeDamage, ILiveCycleHolder, IHealthEndHolder
     {
 
         [SerializeField] protected Rigidbody2D _rigidbody;
@@ -20,6 +20,13 @@ namespace Dragoraptor
         [SerializeField] private PickableResource _dropContent;
 
         public event Action<NpcBaseLogick> OnDestroy;
+        
+        #region IHealthEndHolder
+
+        public event Action OnHealthEnd;
+
+        #endregion
+        
 
         private NpcHealth _health;
         private NpcFlyingDamagCreator _flyingDamageCreator;
@@ -36,7 +43,13 @@ namespace Dragoraptor
         protected virtual void Awake()
         {
             _health = new NpcHealth(_maxHealth, _armor);
-            _health.OnHealthEnd += OnHealthEnd;
+            _health.OnHealthEnd += () =>
+            {
+                OnHealthEnd?.Invoke();
+                OnHealthEnded();
+            };
+            
+            
             _initializeList.Add(_health);
             if (_flyingDamagStartPoint)
             {
@@ -119,7 +132,7 @@ namespace Dragoraptor
 
         }
 
-        protected virtual void OnHealthEnd()
+        protected virtual void OnHealthEnded()
         {
             SendScoreReward();
             DropItem();

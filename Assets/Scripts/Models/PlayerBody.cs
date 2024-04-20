@@ -12,6 +12,7 @@ namespace Dragoraptor
         [SerializeField] private LineRenderer _powerRenderer;
         [SerializeField] private Animator _bodyAnimator;
         [SerializeField] private SpriteRenderer _bodySpriteRenderer;
+        [SerializeField] private bool _isDamageBlocked;
 
         public event Action OnGroundContact;
 
@@ -74,7 +75,10 @@ namespace Dragoraptor
 
         public void TakeDamage(int amount)
         {
-            _damageReceiver?.TakeDamage(amount);
+            if (!_isDamageBlocked)
+            {
+                _damageReceiver?.TakeDamage(amount);
+            }
         }
 
         #endregion

@@ -28,7 +28,7 @@ namespace Dragoraptor
 
         }
 
-        protected override void OnHealthEnd()
+        protected override void OnHealthEnded()
         {
             PooledObject obj = Services.Instance.ObjectPool.GetObjectOfType(DESTRACTION_EFFECT);
             if (obj != null)
@@ -38,7 +38,7 @@ namespace Dragoraptor
                 initializable?.Initialize();
             }
 
-            base.OnHealthEnd();
+            base.OnHealthEnded();
         }
 
     }

@@ -82,3 +82,4 @@ MonoBehaviour:
   DefeatScoreMultipler: 1
   NullSatietyScoreMultipler: 0.5
   SatietySuccefScoreMultipler: 1
+  CharacterDeathDelay: 5

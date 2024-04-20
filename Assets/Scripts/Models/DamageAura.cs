@@ -15,6 +15,7 @@ namespace Dragoraptor
 
         
         private ILiveCycleHolder _liveCycleHolder;
+        private IHealthEndHolder _healthEndHolder;
 
         private bool _isEnabled;
         
@@ -24,6 +25,8 @@ namespace Dragoraptor
             _liveCycleHolder = GetComponentInParent<ILiveCycleHolder>();
             _liveCycleHolder.AddInitializable(this);
             _liveCycleHolder.AddCleanable(this);
+            _healthEndHolder = GetComponentInParent<IHealthEndHolder>();
+            _healthEndHolder.OnHealthEnd += Deactivate;
         }
 
 
