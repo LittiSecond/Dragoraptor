@@ -13,6 +13,8 @@ namespace Dragoraptor
 
         #endregion
 
+        public event Action OnDamaged;
+
         
         private int _maxHealth;
         private int _health;
@@ -52,6 +54,7 @@ namespace Dragoraptor
                     _health = 0;
                 }
                 OnValueChanged?.Invoke(_health);
+                OnDamaged?.Invoke();
 
                 if (_health == 0)
                 {

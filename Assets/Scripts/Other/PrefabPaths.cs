@@ -32,6 +32,9 @@ namespace Dragoraptor
                 "MainScreen", "Prefabs/Ui/MainScreen"
             },
             {
+                "MaskForFade", "Prefabs/Ui/MaskForFade"
+            },
+            {
                 "Meat", "Prefabs/Items/Meat"
             },
             {

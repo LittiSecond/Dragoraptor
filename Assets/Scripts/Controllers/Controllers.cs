@@ -29,6 +29,7 @@ namespace Dragoraptor
             CharOnGroundChecker onGroundChecker = new CharOnGroundChecker(characterStateHolder);
             ScoreController scoreController = new ScoreController();
             PickUpController pickUpController = new PickUpController(playerSatiety, scoreController, energyController);
+            OnTakeDamageVisualiser damageVisualiser = new OnTakeDamageVisualiser(playerHealth);
             TimeController timeController = new TimeController();
             VictoryController victoryController = new VictoryController(playerSatiety, playerHealth, timeController);
             LevelProgressController levelProgressControler = new LevelProgressController(gamePlaySettings, playerHealth,
@@ -63,6 +64,7 @@ namespace Dragoraptor
                 flightObserver,
                 npcManager,
                 energyController,
+                damageVisualiser,
 
 
                 timeRemainingController
