@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace Dragoraptor
 {
-    public class NpcBaseLogick : PooledObject, IExecutable, ITakeDamage
+    public class NpcBaseLogick : PooledObject, IExecutable, ITakeDamage, ILiveCycleHolder
     {
 
         [SerializeField] protected Rigidbody2D _rigidbody;
@@ -88,20 +88,26 @@ namespace Dragoraptor
             _isEnabled = true;
         }
 
-        protected void AddExecutable(IExecutable executable)
+
+        #region ILiveCycleHolder
+        
+        public void AddExecutable(IExecutable executable)
         {
             _executeList.Add(executable);
         }
 
-        protected void AddInitializable(IInitializable initializable)
+        public void AddInitializable(IInitializable initializable)
         {
             _initializeList.Add(initializable);
         }
 
-        protected void AddCleanable(ICleanable cleanable)
+        public void AddCleanable(ICleanable cleanable)
         {
             _clearList.Add(cleanable);
         }
+        
+        #endregion
+        
 
         public virtual void SetAdditionalData(NpcData additionalData)
         {
