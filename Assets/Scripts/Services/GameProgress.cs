@@ -1,10 +1,10 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 namespace Dragoraptor
 {
     public sealed class GameProgress
     {
-        
         private const int FIRST_LEVEL_NUMBER = 1;
 
         private LevelLoader _levelLoader;
@@ -50,11 +50,12 @@ namespace Dragoraptor
             {
                 _levelLoader = new LevelLoader();
             }
+
             _levelLoader.SetCampaign(campaign);
             _progressData.Clear();
             PrepareProgressData(campaign);
             _isCampaignLoaded = true;
-            
+
             UpdateUiLevelMap();
         }
 
@@ -63,7 +64,7 @@ namespace Dragoraptor
             for (int i = 0; i < campaign.LevelPaths.Length; i++)
             {
                 _progressData.Levels.Add(new LevelProgressInfo(i + 1));
-                _progressData.Levels[i].Status = LevelStatus.NotAvailable;
+                _progressData.Levels[i].Status = LevelStatus.Available;
             }
 
             _progressData.Levels[0].Status = LevelStatus.Available;
@@ -79,7 +80,7 @@ namespace Dragoraptor
         {
             if (levelNumber >= FIRST_LEVEL_NUMBER && levelNumber <= _progressData.Levels.Count)
             {
-                var levelInfo = _progressData.Levels[levelNumber - 1];
+                LevelProgressInfo levelInfo = _progressData.Levels[levelNumber - 1];
                 if (levelInfo.Status == LevelStatus.Available || levelInfo.Status == LevelStatus.Finished)
                 {
                     if (_progressData.CurrentLevelNumber != levelNumber)
@@ -116,7 +117,7 @@ namespace Dragoraptor
         {
             if (_levelMapView == null || !_isCampaignLoaded) return;
 
-            var levels = _progressData.Levels;
+            List<LevelProgressInfo> levels = _progressData.Levels;
             foreach (var level in levels)
             {
                 _levelMapView.SetLevelStatus(level.LevelNumber, level.Status);
@@ -128,13 +129,13 @@ namespace Dragoraptor
             _progressData.HuntsTotal++;
             _progressData.TotalScore += results.TotalScore;
             _progressData.LastScore = results.TotalScore;
-            
+
             LevelProgressInfo currentLevel = _progressData.Levels[_progressData.CurrentLevelNumber - 1];
             if (currentLevel.BestScore < results.TotalScore)
             {
                 currentLevel.BestScore = results.TotalScore;
             }
-            
+
             if (results.IsSucces)
             {
                 if (_progressData.CurrentLevelNumber < _progressData.Levels.Count)
@@ -156,6 +157,5 @@ namespace Dragoraptor
                 }
             }
         }
-
     }
 }

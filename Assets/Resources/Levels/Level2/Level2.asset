@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1eeb1ae431a1f924390ad187d24bfd0f, type: 3}
   m_Name: Level2
   m_EditorClassIdentifier: 
-  LevelNumber: 2
+  LevelId: 102
   GroundPrefab: {fileID: 317694793326652323, guid: a8bf556a7a45bc1419e02af7b54f3265, type: 3}
   BackgroundPrefab: {fileID: 7493370335623808135, guid: a16c1079110e81d439924e030f2dfdd4, type: 3}
   SpawnRule: {fileID: 11400000, guid: bc988b42674fa21409a379229ce3f523, type: 2}

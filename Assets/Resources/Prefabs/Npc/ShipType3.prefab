@@ -357,7 +357,7 @@ MonoBehaviour:
   _flyingDamagStartPoint: {fileID: 4736386339536165899}
   _maxHealth: 500
   _armor: 20
-  _scoreCost: 12
+  _scoreCost: 25
   _dropItemID: BubblesBlue
   _dropContent:
     Type: 2

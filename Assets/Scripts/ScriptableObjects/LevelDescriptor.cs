@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Serialization;
 
 
 namespace Dragoraptor
@@ -6,8 +7,8 @@ namespace Dragoraptor
     [CreateAssetMenu(fileName = "NewLevel", menuName = "Resources/LevelDescriptor")]
     public sealed class LevelDescriptor : ScriptableObject
     {
-        [Range(1,100)]
-        public int LevelNumber;
+        
+        public int LevelId;
         public GameObject GroundPrefab;
         public GameObject BackgroundPrefab;
         public NpcSpawnRule SpawnRule;

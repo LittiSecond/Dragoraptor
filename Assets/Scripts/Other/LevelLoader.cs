@@ -9,6 +9,7 @@ namespace Dragoraptor
         private Campaign _campaign;
         
         private LevelDescriptor _loadedLevel;
+        private int _loadedLevelNumber;
 
         private bool _haveCampaign;
         private bool _haveLevel;
@@ -23,31 +24,33 @@ namespace Dragoraptor
 
         public LevelDescriptor GetLevelDescriptor(int levelNumber)
         {
+            if (levelNumber <= 0 || levelNumber > _campaign.LevelPaths.Length) return null;
+            if (!_haveCampaign) return null;
+            
             LevelDescriptor newLevel = null;
 
-            if (_haveCampaign)
+            if (_loadedLevelNumber > 0)
             {
-                if (_loadedLevel != null)
+                if (levelNumber == _loadedLevelNumber)
                 {
-                    if (levelNumber == _loadedLevel.LevelNumber)
-                    {
-                        newLevel = _loadedLevel;
-                    }
-                }
-
-                if (newLevel == null)
-                {
-                    string path = CreateFullPath(levelNumber);
-                    newLevel = Resources.Load<LevelDescriptor>(path);
-
-                    if (newLevel)
-                    {
-                        UnloadLevel();
-                        _loadedLevel = newLevel;
-                        _haveLevel = true;
-                    }
+                    newLevel = _loadedLevel;
                 }
             }
+
+            if (newLevel == null)
+            {
+                string path = CreateFullPath(levelNumber);
+                newLevel = Resources.Load<LevelDescriptor>(path);
+
+                if (newLevel)
+                {
+                    UnloadLevel();
+                    _loadedLevel = newLevel;
+                    _haveLevel = true;
+                    _loadedLevelNumber = levelNumber;
+                }
+            }
+
             return newLevel;
         }
 
@@ -58,20 +61,21 @@ namespace Dragoraptor
                 Resources.UnloadAsset(_loadedLevel);
                 _loadedLevel = null;
                 _haveLevel = false;
+                _loadedLevelNumber = -1;
             }
         }
 
         private string CreateFullPath(int levelNumber)
         {
-            string path = null;
+            //string path = null;
 
-            levelNumber -= 1;
-            if (levelNumber < _campaign.LevelPaths.Length)
-            {
-                path = _campaign.LevelPaths[levelNumber];
-            }
+            // int index = levelNumber - 1;
+            // if (index < _campaign.LevelPaths.Length)
+            // {
+            //     path = _campaign.LevelPaths[index];
+            // }
 
-            return path;
+            return _campaign.LevelPaths[levelNumber - 1];
         }
 
     }
