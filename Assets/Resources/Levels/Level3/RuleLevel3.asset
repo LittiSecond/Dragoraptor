@@ -16,27 +16,34 @@ MonoBehaviour:
   - {fileID: 4124025395643009865, guid: 8de146d7dbb4aae4bbe2a872d5c86ec9, type: 3}
   - {fileID: 4678621681868905676, guid: 2fead5c1668e63f48b4bbd3145293667, type: 3}
   - {fileID: 1320265219322353415, guid: 6cc94854fd109804c8b450b7b173b827, type: 3}
-  - {fileID: 4697923298728460260, guid: cb95939fa5ccddb49869f7648d2ec082, type: 3}
+  - {fileID: 4678621681868905676, guid: 3c904e515195aa2429d6cb7279aeefd3, type: 3}
+  - {fileID: 1320265219322353415, guid: 276ed66571b3fc5439c50482b927a960, type: 3}
   SpawnDatas:
-  - PrefabIndex: 0
-    Time: 1
+  - PrefabIndex: 3
+    Time: 6
     SpawnPosition: {x: 4, y: -1}
     FloatDatas: []
-    Data: {fileID: 11400000, guid: 3596a029be00b3c40815ab3535dc5555, type: 2}
+    Data: {fileID: 11400000, guid: 6e7d12cd59057a94ca4fcc4bae0163cf, type: 2}
+  - PrefabIndex: 4
+    Time: 15
+    SpawnPosition: {x: -4, y: 2}
+    FloatDatas: []
+    Data: {fileID: 11400000, guid: 89461a655ee26074faa293d9f927228a, type: 2}
   - PrefabIndex: 3
-    Time: 30
-    SpawnPosition: {x: 4, y: -1}
-    FloatDatas:
-    - -5
-    - 0.2
-    Data: {fileID: 0}
+    Time: 24
+    SpawnPosition: {x: -4, y: 2}
+    FloatDatas: []
+    Data: {fileID: 11400000, guid: 70bc7ffe4022f394ab086c0b048e1cb3, type: 2}
+  - PrefabIndex: 4
+    Time: 33
+    SpawnPosition: {x: 4, y: 3}
+    FloatDatas: []
+    Data: {fileID: 11400000, guid: 64bebbc3972174a4e997ae9f1faf01e6, type: 2}
   - PrefabIndex: 3
-    Time: 60
-    SpawnPosition: {x: -4, y: -1}
-    FloatDatas:
-    - 5
-    - 0.2
-    Data: {fileID: 0}
+    Time: 42
+    SpawnPosition: {x: -4, y: 3}
+    FloatDatas: []
+    Data: {fileID: 11400000, guid: 32099ef62ab989b4096e6262b1525d7d, type: 2}
   CyclicSpawnDatas:
   - PrefabIndex: 0
     Time: 2
@@ -58,4 +65,4 @@ MonoBehaviour:
     SpawnPosition: {x: 4, y: 1}
     FloatDatas: []
     Data: {fileID: 11400000, guid: a0bedaf13defdea4a94794efb53236cd, type: 2}
-  CycleDuration: 16
+  CycleDuration: 40

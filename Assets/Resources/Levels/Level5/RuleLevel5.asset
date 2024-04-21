@@ -15,16 +15,67 @@ MonoBehaviour:
   Prefabs:
   - {fileID: 4124025395643009865, guid: 8de146d7dbb4aae4bbe2a872d5c86ec9, type: 3}
   - {fileID: 4124025395643009865, guid: f810b8292ae3b4645b10401e272f9d47, type: 3}
+  - {fileID: 4124025395643009865, guid: 9644f4e6d3b863f47963c9e60542dfb2, type: 3}
   SpawnDatas:
   - PrefabIndex: 0
     Time: 1
+    SpawnPosition: {x: 4, y: 2}
+    FloatDatas: []
+    Data: {fileID: 11400000, guid: 501fc527fc46e8343af4db40731729a2, type: 2}
+  - PrefabIndex: 2
+    Time: 4
+    SpawnPosition: {x: -4, y: 0.5}
+    FloatDatas: []
+    Data: {fileID: 11400000, guid: 4f6a5047be38a45418c9ff640ef497c2, type: 2}
+  - PrefabIndex: 1
+    Time: 10
+    SpawnPosition: {x: -4, y: 2}
+    FloatDatas: []
+    Data: {fileID: 11400000, guid: c74f497f83c3d5b4b94fab9fc981321f, type: 2}
+  - PrefabIndex: 2
+    Time: 11
+    SpawnPosition: {x: 4, y: 1}
+    FloatDatas: []
+    Data: {fileID: 11400000, guid: 5f98a7a7f815e7b41942b522dee8e80e, type: 2}
+  - PrefabIndex: 2
+    Time: 30
+    SpawnPosition: {x: 4, y: 1}
+    FloatDatas: []
+    Data: {fileID: 11400000, guid: 5f98a7a7f815e7b41942b522dee8e80e, type: 2}
+  - PrefabIndex: 2
+    Time: 50
+    SpawnPosition: {x: -4, y: 0.5}
+    FloatDatas: []
+    Data: {fileID: 11400000, guid: 4f6a5047be38a45418c9ff640ef497c2, type: 2}
+  CyclicSpawnDatas:
+  - PrefabIndex: 0
+    Time: 0
     SpawnPosition: {x: 4, y: 0}
     FloatDatas: []
     Data: {fileID: 11400000, guid: 49ab91edb55fe844e9281c86a056dc73, type: 2}
   - PrefabIndex: 0
-    Time: 2
+    Time: 0
     SpawnPosition: {x: -4, y: 0}
     FloatDatas: []
     Data: {fileID: 11400000, guid: 207349670d4cf9546bebd4e3913f556e, type: 2}
-  CyclicSpawnDatas: []
-  CycleDuration: 10
+  - PrefabIndex: 1
+    Time: 0
+    SpawnPosition: {x: 4, y: 0}
+    FloatDatas: []
+    Data: {fileID: 11400000, guid: 49ab91edb55fe844e9281c86a056dc73, type: 2}
+  - PrefabIndex: 1
+    Time: 0
+    SpawnPosition: {x: -4, y: 0}
+    FloatDatas: []
+    Data: {fileID: 11400000, guid: 207349670d4cf9546bebd4e3913f556e, type: 2}
+  - PrefabIndex: 2
+    Time: 0
+    SpawnPosition: {x: 4, y: 0}
+    FloatDatas: []
+    Data: {fileID: 11400000, guid: ed76a06b94eb7214e94187ada3c9f5d7, type: 2}
+  - PrefabIndex: 2
+    Time: 0
+    SpawnPosition: {x: -4, y: 0}
+    FloatDatas: []
+    Data: {fileID: 11400000, guid: 1469c9386d7bf1c4d8560cf5e6ac49d4, type: 2}
+  CycleDuration: 30

@@ -10,10 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 040cd4effbb5c3d4087e144b30cb779f, type: 3}
-  m_Name: WayL2Bird2_1
+  m_Name: Way5-Left-Bottom
   m_EditorClassIdentifier: 
-  IsCyclic: 1
+  IsCyclic: 0
   IsRelativeStartPosition: 0
   Way:
-  - {x: 2, y: -1}
   - {x: -2, y: -1}
+  - {x: 2, y: 1}
+  - {x: 4, y: 1}
