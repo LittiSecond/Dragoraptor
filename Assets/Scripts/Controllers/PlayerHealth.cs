@@ -4,11 +4,18 @@ using UnityEngine;
 
 namespace Dragoraptor
 {
-    public sealed class PlayerHealth : ITakeDamage, IBodyUser, IObservableResource
+    public sealed class PlayerHealth : ITakeDamage, IBodyUser, IObservableResource, IHealthEndHolder
     {
+
+        #region IHealthEndHolder
 
         public event Action OnHealthEnd;
 
+        #endregion
+
+        public event Action OnDamaged;
+
+        
         private int _maxHealth;
         private int _health;
         private int _armor;
@@ -47,6 +54,7 @@ namespace Dragoraptor
                     _health = 0;
                 }
                 OnValueChanged?.Invoke(_health);
+                OnDamaged?.Invoke();
 
                 if (_health == 0)
                 {

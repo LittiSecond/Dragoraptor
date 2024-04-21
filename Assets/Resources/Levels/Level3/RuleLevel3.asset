@@ -1,0 +1,68 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 578db52d4ea204a4ea1bac677a7f6135, type: 3}
+  m_Name: RuleLevel3
+  m_EditorClassIdentifier: 
+  Prefabs:
+  - {fileID: 4124025395643009865, guid: 8de146d7dbb4aae4bbe2a872d5c86ec9, type: 3}
+  - {fileID: 4678621681868905676, guid: 2fead5c1668e63f48b4bbd3145293667, type: 3}
+  - {fileID: 1320265219322353415, guid: 6cc94854fd109804c8b450b7b173b827, type: 3}
+  - {fileID: 4678621681868905676, guid: 3c904e515195aa2429d6cb7279aeefd3, type: 3}
+  - {fileID: 1320265219322353415, guid: 276ed66571b3fc5439c50482b927a960, type: 3}
+  SpawnDatas:
+  - PrefabIndex: 3
+    Time: 6
+    SpawnPosition: {x: 4, y: -1}
+    FloatDatas: []
+    Data: {fileID: 11400000, guid: 6e7d12cd59057a94ca4fcc4bae0163cf, type: 2}
+  - PrefabIndex: 4
+    Time: 15
+    SpawnPosition: {x: -4, y: 2}
+    FloatDatas: []
+    Data: {fileID: 11400000, guid: 89461a655ee26074faa293d9f927228a, type: 2}
+  - PrefabIndex: 3
+    Time: 24
+    SpawnPosition: {x: -4, y: 2}
+    FloatDatas: []
+    Data: {fileID: 11400000, guid: 70bc7ffe4022f394ab086c0b048e1cb3, type: 2}
+  - PrefabIndex: 4
+    Time: 33
+    SpawnPosition: {x: 4, y: 3}
+    FloatDatas: []
+    Data: {fileID: 11400000, guid: 64bebbc3972174a4e997ae9f1faf01e6, type: 2}
+  - PrefabIndex: 3
+    Time: 42
+    SpawnPosition: {x: -4, y: 3}
+    FloatDatas: []
+    Data: {fileID: 11400000, guid: 32099ef62ab989b4096e6262b1525d7d, type: 2}
+  CyclicSpawnDatas:
+  - PrefabIndex: 0
+    Time: 2
+    SpawnPosition: {x: 4, y: 1}
+    FloatDatas: []
+    Data: {fileID: 11400000, guid: 3596a029be00b3c40815ab3535dc5555, type: 2}
+  - PrefabIndex: 1
+    Time: 2
+    SpawnPosition: {x: -4, y: -0.5}
+    FloatDatas: []
+    Data: {fileID: 11400000, guid: c2cfd5589af7e594390f383327951fb9, type: 2}
+  - PrefabIndex: 1
+    Time: 2
+    SpawnPosition: {x: -4, y: -1}
+    FloatDatas: []
+    Data: {fileID: 11400000, guid: b754d1b73b6ca7e499541425e43960f2, type: 2}
+  - PrefabIndex: 2
+    Time: 2
+    SpawnPosition: {x: 4, y: 1}
+    FloatDatas: []
+    Data: {fileID: 11400000, guid: a0bedaf13defdea4a94794efb53236cd, type: 2}
+  CycleDuration: 40

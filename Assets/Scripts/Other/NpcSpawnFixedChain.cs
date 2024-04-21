@@ -26,7 +26,7 @@ namespace Dragoraptor
 
         public void SetSpawnData(SpawnData[] spawnDatas)
         {
-            StopSpawnLogick();
+            StopSpawnLogic();
             _spawnDatas = spawnDatas;
             _isSpawnDataReady = false;
             if (spawnDatas != null)
@@ -38,7 +38,7 @@ namespace Dragoraptor
             }
         }
 
-        public void StartSpawnLogick()
+        public void StartSpawnLogic()
         {
             if (_isSpawnDataReady)
             {
@@ -49,7 +49,7 @@ namespace Dragoraptor
             }
         }
 
-        public void StopSpawnLogick()
+        public void StopSpawnLogic()
         {
             _isSpawnRuleFinished = true;
         }

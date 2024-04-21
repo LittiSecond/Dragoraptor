@@ -9,10 +9,12 @@ namespace Dragoraptor
         private Transform _playerCharacterTransform;
         private PickUpController _pickUpController;
         private ScoreController _scoreController;
+        private ICharOnGroundChecker _charOnGroundChecker;
 
         private bool _havePlayerCharacterTransform;
 
-
+        public bool IsCharOnGround => _charOnGroundChecker.IsCharacterOnGround;
+        
         public void SetPlayerCharacterTransform(Transform transform)
         {
             _playerCharacterTransform = transform;
@@ -35,10 +37,11 @@ namespace Dragoraptor
             return _pickUpController.PickUp(content);
         }
 
-        public void SetControllers(PickUpController puc, ScoreController sc)
+        public void SetControllers(PickUpController puc, ScoreController sc, ICharOnGroundChecker cogc)
         {
             _pickUpController = puc;
             _scoreController = sc;
+            _charOnGroundChecker = cogc;
         }
 
         public void AddScore(int amount)

@@ -11,7 +11,13 @@ namespace Dragoraptor
                 "BigTextPattern", "Text/BigTextPatternRU"
             },
             {
+                "BubbleYellow", "Prefabs/Items/BubbleYellow"
+            },
+            {
                 "BubblesBlue", "Prefabs/Items/BubblesBlue"
+            },
+            {
+                "ClawScratch", "Prefabs/Effects/ClawScratch"
             },
             {
                 "EffectBoom", "Prefabs/Effects/EffectBoom"
@@ -26,10 +32,16 @@ namespace Dragoraptor
                 "MainScreen", "Prefabs/Ui/MainScreen"
             },
             {
+                "MaskForFade", "Prefabs/Ui/MaskForFade"
+            },
+            {
                 "Meat", "Prefabs/Items/Meat"
             },
             {
                 "PlayerCharacter", "Prefabs/PlayerCharacter"
+            },
+            {
+                "SettingsPanel", "Prefabs/Ui/SettingsPanel"
             },
             {
                 "ShipType3Crash", "Prefabs/Npc/ShipType3Crash"

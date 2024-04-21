@@ -2,6 +2,7 @@
 {
     public interface IMessage
     {
-        void ShowMessage();
+        void Show();
+        void Hide();
     }
 }

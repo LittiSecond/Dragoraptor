@@ -8,6 +8,7 @@ namespace Dragoraptor
 
         public event Action OnVictorySatietyReached;
         public event Action<float> OnVictorySatietyChanged;
+        public event Action OnMaxSatietyReached;
 
         private int _maxSatiety;
         private int _satiety;
@@ -43,9 +44,10 @@ namespace Dragoraptor
             if (additionalSatiety > 0 && _satiety < _maxSatiety)
             {
                 _satiety += additionalSatiety;
-                if (_satiety > _maxSatiety)
+                if (_satiety >= _maxSatiety)
                 {
                     _satiety = _maxSatiety;
+                    OnMaxSatietyReached?.Invoke();
                 }
                 OnValueChanged?.Invoke(_satiety);
 

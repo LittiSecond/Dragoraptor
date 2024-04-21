@@ -8,10 +8,14 @@ namespace Dragoraptor.Ui
 
         private const string HUNT_SCREEN_PREFAB_ID = "HuntScreen";
         private const string MAIN_SCREEN_PREFAB_ID = "MainScreen";
+        private const string SETTINGS_PREFAB_ID = "SettingsPanel";
+        private const string FADER_PREFAB_ID = "MaskForFade";
 
         private Transform _canvas;
         private MainScreenBehaviour _mainScreen;
         private HuntScreenBehaviour _huntScreen;
+        private UiSettingsPanel _settingsPanel;
+        private Transform _fader;
 
 
         public UiFactory()
@@ -48,6 +52,38 @@ namespace Dragoraptor.Ui
                 }
             }
             return _huntScreen;
+        }
+
+        public UiSettingsPanel GetSettingsPanel()
+        {
+            if (_settingsPanel == null)
+            {
+                GameObject prefab = PrefabLoader.GetPrefab(SETTINGS_PREFAB_ID);
+                if (prefab)
+                {
+                    var go = UnityEngine.Object.Instantiate(prefab, _canvas);
+                    _settingsPanel = go.GetComponent<UiSettingsPanel>();
+                    _settingsPanel.Hide();
+                }
+            }
+
+            return _settingsPanel;
+        }
+
+        public Transform GetDamageFader()
+        {
+            if (_fader == null)
+            {
+                GameObject prefab = PrefabLoader.GetPrefab(FADER_PREFAB_ID);
+                if (prefab)
+                {
+                    var go = UnityEngine.Object.Instantiate(prefab, _canvas);
+                    _fader = go.transform;
+                    _fader.SetAsFirstSibling();
+                }
+            }
+
+            return _fader;
         }
 
     }

@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 8c13e21429b7da648a25d25fc1374215
+guid: 8c871148819c52c4b898377319e68a41
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -43,7 +43,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -117,91 +117,7 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites:
-    - serializedVersion: 2
-      name: GUI_buttons_0
-      rect:
-        serializedVersion: 2
-        x: 1
-        y: 144
-        width: 404
-        height: 136
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 38, y: 39, z: 36, w: 37}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 4d1e985d63f3de84ab774e262b275c24
-      internalID: -2008885118
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: GUI_buttons_1
-      rect:
-        serializedVersion: 2
-        x: 404
-        y: 144
-        width: 404
-        height: 136
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 39, y: 39, z: 43, w: 43}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 9d327d126d45790489772d7a045ec2f3
-      internalID: 1789164963
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: GUI_buttons_2
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 0
-        width: 404
-        height: 144
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 150, y: 40, z: 150, w: 40}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 5f35f8980d5010f458281b99df79b916
-      internalID: -167491723
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: GUI_buttons_3
-      rect:
-        serializedVersion: 2
-        x: 404
-        y: 0
-        width: 404
-        height: 144
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 150, y: 40, z: 150, w: 40}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 08ca29bc43c4d504dbe2aa8f5bb22899
-      internalID: 99983344
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
+    sprites: []
     outline: []
     physicsShape: []
     bones: []
@@ -212,11 +128,7 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable:
-      GUI_buttons_3: 99983344
-      GUI_buttons_1: 1789164963
-      GUI_buttons_0: -2008885118
-      GUI_buttons_2: -167491723
+    nameFileIdTable: {}
   spritePackingTag: 
   pSDRemoveMatte: 0
   userData: 

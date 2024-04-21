@@ -52,9 +52,10 @@ namespace Dragoraptor
                 Vector3? targetPosition = Services.Instance.CharacterIntermediary.GetPlayerPosition();
                 if (targetPosition.HasValue)
                 {
-                    float dx = _bulletStartPoint.position.x - targetPosition.Value.x; 
+                    float dx = _bulletStartPoint.position.x - targetPosition.Value.x;
+                    bool isOnGround = Services.Instance.CharacterIntermediary.IsCharOnGround;
 
-                    if ( dx > -MAX_X_DEVIATION && dx < MAX_X_DEVIATION)
+                    if ( isOnGround && dx > -MAX_X_DEVIATION && dx < MAX_X_DEVIATION )
                     {
                         Attack();
                         _isReady = false;

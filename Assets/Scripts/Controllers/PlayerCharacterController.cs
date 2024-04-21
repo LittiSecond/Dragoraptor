@@ -8,8 +8,6 @@ namespace Dragoraptor
 
         private const string CHARACTER_PREFAB_ID = "PlayerCharacter";
 
-        private const float CHARACTER_DEATH_DELAY = 5.0f;
-
         private readonly CharacterStateHolder _stateHolder;
         private readonly TouchInputController _touchInputController;
         private readonly PlayerHealth _playerHealth;
@@ -19,10 +17,11 @@ namespace Dragoraptor
         private PlayerBody _playerBody;
 
         private IBodyUser[] _bodyUsers;
+        private ITimeRemaining _timer;
 
         private Vector2 _spawnPosition;
+        private float _characterDeathDelay;
 
-        private ITimeRemaining _timer;
 
         private bool _haveCharacterBody;
         private bool _isCharacterControllEnabled;
@@ -34,6 +33,7 @@ namespace Dragoraptor
         {
             _stateHolder = csh;
             _spawnPosition = gps.CharacterSpawnPosition;
+            _characterDeathDelay = gps.CharacterDeathDelay;
             _touchInputController = tic;
             _playerHealth = ph;
             _playerHealth.OnHealthEnd += OnHealthEnd;
@@ -101,7 +101,7 @@ namespace Dragoraptor
             _stateHolder.SetState(CharacterState.Death);
             if (!_isTiming)
             {
-                _timer = new TimeRemaining(OnDeathTimer, CHARACTER_DEATH_DELAY);
+                _timer = new TimeRemaining(OnDeathTimer, _characterDeathDelay);
                 _timer.AddTimeRemaining();
                 _isTiming = true;
             }

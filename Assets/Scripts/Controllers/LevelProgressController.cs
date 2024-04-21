@@ -10,6 +10,8 @@ namespace Dragoraptor
         private readonly PlayerSatiety _playerSatiety;
         private readonly ScoreController _scoreController;
         private readonly TimeController _timeController;
+        private readonly IVictoryChecker _victoryController;
+        private HuntResults _lastHuntResults;
 
         private float _satietyToSuccess;
         private float _victoryScoreMultipler;
@@ -25,7 +27,7 @@ namespace Dragoraptor
 
 
         public LevelProgressController(GamePlaySettings gamePlaySettings, PlayerHealth ph, PlayerSatiety ps,  
-            ScoreController sc, TimeController tc)
+            ScoreController sc, TimeController tc, VictoryController vc)
         {
             _victoryScoreMultipler = gamePlaySettings.VictoryScoreMultipler;
             _defeatScoreMultipler = gamePlaySettings.DefeatScoreMultipler;
@@ -38,6 +40,8 @@ namespace Dragoraptor
             _scoreController = sc;
             _timeController = tc;
             _timeController.OnTimeUp += OnTimeUp;
+            _lastHuntResults = new HuntResults();
+            _victoryController = vc;
         }
 
 
@@ -54,16 +58,22 @@ namespace Dragoraptor
 
             _scoreСoefficient = (_satietyConditionScoreMultipler - _nullSatietyScoreMultipler) / (_satietyToSuccess * _playerSatiety.MaxValue);
 
-            _timeController.SetLevelDuration(levelDescriptor.LevelDuration);
-            _timeController.StartTimer();
+            //_timeController.SetLevelDuration(levelDescriptor.LevelDuration);
+            //_timeController.StartTimer();
         }
 
         public void LevelEnd()
         {
             if (!_isTimeUp)
             {
-                _timeController.StopTimer();
+                //_timeController.StopTimer();
             }
+            //Debug.Log("LevelProgressController->LevelEnd: ");
+        }
+
+        public void RegistrateHuntResults()
+        {
+            Services.Instance.GameProgress.RegistrateHuntResults(GetHuntResults());
         }
 
         public void OnCharacterKilled()
@@ -71,10 +81,10 @@ namespace Dragoraptor
             _isCharacterAlive = false;
         }
 
-        public bool CheckIsVictory()
-        {
-            return _isCharacterAlive && _isSatietyConditionMet && _isTimeUp;
-        }
+        // public bool CheckIsVictory()
+        // {
+        //     return _isCharacterAlive && _isSatietyConditionMet && _isTimeUp;
+        // }
 
         private void OnSatietyConditionMet()
         {
@@ -84,7 +94,7 @@ namespace Dragoraptor
         private void OnTimeUp()
         {
             _isTimeUp = true;
-            Services.Instance.GameStateManager.BreakHunt();
+            //Services.Instance.GameStateManager.BreakHunt();
         }
 
         private float CalculateSatietyScoreMultipler()
@@ -94,10 +104,10 @@ namespace Dragoraptor
             return satietyMultipler;
         }
 
-        private int CalculateTotalScore()
+        private int CalculateTotalScore(bool isVictory)
         {
             int currentScore = _scoreController.GetScore();
-            float victoryMultipler = CheckIsVictory() ? _victoryScoreMultipler : _defeatScoreMultipler;
+            float victoryMultipler = isVictory ? _victoryScoreMultipler : _defeatScoreMultipler;
             int totalScore = (int)(currentScore * victoryMultipler * CalculateSatietyScoreMultipler());
             return totalScore;
         }
@@ -107,20 +117,19 @@ namespace Dragoraptor
 
         public IHuntResults GetHuntResults()
         {
-            HuntResults huntResults = new HuntResults();
-            huntResults.IsAlive = _isCharacterAlive && _isTimeUp;
-            huntResults.IsSatietyCompleted = _isSatietyConditionMet;
-            bool isVictory = CheckIsVictory();
-            huntResults.IsSucces = isVictory;
-            huntResults.BaseScore = _scoreController.GetScore();
-            huntResults.CollectedSatiety = _playerSatiety.Value;
-            huntResults.MaxSatiety = _playerSatiety.MaxValue;
-            huntResults.SatietyCondition = (int)(_satietyToSuccess * _playerSatiety.MaxValue);
-            huntResults.SatietyScoreMultipler = CalculateSatietyScoreMultipler();
-            huntResults.TotalScore = CalculateTotalScore();
-            huntResults.VictoryScoreMultipler = isVictory ? _victoryScoreMultipler : _defeatScoreMultipler;
+            _lastHuntResults.IsAlive = _isCharacterAlive;// && _isTimeUp;
+            _lastHuntResults.IsSatietyCompleted = _isSatietyConditionMet;
+            bool isVictory = _victoryController.IsVictory;
+            _lastHuntResults.IsSucces = isVictory;
+            _lastHuntResults.BaseScore = _scoreController.GetScore();
+            _lastHuntResults.CollectedSatiety = _playerSatiety.Value;
+            _lastHuntResults.MaxSatiety = _playerSatiety.MaxValue;
+            _lastHuntResults.SatietyCondition = (int)(_satietyToSuccess * _playerSatiety.MaxValue);
+            _lastHuntResults.SatietyScoreMultipler = CalculateSatietyScoreMultipler();
+            _lastHuntResults.TotalScore = CalculateTotalScore(isVictory);
+            _lastHuntResults.VictoryScoreMultipler = isVictory ? _victoryScoreMultipler : _defeatScoreMultipler;
 
-            return huntResults;
+            return _lastHuntResults;
         }
 
         #endregion

@@ -99,7 +99,7 @@ namespace Dragoraptor.Editor
             Ui.UiNoEnegyMessage message = FindObjectOfType<Ui.UiNoEnegyMessage>();
             if (message)
             {
-                message.ShowMessage();
+                message.Show();
             }
         }
 

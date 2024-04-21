@@ -69,6 +69,20 @@ namespace Dragoraptor
             _updateObserversTimer = 0.0f;
         }
 
+        public void AddEnergy(float amount)
+        {
+            if (amount <= 0.0f) return;
+            if (_energy >= _maxEnergy) return;
+
+            _energy += amount;
+            if (_energy >= _maxEnergy)
+            {
+                _energy = _maxEnergy;
+                _isRegeneration = false;
+            }
+            OnValueChanged?.Invoke((int)_energy);
+        }
+
         private void OnStateChanged(CharacterState newState)
         {
             if (newState != _state)
@@ -218,7 +232,7 @@ namespace Dragoraptor
                 }
                 else
                 {
-                    _noEnergyMessage?.ShowMessage();
+                    _noEnergyMessage?.Show();
                 }
             }
             return isSpended;

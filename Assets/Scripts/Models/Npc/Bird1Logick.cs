@@ -55,7 +55,7 @@ namespace Dragoraptor
             }
         }
 
-        protected override void OnHealthEnd()
+        protected override void OnHealthEnded()
         {
             _movement.StopMovementLogic();
             _fall.StartFall();

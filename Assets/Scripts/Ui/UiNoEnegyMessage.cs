@@ -26,15 +26,7 @@ namespace Dragoraptor.Ui
         }
 
 
-        public void Hide()
-        {
-            _mainImage.enabled = false;
-            if (_isAnimation)
-            {
-                _isAnimation = false;
-                Services.Instance.UpdateService.RemoveFromUpdate(this);
-            }
-        }
+
 
 
 
@@ -64,7 +56,7 @@ namespace Dragoraptor.Ui
 
         #region IMessage
 
-        public void ShowMessage()
+        public void Show()
         {
             if (!_isAnimation)
             {
@@ -76,6 +68,16 @@ namespace Dragoraptor.Ui
                 _intervalTimer = 0.0f;
             }
             _animationTimer = 0.0f;
+        }
+
+        public void Hide()
+        {
+            _mainImage.enabled = false;
+            if (_isAnimation)
+            {
+                _isAnimation = false;
+                Services.Instance.UpdateService.RemoveFromUpdate(this);
+            }
         }
 
         #endregion

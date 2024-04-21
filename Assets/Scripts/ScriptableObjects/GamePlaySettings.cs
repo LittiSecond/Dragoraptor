@@ -28,5 +28,6 @@ namespace Dragoraptor
         public float DefeatScoreMultipler = 1.0f;
         public float NullSatietyScoreMultipler = 0.5f;
         public float SatietySuccefScoreMultipler = 1.0f;
+        public float CharacterDeathDelay = 5.0f;
     }
 }

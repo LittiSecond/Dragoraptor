@@ -26,11 +26,14 @@ namespace Dragoraptor
                 horizontalDirection, energyController);
             PlayerHealth playerHealth = new PlayerHealth(gamePlaySettings);
             PlayerSatiety playerSatiety = new PlayerSatiety(gamePlaySettings);
+            CharOnGroundChecker onGroundChecker = new CharOnGroundChecker(characterStateHolder);
             ScoreController scoreController = new ScoreController();
-            PickUpController pickUpController = new PickUpController(playerSatiety, scoreController);
+            PickUpController pickUpController = new PickUpController(playerSatiety, scoreController, energyController);
+            OnTakeDamageVisualiser damageVisualiser = new OnTakeDamageVisualiser(playerHealth);
             TimeController timeController = new TimeController();
+            VictoryController victoryController = new VictoryController(playerSatiety, playerHealth, timeController);
             LevelProgressController levelProgressControler = new LevelProgressController(gamePlaySettings, playerHealth,
-                playerSatiety, scoreController, timeController);
+                playerSatiety, scoreController, timeController, victoryController);
 
             TouchInputController touchInputController = new TouchInputController(characterStateHolder, 
                 walkController, jumpController, jumpPainter, horizontalDirection, attackController);
@@ -61,6 +64,7 @@ namespace Dragoraptor
                 flightObserver,
                 npcManager,
                 energyController,
+                damageVisualiser,
 
 
                 timeRemainingController
@@ -69,11 +73,11 @@ namespace Dragoraptor
             SceneController sceneController = new SceneController();
 
             Services.Instance.GameStateManager.SetControllers(playerCharacterController, sceneController, npcManager,
-                levelProgressControler);
-            Services.Instance.CharacterIntermediary.SetControllers(pickUpController, scoreController);
+                levelProgressControler, timeController, victoryController);
+            Services.Instance.CharacterIntermediary.SetControllers(pickUpController, scoreController, onGroundChecker);
             Ui.HuntScreenBehaviour huntScreenBehaviour = Services.Instance.UiFactory.GetHuntScreen();
             huntScreenBehaviour.SetControllers(playerHealth, energyController, playerSatiety, timeController, 
-                scoreController, levelProgressControler);
+                scoreController, levelProgressControler, victoryController);
         }
 
     }
