@@ -64,11 +64,10 @@ namespace Dragoraptor
             for (int i = 0; i < campaign.LevelPaths.Length; i++)
             {
                 _progressData.Levels.Add(new LevelProgressInfo(i + 1));
-                _progressData.Levels[i].Status = LevelStatus.Available;
+                _progressData.Levels[i].Status = LevelStatus.NotAvailable;
             }
 
             _progressData.Levels[0].Status = LevelStatus.Available;
-            //_progressData.Levels[1].Status = LevelStatus.NotAvailable;
         }
 
         public ProgressData GetProgressData()

@@ -19,7 +19,12 @@ MonoBehaviour:
   - {fileID: 4678621681868905676, guid: 3c904e515195aa2429d6cb7279aeefd3, type: 3}
   - {fileID: 1320265219322353415, guid: 276ed66571b3fc5439c50482b927a960, type: 3}
   SpawnDatas:
-  - PrefabIndex: 3
+  - PrefabIndex: 2
+    Time: 0.5
+    SpawnPosition: {x: -4, y: 3}
+    FloatDatas: []
+    Data: {fileID: 11400000, guid: 32099ef62ab989b4096e6262b1525d7d, type: 2}
+  - PrefabIndex: 1
     Time: 6
     SpawnPosition: {x: 4, y: -1}
     FloatDatas: []

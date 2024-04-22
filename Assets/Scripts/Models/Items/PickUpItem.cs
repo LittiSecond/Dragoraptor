@@ -8,9 +8,14 @@ namespace Dragoraptor
     {
 
         [SerializeField] private float _activationDelay = 0.0f;
+        [SerializeField] private ItemMovementType _moveType;
+        [SerializeField] private float[] _movementData;
 
+        private ItemMovementBase _movementLogic;
         private PickableResource[] _content;
         private float _startTime;
+
+        private bool _isInitialised;
 
 
         private void OnTriggerEnter2D(Collider2D collision)
@@ -39,9 +44,34 @@ namespace Dragoraptor
         public virtual void Initialize()
         {
             _startTime = Time.time;
+
+            if (!_isInitialised)
+            {
+                _isInitialised = true;
+
+                switch (_moveType)
+                {
+                    case ItemMovementType.None:
+                        break;
+                    case ItemMovementType.NearStartWave:
+                        _movementLogic = new ItemMovementNearStartWave(transform);
+                        _movementLogic.SetData(_movementData);
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+            }
+            
+            _movementLogic?.Start();
         }
 
         #endregion
 
+
+        public override void PrepareToReturnToPool()
+        {
+            base.PrepareToReturnToPool();
+            _movementLogic?.Stop();
+        }
     }
 }
